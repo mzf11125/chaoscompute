@@ -1,10 +1,5 @@
-/*
- * HeroSection — ChaosCompute Landing
- *
- * Storyboard:
- *   0ms   Title, tagline, CTA, terminal — all visible at mount (no stagger)
- *   Mount-only: subtle opacity fade for content beneath the fold
- */
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 const CODE = `curl -fsSL https://pay.sh/install | sh
 pay skills search chaoscompute
@@ -13,46 +8,114 @@ pay curl https://gateway.chaoscompute.io/v1/chat/completions \\
   -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'`
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -200])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const dashY = useTransform(scrollYProgress, [0, 0.5], [0, -250])
+
   return (
-    <section className="relative min-h-[100svh] flex items-center justify-center py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-        <h1 className="text-[clamp(2.5rem,6vw+1rem,5rem)] font-extrabold leading-none text-text-primary mb-6">
-          pay.sh payments.
-          <br />
-          CLIProxyAPI routing.
-          <br />
-          <span className="text-accent">Decentralized compute next.</span>
-        </h1>
+    <section ref={sectionRef} className="relative min-h-screen overflow-hidden pt-24 pb-16">
+      <div className="max-w-6xl mx-auto px-8 md:px-28">
+        <motion.div
+          style={{ y: contentY, opacity: contentOpacity }}
+          className="flex flex-col items-center text-center"
+        >
+          {/* Tag pill */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="liquid-glass inline-flex items-center gap-2 px-3 py-2 rounded-lg mb-6"
+          >
+            <span className="bg-foreground text-background rounded-md text-sm font-medium px-2 py-0.5">
+              New
+            </span>
+            <span className="text-sm font-medium text-muted-foreground">
+              Phase 1: Inference Gateway
+            </span>
+          </motion.div>
 
-        <p className="text-text-secondary text-lg max-w-2xl mx-auto mb-10">
-          AI inference with HTTP 402 wallet-approved payments on Solana.
-          Drop-in OpenAI compatibility. 20+ upstream providers. One endpoint.
-          Phase 2 replaces routing entirely — game theory picks the winner.
-          Designed for <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-accent underline hover:no-underline">Bastion Agentique</a> — agent security layer coming soon.
-        </p>
+          {/* Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl md:text-7xl tracking-[-2px] font-medium leading-tight md:leading-[1.15] mb-3 text-foreground"
+          >
+            pay.sh payments.
+            <br />
+            CLIProxyAPI routing.
+            <br />
+            <span className="font-serif italic font-normal text-muted-foreground">Decentralized compute</span>{' '}
+            next.
+          </motion.h1>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-          <a href="https://pay.sh/docs/get-started/install" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-accent text-surface font-medium text-base hover:bg-accent-hover motion-safe:transition-colors min-h-[48px] focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none">
-            Install pay.sh
-          </a>
-          <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-surface-elevated text-text-primary font-medium text-base border border-border hover:bg-surface-hover hover:border-border-strong motion-safe:transition-colors min-h-[48px] focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none">
-            View on GitHub
-          </a>
-        </div>
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg font-normal leading-6 opacity-90 mb-8 max-w-2xl"
+            style={{ color: 'hsl(var(--hero-subtitle))' }}
+          >
+            AI inference with HTTP 402 wallet-approved payments on Solana.
+            Drop-in OpenAI compatibility. 20+ upstream providers.
+            <br />
+            Phase 2 replaces routing entirely — game theory picks the winner.
+            Designed for{' '}
+            <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-foreground underline hover:no-underline">
+              Bastion Agentique
+            </a>.
+          </motion.p>
 
-        <div className="bg-surface-elevated border border-border rounded-2xl p-6 max-w-2xl mx-auto text-left">
-          <div className="flex items-center gap-2 text-text-muted text-xs mb-3" aria-hidden="true">
-            <span className="w-3 h-3 rounded-full bg-error/40" />
-            <span className="w-3 h-3 rounded-full bg-warning/40" />
-            <span className="w-3 h-3 rounded-full bg-success/40" />
-            <span className="ml-2">terminal</span>
-          </div>
-          <pre className="text-base text-text-primary overflow-x-auto leading-relaxed font-mono">
-            <code>{CODE}</code>
-          </pre>
-        </div>
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          >
+            <a
+              href="https://pay.sh/docs/get-started/install"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-foreground text-background rounded-full px-8 py-3.5 text-base font-medium motion-safe:transition-transform hover:scale-105 active:scale-[0.98] min-h-[48px] focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none"
+            >
+              Install pay.sh
+            </a>
+            <a
+              href="https://github.com/mzf11125/chaoscompute"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-card text-foreground rounded-full px-8 py-3.5 text-base font-medium border border-border hover:bg-surface-hover motion-safe:transition-colors min-h-[48px] focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none"
+            >
+              View on GitHub
+            </a>
+          </motion.div>
+
+          {/* Terminal */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            style={{ y: dashY }}
+            className="bg-card border border-border rounded-2xl p-6 max-w-2xl w-full text-left"
+          >
+            <div className="flex items-center gap-2 text-muted-foreground text-xs mb-3" aria-hidden="true">
+              <span className="w-3 h-3 rounded-full bg-error/40" />
+              <span className="w-3 h-3 rounded-full bg-warning/40" />
+              <span className="w-3 h-3 rounded-full bg-success/40" />
+              <span className="ml-2">terminal</span>
+            </div>
+            <pre className="text-base text-foreground overflow-x-auto leading-relaxed font-mono">
+              <code>{CODE}</code>
+            </pre>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )

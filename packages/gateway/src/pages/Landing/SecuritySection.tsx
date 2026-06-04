@@ -12,32 +12,22 @@ const features = [
 export function SecuritySection() {
   return (
     <section className="py-28">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-          className="text-center mb-16">
-          <p className="text-text-muted text-xs uppercase tracking-widest mb-4">Security</p>
-          <h2 className="text-4xl font-bold text-text-primary mb-4">
-            Designed for{' '}
-            <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Bastion Agentique</a>
+      <div className="max-w-6xl mx-auto px-8 md:px-28">
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }} className="text-center mb-16">
+          <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">Security</p>
+          <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">
+            Designed for{' '}<a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-foreground underline hover:no-underline">Bastion Agentique</a>
           </h2>
-          <p className="text-text-secondary max-w-xl mx-auto">
-            Planned integration with Bastion's agent security layer. Transaction simulation, policy enforcement, on-chain audit, and emergency pause — all on the roadmap.
-          </p>
+          <p className="text-muted-foreground max-w-xl mx-auto">Planned integration. Transaction simulation, policy enforcement, on-chain audit, emergency pause.</p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {features.map((f, i) => (
-            <motion.div key={f.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const, delay: i * 0.1 }}>
+            <motion.div key={f.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const, delay: i * 0.1 }}>
               <Card padding="lg" className="h-full">
-                <f.icon size={24} className="text-accent mb-4" aria-hidden="true" />
-                <h3 className="text-text-primary font-semibold mb-2">{f.title}</h3>
-                <p className="text-text-secondary text-sm leading-relaxed">{f.desc}</p>
+                <f.icon size={24} className="text-foreground mb-4" aria-hidden="true" />
+                <h3 className="text-foreground font-semibold mb-2">{f.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
               </Card>
             </motion.div>
           ))}

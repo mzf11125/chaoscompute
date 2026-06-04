@@ -6,9 +6,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants = {
-  primary: 'bg-accent text-surface hover:bg-accent-hover active:scale-[0.98]',
-  secondary: 'bg-surface-elevated text-text-primary border border-border hover:bg-surface-hover hover:border-border-strong active:scale-[0.98]',
-  ghost: 'text-text-secondary hover:text-text-primary hover:bg-surface-elevated active:scale-[0.98]',
+  primary: 'bg-foreground text-background hover:opacity-90 active:scale-[0.98]',
+  secondary: 'bg-card text-foreground border border-border hover:bg-surface-hover active:scale-[0.98]',
+  ghost: 'text-muted-foreground hover:text-foreground hover:bg-card active:scale-[0.98]',
 }
 
 const sizes = {
@@ -23,14 +23,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       disabled={disabled}
       aria-disabled={disabled}
-      className={`
-        inline-flex items-center justify-center gap-2 rounded-full font-medium
-        motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out
-        focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface
-        outline-none
-        disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
-        ${variants[variant]} ${sizes[size]} ${className}
-      `}
+      className={`inline-flex items-center justify-center gap-2 rounded-full font-medium motion-safe:transition-all motion-safe:duration-200 outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed ${variants[variant]} ${sizes[size]} ${className}`}
       {...props}
     >
       {children}

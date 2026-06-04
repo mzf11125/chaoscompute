@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Sparkles, Menu, X, Terminal } from 'lucide-react'
+import { Sparkles, Menu, X } from 'lucide-react'
 import Button from '@/components/ui/Button'
 
 function GithubIcon() {
@@ -20,9 +20,9 @@ const navLinks = [
 ]
 
 const linkClass = (active: boolean) =>
-  `px-4 py-2 rounded-full text-sm min-h-[36px] flex items-center motion-safe:transition-colors motion-safe:duration-200
-   focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none
-   ${active ? 'bg-accent/10 text-accent' : 'text-text-secondary hover:text-text-primary'}`
+  `px-4 py-2 rounded-lg text-sm min-h-[36px] flex items-center motion-safe:transition-colors duration-200
+   focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none
+   ${active ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'}`
 
 export function Navbar() {
   const location = useLocation()
@@ -30,61 +30,31 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-6xl">
-        <div
-          className="glass rounded-full border border-border px-6 py-3 flex items-center justify-between"
-          role="navigation"
-          aria-label="Main navigation"
-        >
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-text-primary font-semibold focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none rounded-full px-2 py-1"
-          >
-            <Sparkles size={20} className="text-accent" aria-hidden="true" />
-            <span className="hidden sm:inline">ChaosCompute</span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={linkClass(location.pathname === link.to)}
-                aria-current={location.pathname === link.to ? 'page' : undefined}
-              >
-                {link.label}
-              </Link>
-            ))}
+      <nav className="fixed top-0 inset-x-0 z-50 px-8 md:px-28 py-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-12 md:gap-20">
+            <Link to="/" className="flex items-center gap-2 text-foreground font-semibold text-xl tracking-tight focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none rounded-lg px-2 py-1">
+              <Sparkles size={20} className="text-foreground" aria-hidden="true" />
+              ChaosCompute
+            </Link>
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <Link key={link.to} to={link.to} className={linkClass(location.pathname === link.to)} aria-current={location.pathname === link.to ? 'page' : undefined}>{link.label}</Link>
+              ))}
+            </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <a
-              href="https://github.com/mzf11125/chaoscompute"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub repository"
-              className="p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none"
-            >
+          <div className="flex items-center gap-3">
+            <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none">
               <GithubIcon />
             </a>
-            <a
-              href="https://pay.sh/docs/get-started/install"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex"
-            >
-              <Button size="sm" variant="primary">
-                <Terminal size={14} aria-hidden="true" />
-                Install pay.sh
-              </Button>
+            <a href="https://pay.sh/docs/get-started/install" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex">
+              <Button size="sm" variant="primary">Install pay.sh</Button>
             </a>
-
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-              className="md:hidden p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none"
-            >
-              {mobileOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+            <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu"
+              className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none">
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
@@ -93,27 +63,15 @@ export function Navbar() {
       {mobileOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <div className="absolute top-20 left-4 right-4 glass rounded-3xl border border-border p-6">
+          <div className="absolute top-16 left-4 right-4 glass rounded-2xl border border-border p-6">
             <nav className="flex flex-col gap-2">
               {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  onClick={() => setMobileOpen(false)}
-                  className={`px-4 py-3 rounded-2xl text-base font-medium motion-safe:transition-colors
-                    ${location.pathname === link.to ? 'bg-accent/10 text-accent' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}`}
-                >
+                <Link key={link.to} to={link.to} onClick={() => setMobileOpen(false)}
+                  className={`px-4 py-3 rounded-xl text-base font-medium motion-safe:transition-colors ${location.pathname === link.to ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground hover:bg-card'}`}>
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="https://pay.sh/docs/get-started/install"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-3 rounded-2xl text-base font-medium text-accent bg-accent/5 hover:bg-accent/10 motion-safe:transition-colors"
-              >
-                Install pay.sh
-              </a>
+              <a href="https://pay.sh/docs/get-started/install" target="_blank" rel="noopener noreferrer" className="px-4 py-3 rounded-xl text-base font-medium text-foreground bg-card hover:bg-surface-hover motion-safe:transition-colors">Install pay.sh</a>
             </nav>
           </div>
         </div>
