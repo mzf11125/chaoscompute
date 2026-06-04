@@ -58,7 +58,7 @@ export default function Docs() {
 
         <Card padding="lg">
           <Shield size={24} className="text-foreground mb-4" aria-hidden="true" />
-          <h2 className="text-foreground font-semibold mb-2">Pricing — Free Tier + 5% Margin</h2>
+          <h2 className="text-foreground font-semibold mb-2">Pricing. Free Tier + 5% Margin</h2>
           <p className="text-muted-foreground text-sm mb-4">
             First 1M tokens/month free. Then provider cost + 5% across 30 providers in 3 tiers.
           </p>
@@ -89,14 +89,14 @@ export default function Docs() {
           </p>
           <div className="space-y-2 text-xs mb-4">
             {[
-              'Speculative parallel execution — 3-5 nodes race each request',
-              'Stake-weighted VRF raffle — sqrt(stake) prevents whale domination',
-              'Blind race mechanic — all timely submissions have equal chance',
-              'Optimistic slashing — fraud proof within 10 blocks slashes stake',
-              'Ephemeral DH encryption — prompts never broadcast in plaintext',
-              'TEE attestation hashes — MVP proxy for full Intel SGX enforcement',
-              'Energy-efficient mini-cohorts — not the entire network, just 3-5 nodes',
-              'Geolocation fairness — 1.5s submission window neutralizes co-location',
+              'Speculative parallel execution. 3 to 5 nodes race each request.',
+              'Stake-weighted VRF raffle. Square root stake prevents whale domination.',
+              'Blind race mechanic. All timely submissions have equal chance.',
+              'Optimistic slashing. Fraud proof within 10 blocks slashes stake.',
+              'Ephemeral DH encryption. Prompts never broadcast in plaintext.',
+              'TEE attestation hashes. MVP proxy for full Intel SGX enforcement.',
+              'Energy-efficient mini-cohorts. Not the entire network, just 3 to 5 nodes.',
+              'Geolocation fairness. 1.5 second submission window neutralizes co-location.',
             ].map((item) => (
               <div key={item} className="flex items-center gap-2 py-1 border-b border-border last:border-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true" />
@@ -105,7 +105,7 @@ export default function Docs() {
             ))}
           </div>
           <p className="text-muted-foreground text-xs italic mb-4">
-            "The smart contract is the router. No one decides who runs your prompt — the protocol does, using slot hashes and stake weights that nobody controls."
+            "The smart contract is the router. No one decides who runs your prompt. The protocol does, using slot hashes and stake weights that nobody controls."
           </p>
           <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-accent text-sm hover:underline">

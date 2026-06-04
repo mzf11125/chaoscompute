@@ -35,7 +35,7 @@ export function HowStakingWorks() {
         </div>
       </div>
       <p className="text-muted-foreground text-xs mt-4 pt-4 border-t border-border">
-        Currently tier is based on wallet SOL balance — no delegation required. Phase 2 introduces native staking contracts where delegated SOL earns ~7% APY for stakers and funds the ChaosCompute protocol treasury. SOL is never locked — withdraw anytime.
+        Currently tier is based on wallet SOL balance. No delegation required. Phase 2 introduces native staking contracts where delegated SOL earns ~7% APY for stakers and funds the ChaosCompute protocol treasury. SOL is never locked. Withdraw anytime.
       </p>
     </Card>
   )
