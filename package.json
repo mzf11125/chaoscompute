@@ -1,0 +1,15 @@
+{
+  "name": "chaoscompute",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ChaosCompute — Decentralized AI inference with Solana-native payments. 9router's simplicity. Bittensor's architecture. Solana's speed.",
+  "scripts": {
+    "dev": "pnpm --filter gateway dev",
+    "build": "pnpm --filter gateway build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
+  },
+  "keywords": ["solana", "ai", "inference", "gateway", "decentralized"],
+  "license": "MIT"
+}

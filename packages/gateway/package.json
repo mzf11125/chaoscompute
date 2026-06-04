@@ -1,0 +1,37 @@
+{
+  "name": "gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ChaosCompute Gateway — AI inference router with Solana-native payments",
+  "scripts": {
+    "dev": "vite --port 20128",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@solana/kit": "latest",
+    "@solana/kit-plugin-rpc": "latest",
+    "@solana/kit-plugin-signer": "latest",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.14.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.14.2",
+    "sonner": "^2.0.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "eslint": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest",
+    "vite": "latest",
+    "vitest": "latest"
+  }
+}

@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* ChaosCompute Dark Cinematic Design System
+   Derived from Kredz + lading-logic */
+
+@theme {
+  --color-surface: #000000;
+  --color-surface-elevated: #101010;
+  --color-surface-hover: #151515;
+  --color-surface-input: #0A0A0A;
+  --color-surface-glass: rgba(30, 30, 30, 0.8);
+
+  --color-accent: #DEDBC8;
+  --color-accent-hover: #D4D1BE;
+
+  --color-text-primary: #E1E0CC;
+  --color-text-secondary: rgba(222, 219, 200, 0.60);
+  --color-text-muted: rgba(222, 219, 200, 0.35);
+
+  --color-border: rgba(222, 219, 200, 0.06);
+  --color-border-strong: rgba(222, 219, 200, 0.12);
+
+  --color-success: #4ADE80;
+  --color-warning: #FBBF24;
+  --color-error: #F87171;
+
+  --radius-card: 1.5rem;
+  --radius-button: 9999px;
+  --radius-pill: 9999px;
+
+  --font-manrope: 'Manrope', sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base styles — MUST be in @layer base to not override Tailwind utilities */
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    min-height: 100vh;
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    font-family: var(--font-manrope);
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* Cinematic background effects */
+.cinematic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.cinematic-orbs {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+}
+
+.cinematic-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(222, 219, 200, 0.3), transparent);
+  top: -200px;
+  right: -100px;
+}
+
+.cinematic-orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(222, 219, 200, 0.2), transparent);
+  bottom: -150px;
+  left: -100px;
+}
+
+.cinematic-orb-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(222, 219, 200, 0.15), transparent);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cinematic-orb-1 {
+    animation: orbFloat 20s ease-in-out infinite;
+  }
+  .cinematic-orb-2 {
+    animation: orbFloat 25s ease-in-out infinite reverse;
+  }
+  .cinematic-orb-3 {
+    animation: orbFloat 30s ease-in-out infinite;
+  }
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.1); }
+  66% { transform: translate(-20px, 30px) scale(0.9); }
+}
+
+/* Noise texture overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Glass morphism */
+.glass {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(222, 219, 200, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(222, 219, 200, 0.25);
+}
+
+/* Selection */
+::selection {
+  background: rgba(222, 219, 200, 0.2);
+  color: var(--color-accent);
+}

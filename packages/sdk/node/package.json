@@ -1,0 +1,29 @@
+{
+  "name": "@chaoscompute/sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "ChaosCompute Node.js SDK — Solana wallet-signed AI inference with OpenAI compatibility",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src/"
+  },
+  "keywords": ["ai", "inference", "solana", "openai", "gateway", "chaoscompute"],
+  "license": "MIT",
+  "dependencies": {
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1",
+    "bs58": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "typescript": "latest"
+  }
+}

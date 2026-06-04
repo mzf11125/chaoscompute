@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '20128:20128'
+    environment:
+      - NODE_ENV=production
+      - VITE_SOLANA_RPC_URL=${VITE_SOLANA_RPC_URL:-https://api.devnet.solana.com}
+      - JWT_SECRET=${JWT_SECRET:-dev-secret-change-in-production}
+    volumes:
+      - gateway-data:/app/data
+    restart: unless-stopped
+
+  # Optional: local Solana test validator for dev
+  solana-devnet:
+    image: ghcr.io/solana-developers/solana-devnet:latest
+    ports:
+      - '8899:8899'
+      - '8900:8900'
+    profiles:
+      - dev
+
+volumes:
+  gateway-data:
