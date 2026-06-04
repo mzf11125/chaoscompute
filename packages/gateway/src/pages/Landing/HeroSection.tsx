@@ -62,10 +62,8 @@ export function HeroSection() {
             className="text-base font-normal leading-6 opacity-90 mb-8 max-w-2xl"
             style={{ color: 'hsl(var(--hero-subtitle))' }}
           >
-          OpenAI-compatible. pay.sh wallet payments. 30+ providers.
-          <br />
-          Making AI inference decentralized and open source on Solana.
-          Game theory replaces routing next. Designed for{' '}
+            OpenAI-compatible. pay.sh HTTP 402. 30+ providers.
+            Game theory replaces routing next. Designed for{' '}
             <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-foreground underline hover:no-underline">
               Bastion Agentique
             </a>.
