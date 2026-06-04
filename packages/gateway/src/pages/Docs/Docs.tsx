@@ -12,8 +12,8 @@ export default function Docs() {
   return (
     <DashboardShell>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-text-primary">Documentation</h1>
-        <p className="text-text-secondary text-sm mt-1">
+        <h1 className="text-2xl font-bold text-foreground">Documentation</h1>
+        <p className="text-muted-foreground text-sm mt-1">
           ChaosCompute: Phase 1 inference gateway with pay.sh HTTP 402 payments. Phase 2 decentralized compute on the way.
         </p>
       </div>
@@ -21,11 +21,11 @@ export default function Docs() {
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <Card padding="lg">
           <Terminal size={24} className="text-accent mb-4" aria-hidden="true" />
-          <h2 className="text-text-primary font-semibold mb-2">Quickstart</h2>
-          <p className="text-text-secondary text-sm mb-4">
+          <h2 className="text-foreground font-semibold mb-2">Quickstart</h2>
+          <p className="text-muted-foreground text-sm mb-4">
             Install pay.sh and make your first wallet-approved API call in under 5 minutes.
           </p>
-          <pre className="bg-surface-input rounded-xl p-4 text-xs text-text-primary overflow-x-auto mb-4 leading-relaxed"><code>{QUICKSTART}</code></pre>
+          <pre className="bg-card rounded-xl p-4 text-xs text-foreground overflow-x-auto mb-4 leading-relaxed"><code>{QUICKSTART}</code></pre>
           <a href="https://pay.sh/docs/get-started/install" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-accent text-sm hover:underline">
             Full install guide <ArrowRight size={14} aria-hidden="true" />
@@ -34,8 +34,8 @@ export default function Docs() {
 
         <Card padding="lg">
           <Shield size={24} className="text-accent mb-4" aria-hidden="true" />
-          <h2 className="text-text-primary font-semibold mb-2">HTTP 402 Payment Flow</h2>
-          <p className="text-text-secondary text-sm mb-4">
+          <h2 className="text-foreground font-semibold mb-2">HTTP 402 Payment Flow</h2>
+          <p className="text-muted-foreground text-sm mb-4">
             Calling the Gateway without pay.sh returns 402 Payment Required. pay.sh handles the handshake automatically.
           </p>
           <div className="grid sm:grid-cols-3 gap-3 text-sm mb-4">
@@ -46,7 +46,7 @@ export default function Docs() {
             ].map((s) => (
               <div key={s.step} className="flex gap-2">
                 <span className="text-accent font-bold text-sm shrink-0">{s.step}.</span>
-                <div><p className="text-text-primary font-medium text-sm mb-0.5">{s.title}</p><p className="text-text-muted text-xs">{s.desc}</p></div>
+                <div><p className="text-foreground font-medium text-sm mb-0.5">{s.title}</p><p className="text-muted-foreground text-xs">{s.desc}</p></div>
               </div>
             ))}
           </div>
@@ -82,8 +82,8 @@ export default function Docs() {
         </Card>
 
         <Card padding="lg">
-          <h2 className="text-text-primary font-semibold mb-2">Phase 2: Decentralized Compute</h2>
-          <p className="text-text-secondary text-sm mb-4">
+          <h2 className="text-foreground font-semibold mb-2">Phase 2: Decentralized Compute</h2>
+          <p className="text-muted-foreground text-sm mb-4">
             The endgame: a fully decentralized compute market where anyone's GPU competes.
             No centralized scheduler. No trust assumptions. Game theory replaces routing algorithms.
           </p>
@@ -100,11 +100,11 @@ export default function Docs() {
             ].map((item) => (
               <div key={item} className="flex items-center gap-2 py-1 border-b border-border last:border-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true" />
-                <span className="text-text-secondary">{item}</span>
+                <span className="text-muted-foreground">{item}</span>
               </div>
             ))}
           </div>
-          <p className="text-text-muted text-xs italic mb-4">
+          <p className="text-muted-foreground text-xs italic mb-4">
             "The smart contract is the router. No one decides who runs your prompt — the protocol does, using slot hashes and stake weights that nobody controls."
           </p>
           <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer"
@@ -115,11 +115,11 @@ export default function Docs() {
 
         <Card padding="lg">
           <Globe size={24} className="text-accent mb-4" aria-hidden="true" />
-          <h2 className="text-text-primary font-semibold mb-2">Provider Spec</h2>
-          <p className="text-text-secondary text-sm mb-4">
+          <h2 className="text-foreground font-semibold mb-2">Provider Spec</h2>
+          <p className="text-muted-foreground text-sm mb-4">
             ChaosCompute is defined as a pay.sh provider in <code className="text-accent text-xs">chaoscompute.yaml</code>.
           </p>
-          <pre className="bg-surface-input rounded-xl p-4 text-xs text-text-primary overflow-x-auto mb-4 leading-relaxed">
+          <pre className="bg-card rounded-xl p-4 text-xs text-foreground overflow-x-auto mb-4 leading-relaxed">
             <code>{`name: chaoscompute
 category: ai_ml
 routing:
@@ -141,7 +141,7 @@ endpoints:
 
       <Card padding="lg">
         <ExternalLink size={24} className="text-accent mb-4" aria-hidden="true" />
-        <h2 className="text-text-primary font-semibold mb-2">Resources</h2>
+        <h2 className="text-foreground font-semibold mb-2">Resources</h2>
         <nav className="grid sm:grid-cols-2 gap-2 text-sm" aria-label="External resources">
           {[
             ['pay.sh Install', 'https://pay.sh/docs/get-started/install'],
@@ -153,7 +153,7 @@ endpoints:
             ['ChaosCompute GitHub', 'https://github.com/mzf11125/chaoscompute'],
           ].map(([label, href]) => (
             <a key={label} href={href} {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              className="flex items-center gap-2 text-text-secondary hover:text-text-primary motion-safe:transition-colors py-1.5 focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground motion-safe:transition-colors py-1.5 focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">
               <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true" />{label}
             </a>
           ))}

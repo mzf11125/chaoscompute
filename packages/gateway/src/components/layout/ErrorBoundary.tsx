@@ -27,8 +27,8 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, ErrorBound
       return (
         <div className="min-h-screen bg-surface flex items-center justify-center px-4">
           <div className="bg-surface-elevated border border-border rounded-3xl p-8 max-w-md w-full text-center">
-            <h2 className="text-xl font-semibold text-text-primary mb-3">Something went wrong</h2>
-            <p className="text-text-secondary text-sm mb-6">
+            <h2 className="text-xl font-semibold text-foreground mb-3">Something went wrong</h2>
+            <p className="text-muted-foreground text-sm mb-6">
               {this.state.error?.message ?? 'An unexpected error occurred.'}
             </p>
             <button

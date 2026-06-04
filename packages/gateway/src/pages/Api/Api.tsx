@@ -5,15 +5,15 @@ export default function Api() {
   return (
     <DashboardShell>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-text-primary">API Reference</h1>
-        <p className="text-text-secondary text-sm mt-1">
+        <h1 className="text-2xl font-bold text-foreground">API Reference</h1>
+        <p className="text-muted-foreground text-sm mt-1">
           OpenAI-compatible chat completions with HTTP 402 wallet-approved payments.
         </p>
       </div>
 
       <Card padding="lg" className="mb-6">
-        <h2 className="text-text-primary font-semibold mb-2">HTTP 402 Payment Flow</h2>
-        <p className="text-text-secondary text-sm mb-4">
+        <h2 className="text-foreground font-semibold mb-2">HTTP 402 Payment Flow</h2>
+        <p className="text-muted-foreground text-sm mb-4">
           Calling the Gateway directly returns 402 Payment Required. Use <code className="text-accent text-xs">pay curl</code> to handle the payment handshake automatically.
         </p>
         <div className="grid sm:grid-cols-3 gap-4 text-sm mb-4">
@@ -25,20 +25,20 @@ export default function Api() {
             <div key={s.step} className="flex gap-2">
               <span className="text-accent font-bold text-sm" aria-hidden="true">{s.step}.</span>
               <div>
-                <p className="text-text-primary font-medium text-sm mb-0.5">{s.title}</p>
-                <p className="text-text-muted text-xs">{s.desc}</p>
+                <p className="text-foreground font-medium text-sm mb-0.5">{s.title}</p>
+                <p className="text-muted-foreground text-xs">{s.desc}</p>
               </div>
             </div>
           ))}
         </div>
-        <p className="text-text-muted text-xs">
+        <p className="text-muted-foreground text-xs">
           Full payment protocol: <a href="https://pay.sh/docs/building-with-pay/getting-started" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">pay.sh building docs</a>
         </p>
       </Card>
 
       <Card padding="lg" className="mb-6">
-        <h2 className="text-text-primary font-semibold mb-2">Base URL</h2>
-        <code className="block text-accent text-sm bg-surface-input rounded-xl p-4 font-mono">
+        <h2 className="text-foreground font-semibold mb-2">Base URL</h2>
+        <code className="block text-accent text-sm bg-card rounded-xl p-4 font-mono">
           https://gateway.chaoscompute.io/v1
         </code>
       </Card>
@@ -52,8 +52,8 @@ export default function Api() {
         ].map((ep) => (
           <Card key={ep.path} padding="md">
             <span className="text-xs font-mono text-accent uppercase tracking-wider">{ep.method}</span>
-            <code className="block text-text-primary text-sm font-mono mt-1 mb-2">{ep.path}</code>
-            <p className="text-text-muted text-xs">{ep.desc}</p>
+            <code className="block text-foreground text-sm font-mono mt-1 mb-2">{ep.path}</code>
+            <p className="text-muted-foreground text-xs">{ep.desc}</p>
           </Card>
         ))}
       </div>
