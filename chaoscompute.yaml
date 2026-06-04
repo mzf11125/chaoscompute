@@ -59,36 +59,12 @@ endpoints:
     description: 'List 20+ supported AI providers, models, and per-provider pricing. Free.'
 
 notes: |
-  **Free Tier**
-  First 1M tokens per month are free. No credit card. No wallet deposit required.
-  Just `pay curl` and start building. Hit the limit? 5% margin kicks in automatically.
+  **30 providers across 3 tiers. 5% margin on all paid models. Free tier included.**
 
-  **Dynamic Per-Provider Pricing**
+  Tier 1 — Premium ($1.25-$3.00/1M): OpenAI (gpt-4o), Anthropic (claude-sonnet-4), Gemini, xAI Grok, Mistral
+  Tier 2 — Cheap ($0.01-$0.88/1M): Nscale ($0.01), DeepSeek ($0.14), Hyperbolic, Fireworks, DeepInfra, Together, OpenRouter
+  Tier 3 — Free ($0/1M): Groq, Cerebras, SambaNova, Nebius, Featherless
 
-  You pay provider cost + 5% transparent margin. Revenue funds Phase 2 treasury.
-
-  ```
-  Provider: OpenAI GPT-4o
-  Provider cost: $2.50/1M input
-  Gateway fee:  $0.125/1M (5%)
-  You pay:      $2.625/1M input
-  ```
-
-  | Provider | Input/1M | Output/1M | With 5% |
-  |---|---|---|---|
-  | OpenAI GPT-4o | $2.50 | $10.00 | $2.625 / $10.50 |
-  | Anthropic Sonnet | $3.00 | $15.00 | $3.15 / $15.75 |
-  | Gemini 2.5 Pro | $1.25 | $10.00 | $1.313 / $10.50 |
-  | DeepSeek V3 | $0.27 | $1.10 | $0.284 / $1.155 |
-  | Together Llama | $0.88 | $0.88 | $0.924 / $0.924 |
-
-  **Why use ChaosCompute instead of direct?**
-  1. 1M free tokens/month — zero risk trial
-  2. One endpoint for ALL providers — no API key management
-  3. Automatic fallback — never hit rate limits
-  4. HTTP 402 wallet payments — no subscriptions, no credit cards
-  5. On-chain audit trail — every settlement on Solana
-  6. Your fees fund decentralized compute — you're building Phase 2
-
-  **Governance:** Open source. MIT. Sole maintainer: mzf11125.
-  See GOVERNANCE.md for full project governance.
+  First 1M tokens/month free across all tiers. After that, provider cost + 5% margin.
+  100% of revenue funds the Phase 2 decentralized compute treasury.
+  Governance: Open source, MIT, sole maintainer mzf11125. See GOVERNANCE.md.

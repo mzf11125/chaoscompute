@@ -3,7 +3,7 @@ import Card from '@/components/ui/Card'
 
 export function HowItWorks() {
   const steps = [
-    { title: 'Install pay.sh', desc: 'One command. Wraps curl and agent CLIs. Handles HTTP 402 payment challenges across 20+ upstream providers.' },
+    { title: 'Install pay.sh', desc: 'One command. Wraps curl and agent CLIs. Handles HTTP 402 payment challenges across 30+ upstream providers.' },
     { title: 'Wallet Pays Per Token', desc: 'No subscriptions. No credit top-ups. Wallet signs USDC transfer locally. pay.sh handles settlement on Solana.' },
     { title: 'Call Any Model', desc: 'OpenAI-compatible endpoint. Gateway auto-routes to best provider. Same URL for every model.' },
   ]
@@ -31,7 +31,7 @@ export function HowItWorks() {
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {[
-            { label: 'Phase 1 · Shipping', title: 'Inference Gateway', desc: 'CLIProxyAPI routing with pay.sh HTTP 402 payments. 20+ upstream AI providers. OpenAI-compatible. Live today.', color: 'bg-success/20 text-success' },
+            { label: 'Phase 1 · Shipping', title: 'Inference Gateway', desc: 'CLIProxyAPI routing with pay.sh HTTP 402 payments. 30+ upstream AI providers. OpenAI-compatible. Live today.', color: 'bg-success/20 text-success' },
             { label: 'Phase 2 · Roadmap', title: 'Decentralized Compute', desc: "Game theory replaces routing. Stake-weighted VRF racing. Blind race. Optimistic slashing. Anyone's GPU joins. No centralized scheduler.", color: 'bg-accent/20 text-accent' },
           ].map((phase) => (
             <Card key={phase.title} padding="lg">

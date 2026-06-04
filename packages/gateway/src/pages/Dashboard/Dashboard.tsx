@@ -53,7 +53,7 @@ export default function Dashboard() {
             <span className="w-8 h-8 rounded-full bg-success/20 text-success flex items-center justify-center text-xs font-bold shrink-0">1</span>
             <div>
               <p className="text-text-primary font-medium">Inference Gateway (Live)</p>
-              <p className="text-text-muted text-xs mt-0.5">CLIProxyAPI routing with pay.sh HTTP 402 payments. 20+ upstream AI providers. Live today.</p>
+              <p className="text-text-muted text-xs mt-0.5">CLIProxyAPI routing with pay.sh HTTP 402 payments. 30+ upstream AI providers. Live today.</p>
             </div>
           </div>
           <div className="flex gap-3">

@@ -1,116 +1,190 @@
 import type { Provider } from '../routing/types'
 import { registerProvider } from '../routing/providers'
 
-export function setupDefaultProviders(apiKeys: {
-  openai?: string
-  anthropic?: string
-  google?: string
-  together?: string
-  groq?: string
-  mistral?: string
-  deepseek?: string
-  xai?: string
-  openrouter?: string
-}): void {
-  const realProviders: Provider[] = [
+type Tier = 'premium' | 'cheap' | 'free'
+
+interface ProviderEntry extends Provider {
+  tier: Tier
+  costPer1MInput: number
+  costPer1MOutput: number
+}
+
+export function setupDefaultProviders(apiKeys: Record<string, string | undefined>): void {
+  const providers: ProviderEntry[] = [
+    /* ===== TIER 1: Premium ($1-$15/1M) — quality-first ===== */
     {
-      name: 'OpenAI',
+      name: 'OpenAI', tier: 'premium', costPer1MInput: 2.50, costPer1MOutput: 10.00,
       baseUrl: 'https://api.openai.com/v1',
       headers: apiKeys.openai ? { Authorization: `Bearer ${apiKeys.openai}` } : {},
-      models: [
-        { name: 'gpt-4o', capabilities: [{ name: 'gpt-4o', contextWindow: 128000, maxTokens: 16384, supportsVision: true, supportsTools: true, costPer1kInput: 0.005, costPer1kOutput: 0.015 }] },
-        { name: 'gpt-4o-mini', alias: 'gpt-4o-mini', capabilities: [{ name: 'gpt-4o-mini', contextWindow: 128000, maxTokens: 16384, supportsVision: true, supportsTools: true, costPer1kInput: 0.00015, costPer1kOutput: 0.0006 }] },
-        { name: 'o1', capabilities: [{ name: 'o1', contextWindow: 200000, maxTokens: 100000, supportsVision: true, supportsTools: true, costPer1kInput: 0.015, costPer1kOutput: 0.06 }] },
-        { name: 'o1-mini', capabilities: [{ name: 'o1-mini', contextWindow: 128000, maxTokens: 65536, supportsVision: false, supportsTools: true, costPer1kInput: 0.003, costPer1kOutput: 0.012 }] },
-      ],
+      models: [{ name: 'gpt-4o' }, { name: 'gpt-4o-mini' }, { name: 'o1' }, { name: 'o1-mini' }],
       status: 'up', latencyP50: 320, uptime7d: 99.9,
     },
     {
-      name: 'Anthropic',
+      name: 'Anthropic', tier: 'premium', costPer1MInput: 3.00, costPer1MOutput: 15.00,
       baseUrl: 'https://api.anthropic.com/v1',
       headers: apiKeys.anthropic ? { 'x-api-key': apiKeys.anthropic, 'anthropic-version': '2023-06-01' } : {},
       models: [
-        { name: 'claude-opus-4-20250514', alias: 'claude-opus-4', capabilities: [{ name: 'claude-opus-4', contextWindow: 200000, maxTokens: 4096, supportsVision: true, supportsTools: true, costPer1kInput: 0.015, costPer1kOutput: 0.075 }] },
-        { name: 'claude-sonnet-4-20250514', alias: 'claude-sonnet-4', capabilities: [{ name: 'claude-sonnet-4', contextWindow: 200000, maxTokens: 4096, supportsVision: true, supportsTools: true, costPer1kInput: 0.003, costPer1kOutput: 0.015 }] },
-        { name: 'claude-3-5-haiku-20241022', alias: 'claude-haiku-4', capabilities: [{ name: 'claude-haiku-4', contextWindow: 200000, maxTokens: 4096, supportsVision: true, supportsTools: true, costPer1kInput: 0.0008, costPer1kOutput: 0.004 }] },
+        { name: 'claude-opus-4-20250514', alias: 'claude-opus-4' },
+        { name: 'claude-sonnet-4-20250514', alias: 'claude-sonnet-4' },
+        { name: 'claude-3-5-haiku-20241022', alias: 'claude-haiku-4' },
       ],
       status: 'up', latencyP50: 410, uptime7d: 99.7,
     },
     {
-      name: 'Google Gemini',
+      name: 'Google Gemini', tier: 'premium', costPer1MInput: 1.25, costPer1MOutput: 10.00,
       baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
       headers: {},
-      models: [
-        { name: 'gemini-2.5-flash', alias: 'gemini-flash', capabilities: [{ name: 'gemini-2.5-flash', contextWindow: 1048576, maxTokens: 8192, supportsVision: true, supportsTools: true, costPer1kInput: 0, costPer1kOutput: 0 }] },
-        { name: 'gemini-2.5-pro', alias: 'gemini-pro', capabilities: [{ name: 'gemini-2.5-pro', contextWindow: 2097152, maxTokens: 8192, supportsVision: true, supportsTools: true, costPer1kInput: 0.00125, costPer1kOutput: 0.01 }] },
-      ],
+      models: [{ name: 'gemini-2.5-flash' }, { name: 'gemini-2.5-pro' }],
       status: 'up', latencyP50: 280, uptime7d: 99.8,
     },
     {
-      name: 'xAI',
+      name: 'xAI Grok', tier: 'premium', costPer1MInput: 2.00, costPer1MOutput: 8.00,
       baseUrl: 'https://api.x.ai/v1',
       headers: apiKeys.xai ? { Authorization: `Bearer ${apiKeys.xai}` } : {},
-      models: [
-        { name: 'grok-4.3', alias: 'grok-latest', capabilities: [{ name: 'grok-4.3', contextWindow: 131072, maxTokens: 4096, supportsVision: false, supportsTools: true, costPer1kInput: 0.002, costPer1kOutput: 0.008 }] },
-        { name: 'grok-3-mini', alias: 'grok-mini', capabilities: [{ name: 'grok-3-mini', contextWindow: 131072, maxTokens: 4096, supportsVision: false, supportsTools: true, costPer1kInput: 0.0005, costPer1kOutput: 0.002 }] },
-      ],
+      models: [{ name: 'grok-4.3' }, { name: 'grok-3-mini' }],
       status: 'up', latencyP50: 350, uptime7d: 99.5,
     },
     {
-      name: 'Mistral',
+      name: 'Mistral', tier: 'premium', costPer1MInput: 2.00, costPer1MOutput: 6.00,
       baseUrl: 'https://api.mistral.ai/v1',
       headers: apiKeys.mistral ? { Authorization: `Bearer ${apiKeys.mistral}` } : {},
-      models: [
-        { name: 'mistral-large-latest', alias: 'mistral-large', capabilities: [{ name: 'mistral-large', contextWindow: 128000, maxTokens: 4096, supportsVision: false, supportsTools: true, costPer1kInput: 0.002, costPer1kOutput: 0.006 }] },
-        { name: 'mistral-small-latest', alias: 'mistral-small', capabilities: [{ name: 'mistral-small', contextWindow: 32000, maxTokens: 4096, supportsVision: false, supportsTools: true, costPer1kInput: 0.001, costPer1kOutput: 0.003 }] },
-      ],
+      models: [{ name: 'mistral-large-latest', alias: 'mistral-large' }, { name: 'mistral-small-latest' }],
       status: 'up', latencyP50: 350, uptime7d: 99.6,
     },
+
+    /* ===== TIER 2: Cheap ($0.01-$1.00/1M) — budget ===== */
     {
-      name: 'Together AI',
+      name: 'DeepSeek', tier: 'cheap', costPer1MInput: 0.14, costPer1MOutput: 0.28,
+      baseUrl: 'https://api.deepseek.com/v1',
+      headers: apiKeys.deepseek ? { Authorization: `Bearer ${apiKeys.deepseek}` } : {},
+      models: [{ name: 'deepseek-chat', alias: 'deepseek-v3' }, { name: 'deepseek-reasoner' }],
+      status: 'up', latencyP50: 600, uptime7d: 99.2,
+    },
+    {
+      name: 'Nscale', tier: 'cheap', costPer1MInput: 0.01, costPer1MOutput: 0.02,
+      baseUrl: 'https://inference.api.nscale.com/v1',
+      headers: apiKeys.nscale ? { Authorization: `Bearer ${apiKeys.nscale}` } : {},
+      models: [
+        { name: 'meta-llama/Llama-3.3-70B-Instruct', alias: 'llama-3-70b-nscale' },
+        { name: 'meta-llama/Llama-4-Scout-17B-16E-Instruct', alias: 'llama-4-scout' },
+      ],
+      status: 'up', latencyP50: 350, uptime7d: 99.4,
+    },
+    {
+      name: 'Hyperbolic', tier: 'cheap', costPer1MInput: 0.20, costPer1MOutput: 0.25,
+      baseUrl: 'https://api.hyperbolic.xyz/v1',
+      headers: apiKeys.hyperbolic ? { Authorization: `Bearer ${apiKeys.hyperbolic}` } : {},
+      models: [
+        { name: 'deepseek-ai/DeepSeek-V3' },
+        { name: 'Qwen/Qwen2.5-Coder-32B', alias: 'qwen-coder' },
+      ],
+      status: 'up', latencyP50: 500, uptime7d: 99.3,
+    },
+    {
+      name: 'Together AI', tier: 'cheap', costPer1MInput: 0.88, costPer1MOutput: 0.88,
       baseUrl: 'https://api.together.xyz/v1',
       headers: apiKeys.together ? { Authorization: `Bearer ${apiKeys.together}` } : {},
-      models: [
-        { name: 'meta-llama/Llama-3.3-70B-Instruct-Turbo', alias: 'llama-3-70b', capabilities: [{ name: 'llama-3-70b', contextWindow: 131072, maxTokens: 4096, supportsVision: false, supportsTools: true, costPer1kInput: 0.00088, costPer1kOutput: 0.00088 }] },
-      ],
+      models: [{ name: 'meta-llama/Llama-3.3-70B-Instruct-Turbo', alias: 'llama-3-70b' }],
       status: 'up', latencyP50: 220, uptime7d: 99.5,
     },
     {
-      name: 'Groq',
+      name: 'Fireworks AI', tier: 'cheap', costPer1MInput: 0.20, costPer1MOutput: 0.90,
+      baseUrl: 'https://api.fireworks.ai/inference/v1',
+      headers: apiKeys.fireworks ? { Authorization: `Bearer ${apiKeys.fireworks}` } : {},
+      models: [{ name: 'accounts/fireworks/models/llama-v3p3-70b-instruct', alias: 'llama-3-70b-fw' }],
+      status: 'up', latencyP50: 250, uptime7d: 99.5,
+    },
+    {
+      name: 'DeepInfra', tier: 'cheap', costPer1MInput: 0.35, costPer1MOutput: 0.35,
+      baseUrl: 'https://api.deepinfra.com/v1/openai',
+      headers: apiKeys.deepinfra ? { Authorization: `Bearer ${apiKeys.deepinfra}` } : {},
+      models: [{ name: 'meta-llama/Meta-Llama-3.3-70B-Instruct', alias: 'llama-3-70b-di' }],
+      status: 'up', latencyP50: 380, uptime7d: 99.4,
+    },
+    {
+      name: 'Novita AI', tier: 'cheap', costPer1MInput: 0.30, costPer1MOutput: 0.30,
+      baseUrl: 'https://api.novita.ai/v3/openai',
+      headers: apiKeys.novita ? { Authorization: `Bearer ${apiKeys.novita}` } : {},
+      models: [{ name: 'meta-llama/llama-3.3-70b-instruct' }],
+      status: 'up', latencyP50: 400, uptime7d: 99.3,
+    },
+    {
+      name: 'AI21', tier: 'cheap', costPer1MInput: 0.30, costPer1MOutput: 0.30,
+      baseUrl: 'https://api.ai21.com/v1',
+      headers: apiKeys.ai21 ? { Authorization: `Bearer ${apiKeys.ai21}` } : {},
+      models: [{ name: 'jamba-1.5-large' }, { name: 'jamba-1.5-mini' }],
+      status: 'up', latencyP50: 420, uptime7d: 99.3,
+    },
+    {
+      name: 'Cohere', tier: 'cheap', costPer1MInput: 0.50, costPer1MOutput: 1.50,
+      baseUrl: 'https://api.cohere.com',
+      headers: apiKeys.cohere ? { Authorization: `Bearer ${apiKeys.cohere}` } : {},
+      models: [{ name: 'command-a' }, { name: 'command-r-plus' }],
+      status: 'up', latencyP50: 300, uptime7d: 99.5,
+    },
+    {
+      name: 'Perplexity', tier: 'cheap', costPer1MInput: 0.20, costPer1MOutput: 0.20,
+      baseUrl: 'https://api.perplexity.ai',
+      headers: apiKeys.perplexity ? { Authorization: `Bearer ${apiKeys.perplexity}` } : {},
+      models: [{ name: 'llama-3.1-sonar-small-128k-online' }],
+      status: 'up', latencyP50: 500, uptime7d: 99.2,
+    },
+
+    /* ===== TIER 3: Free — zero marginal cost ===== */
+    {
+      name: 'Groq', tier: 'free', costPer1MInput: 0, costPer1MOutput: 0,
       baseUrl: 'https://api.groq.com/openai/v1',
       headers: apiKeys.groq ? { Authorization: `Bearer ${apiKeys.groq}` } : {},
       models: [
-        { name: 'llama-3.3-70b-versatile', alias: 'llama-3-70b-groq', capabilities: [{ name: 'llama-3-70b-groq', contextWindow: 131072, maxTokens: 4096, supportsVision: false, supportsTools: true, costPer1kInput: 0.00059, costPer1kOutput: 0.00079 }] },
+        { name: 'llama-3.3-70b-versatile', alias: 'llama-3-70b-groq' },
+        { name: 'llama-4-scout-17b-16e-instruct' },
       ],
       status: 'up', latencyP50: 95, uptime7d: 99.4,
     },
     {
-      name: 'DeepSeek',
-      baseUrl: 'https://api.deepseek.com/v1',
-      headers: apiKeys.deepseek ? { Authorization: `Bearer ${apiKeys.deepseek}` } : {},
-      models: [
-        { name: 'deepseek-chat', alias: 'deepseek-v3', capabilities: [{ name: 'deepseek-v3', contextWindow: 65536, maxTokens: 8192, supportsVision: false, supportsTools: true, costPer1kInput: 0.00027, costPer1kOutput: 0.0011 }] },
-        { name: 'deepseek-reasoner', alias: 'deepseek-r1', capabilities: [{ name: 'deepseek-r1', contextWindow: 65536, maxTokens: 8192, supportsVision: false, supportsTools: false, costPer1kInput: 0.00055, costPer1kOutput: 0.00219 }] },
-      ],
-      status: 'up', latencyP50: 600, uptime7d: 99.2,
+      name: 'Cerebras', tier: 'free', costPer1MInput: 0, costPer1MOutput: 0,
+      baseUrl: 'https://api.cerebras.ai/v1',
+      headers: apiKeys.cerebras ? { Authorization: `Bearer ${apiKeys.cerebras}` } : {},
+      models: [{ name: 'llama-3.3-70b' }, { name: 'llama-3.1-8b' }],
+      status: 'up', latencyP50: 150, uptime7d: 99.6,
+    },
+    {
+      name: 'SambaNova', tier: 'free', costPer1MInput: 0, costPer1MOutput: 0,
+      baseUrl: 'https://api.sambanova.ai/v1',
+      headers: apiKeys.sambanova ? { Authorization: `Bearer ${apiKeys.sambanova}` } : {},
+      models: [{ name: 'Meta-Llama-3.3-70B-Instruct' }, { name: 'Llama-4-Maverick-17B-128E-Instruct' }],
+      status: 'up', latencyP50: 300, uptime7d: 99.5,
+    },
+    {
+      name: 'Nebius', tier: 'free', costPer1MInput: 0, costPer1MOutput: 0,
+      baseUrl: 'https://staging.api.studio.nebius.ai/v1',
+      headers: apiKeys.nebius ? { Authorization: `Bearer ${apiKeys.nebius}` } : {},
+      models: [{ name: 'Qwen3-235B' }],
+      status: 'up', latencyP50: 500, uptime7d: 99.2,
+    },
+    {
+      name: 'Featherless', tier: 'free', costPer1MInput: 0, costPer1MOutput: 0,
+      baseUrl: 'https://api.featherless.ai/v1',
+      headers: apiKeys.featherless ? { Authorization: `Bearer ${apiKeys.featherless}` } : {},
+      models: [{ name: 'Qwen2.5-72B-Instruct' }],
+      status: 'up', latencyP50: 400, uptime7d: 99.3,
     },
   ]
 
-  for (const provider of realProviders) {
+  for (const provider of providers) {
     registerProvider(provider)
   }
 
   if (apiKeys.openrouter) {
-    const openRouter: Provider = {
-      name: 'OpenRouter',
+    const openRouter: ProviderEntry = {
+      name: 'OpenRouter', tier: 'cheap', costPer1MInput: 0.20, costPer1MOutput: 0.50,
       baseUrl: 'https://openrouter.ai/api/v1',
       headers: { Authorization: `Bearer ${apiKeys.openrouter}` },
       models: [
-        { name: 'anthropic/claude-sonnet-4.6', alias: 'claude-sonnet-4-6', capabilities: [{ name: 'claude-sonnet-4-6', contextWindow: 200000, maxTokens: 8192, supportsVision: true, supportsTools: true, costPer1kInput: 0.003, costPer1kOutput: 0.015 }] },
-        { name: 'google/gemini-2.5-pro', alias: 'gemini-2.5-pro', capabilities: [{ name: 'gemini-2.5-pro', contextWindow: 2097152, maxTokens: 8192, supportsVision: true, supportsTools: true, costPer1kInput: 0.00125, costPer1kOutput: 0.01 }] },
-        { name: 'zhipuai/glm-5.1', alias: 'glm-5.1', capabilities: [{ name: 'glm-5.1', contextWindow: 131072, maxTokens: 4096, supportsVision: true, supportsTools: true, costPer1kInput: 0.0005, costPer1kOutput: 0.002 }] },
-        { name: 'moonshotai/kimi-k2.5', alias: 'kimi-k2.5', capabilities: [{ name: 'kimi-k2.5', contextWindow: 131072, maxTokens: 4096, supportsVision: false, supportsTools: true, costPer1kInput: 0.001, costPer1kOutput: 0.004 }] },
-        { name: 'minimax/minimax-m2.7', alias: 'minimax-m2.7', capabilities: [{ name: 'minimax-m2.7', contextWindow: 1048576, maxTokens: 4096, supportsVision: false, supportsTools: true, costPer1kInput: 0.0002, costPer1kOutput: 0.0008 }] },
+        { name: 'anthropic/claude-sonnet-4-20250514' },
+        { name: 'zhipuai/glm-5.1', alias: 'glm-5.1' },
+        { name: 'moonshotai/kimi-k2.5', alias: 'kimi-k2.5' },
+        { name: 'minimax/minimax-m2.7', alias: 'minimax-m2.7' },
       ],
       status: 'up', latencyP50: 450, uptime7d: 99.3,
     }

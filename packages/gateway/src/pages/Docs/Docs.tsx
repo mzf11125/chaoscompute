@@ -60,24 +60,25 @@ export default function Docs() {
           <Shield size={24} className="text-foreground mb-4" aria-hidden="true" />
           <h2 className="text-foreground font-semibold mb-2">Pricing — Free Tier + 5% Margin</h2>
           <p className="text-muted-foreground text-sm mb-4">
-            First 1M tokens/month free. After that, provider cost + 5%.
+            First 1M tokens/month free. Then provider cost + 5% across 30 providers in 3 tiers.
           </p>
           <div className="space-y-2 text-xs mb-4">
             {[
-              ['OpenAI GPT-4o', '$2.50', '$0.125', '$2.625'],
-              ['Anthropic Sonnet', '$3.00', '$0.15', '$3.15'],
-              ['DeepSeek V3', '$0.27', '$0.014', '$0.284'],
-              ['Together Llama', '$0.88', '$0.044', '$0.924'],
-            ].map(([p, cost, fee, total]) => (
+              ['Premium', 'OpenAI GPT-4o', '$2.50', '$2.625'],
+              ['Cheap', 'DeepSeek V3', '$0.14', '$0.147'],
+              ['Cheap', 'Nscale Llama', '$0.01', '$0.011'],
+              ['Free', 'Groq Llama', '$0', '$0'],
+            ].map(([tier, p, cost, total]) => (
               <div key={p} className="flex items-center justify-between py-1 border-b border-border last:border-0">
-                <span className="text-foreground">{p}</span>
-                <span className="text-muted-foreground font-mono">{cost} + {fee} = {total}</span>
+                <div className="flex items-center gap-2">
+                  <span className={`text-xs px-1.5 py-0.5 rounded ${tier === 'Premium' ? 'bg-foreground/10' : tier === 'Cheap' ? 'bg-warning/20' : 'bg-success/20'} text-foreground`}>{tier}</span>
+                  <span className="text-foreground">{p}</span>
+                </div>
+                <span className="text-muted-foreground font-mono">{cost} + 5% = {total}</span>
               </div>
             ))}
           </div>
-          <p className="text-muted-foreground text-xs">
-            Per 1M input tokens. Cheaper providers (DeepSeek, Llama) for budget. Premium (GPT-4o, Claude) for quality.
-          </p>
+          <p className="text-muted-foreground text-xs">Per 1M input tokens. Revenue funds Phase 2 treasury.</p>
         </Card>
 
         <Card padding="lg">
