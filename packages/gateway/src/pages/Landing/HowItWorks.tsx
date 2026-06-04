@@ -10,7 +10,7 @@ export function HowItWorks() {
 
   return (
     <section className="py-28">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-28">
+      <div className="max-w-6xl mx-auto ">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }} className="text-center mb-16">
           <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">How It Works</p>
           <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">Three steps. No API keys.</h2>

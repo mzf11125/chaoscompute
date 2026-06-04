@@ -31,19 +31,21 @@ export function Navbar() {
   return (
     <>
       <nav className="fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-lg px-4 sm:px-6 md:px-28 py-4">
-        <div className="max-w-6xl mx-auto flex items-center gap-6 md:gap-12">
-          <Link to="/" className="flex items-center gap-2 text-foreground font-semibold text-xl tracking-tight shrink-0 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none rounded-lg px-2 py-1">
-            <Sparkles size={20} className="text-foreground" aria-hidden="true" />
-            <span className="hidden sm:inline">ChaosCompute</span>
-          </Link>
+        <div className="max-w-6xl mx-auto flex items-center">
+          <div className="flex-1 flex items-center">
+            <Link to="/" className="flex items-center gap-2 text-foreground font-semibold text-xl tracking-tight shrink-0 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none rounded-lg px-2 py-1">
+              <Sparkles size={20} className="text-foreground" aria-hidden="true" />
+              <span className="hidden sm:inline">ChaosCompute</span>
+            </Link>
+          </div>
 
-          <div className="hidden md:flex items-center gap-1 flex-1 justify-center">
+          <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link key={link.to} to={link.to} className={linkClass(location.pathname === link.to)} aria-current={location.pathname === link.to ? 'page' : undefined}>{link.label}</Link>
             ))}
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex-1 flex items-center justify-end gap-3">
             <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
               className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none">
               <GithubIcon />

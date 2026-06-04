@@ -18,7 +18,7 @@ export default function App() {
         <div className="cinematic-orbs cinematic-orb-3" />
       </div>
       <div className="noise-overlay" />
-      <div className="relative z-10">
+      <div className="relative z-10 px-4 sm:px-6 md:px-28">
         <ErrorBoundary>
           <Navbar />
           <Routes>

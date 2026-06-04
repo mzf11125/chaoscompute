@@ -19,7 +19,7 @@ export function HeroSection() {
 
   return (
     <section ref={sectionRef} className="relative min-h-[100svh] flex items-center justify-center py-16 md:py-32">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-28">
+      <div className="max-w-6xl mx-auto ">
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
           className="flex flex-col items-center text-center"

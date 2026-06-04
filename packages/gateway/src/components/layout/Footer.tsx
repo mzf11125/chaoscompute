@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export function Footer() {
   return (
     <footer className="relative z-10 border-t border-border py-8 mt-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-28 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto  flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-muted-foreground text-sm">
           &copy; {new Date().getFullYear()} ChaosCompute. MIT. Payments via <a href="https://pay.sh" target="_blank" rel="noopener noreferrer" className="text-foreground hover:underline">pay.sh</a>.
         </p>
