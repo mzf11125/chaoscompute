@@ -2,8 +2,9 @@ import { Routes, Route } from 'react-router-dom'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { ErrorBoundary } from '@/components/layout/ErrorBoundary'
+import { WalletProvider } from '@/components/console/WalletConnect'
 import Landing from '@/pages/Landing/Landing'
-import Dashboard from '@/pages/Dashboard/Dashboard'
+import Console from '@/pages/Console/Console'
 import Docs from '@/pages/Docs/Docs'
 import Api from '@/pages/Api/Api'
 import Providers from '@/pages/Providers/Providers'
@@ -18,19 +19,21 @@ export default function App() {
         <div className="cinematic-orbs cinematic-orb-3" />
       </div>
       <div className="noise-overlay" />
-      <div className="relative z-10 px-4 sm:px-6 md:px-28">
-        <ErrorBoundary>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/status" element={<Dashboard />} />
-            <Route path="/providers" element={<Providers />} />
-            <Route path="/docs" element={<Docs />} />
-            <Route path="/api" element={<Api />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Footer />
-        </ErrorBoundary>
+      <div className="relative z-10">
+        <WalletProvider>
+          <ErrorBoundary>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/console" element={<Console />} />
+              <Route path="/providers" element={<Providers />} />
+              <Route path="/docs" element={<Docs />} />
+              <Route path="/api" element={<Api />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Footer />
+          </ErrorBoundary>
+        </WalletProvider>
       </div>
     </div>
   )

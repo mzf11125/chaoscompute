@@ -13,7 +13,7 @@ function GithubIcon() {
 
 const navLinks = [
   { to: '/', label: 'Home' },
-  { to: '/status', label: 'Status' },
+  { to: '/console', label: 'Console' },
   { to: '/providers', label: 'Providers' },
   { to: '/docs', label: 'Docs' },
   { to: '/api', label: 'API' },
@@ -38,29 +38,26 @@ export function Navbar() {
               <span className="hidden sm:inline">ChaosCompute</span>
             </Link>
           </div>
-
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link key={link.to} to={link.to} className={linkClass(location.pathname === link.to)} aria-current={location.pathname === link.to ? 'page' : undefined}>{link.label}</Link>
             ))}
           </div>
-
           <div className="flex-1 flex items-center justify-end gap-3">
             <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none">
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center outline-none">
               <GithubIcon />
             </a>
-            <a href="https://pay.sh/docs/get-started/install" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex">
-              <Button size="sm" variant="primary">Install pay.sh</Button>
-            </a>
+            <Link to="/console" className="hidden sm:inline-flex">
+              <Button size="sm" variant="primary">Console</Button>
+            </Link>
             <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu"
-              className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none">
+              className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center outline-none">
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
       </nav>
-
       {mobileOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
@@ -72,7 +69,7 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://pay.sh/docs/get-started/install" target="_blank" rel="noopener noreferrer" className="px-4 py-3 rounded-xl text-base font-medium text-foreground bg-card hover:bg-surface-hover motion-safe:transition-colors">Install pay.sh</a>
+              <a href="https://discord.gg/xXCKpmt7d" target="_blank" rel="noopener noreferrer" className="px-4 py-3 rounded-xl text-base font-medium text-foreground bg-card hover:bg-surface-hover motion-safe:transition-colors">Discord</a>
             </nav>
           </div>
         </div>
