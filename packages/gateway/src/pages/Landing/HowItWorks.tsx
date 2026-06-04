@@ -1,25 +1,22 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { Link, Wallet, MessageSquare } from 'lucide-react'
+import { Terminal, Wallet, Zap } from 'lucide-react'
 import Card from '@/components/ui/Card'
 
 const steps = [
   {
-    icon: Link,
-    title: 'Swap the URL',
-    description: 'Change your OpenAI base URL to ChaosCompute. That\'s it. No new SDK. No new mental model. Your existing code works unchanged.',
-    color: 'text-accent',
+    icon: Terminal,
+    title: 'Install pay.sh',
+    description: 'One command installs the pay CLI. It wraps curl, wget, and agent CLIs to handle HTTP 402 payment challenges automatically.',
   },
   {
     icon: Wallet,
-    title: 'Fund Your Wallet',
-    description: 'Send USDC to your Solana wallet. That\'s your API budget. No subscription. No credit top-up. No pre-paid balance sitting in someone else\'s account.',
-    color: 'text-accent',
+    title: 'Wallet Pays Per Token',
+    description: 'No subscriptions. No credit top-ups. Your Solana wallet signs a USDC transfer authorization locally. pay.sh handles the rest.',
   },
   {
-    icon: MessageSquare,
-    title: 'Start Shipping',
-    description: 'Every request your agent makes is signed by your wallet. USDC settles per request at execution time. Real-time spend visibility. On-chain audit trail.',
-    color: 'text-accent',
+    icon: Zap,
+    title: 'Call Any Model',
+    description: 'Use pay curl with the exact same OpenAI-compatible API. The Gateway returns 402, pay.sh signs the proof, replays the request. Done.',
   },
 ]
 
@@ -37,11 +34,9 @@ export function HowItWorks() {
           className="text-center mb-16"
         >
           <p className="text-text-muted text-xs uppercase tracking-widest mb-4">How It Works</p>
-          <h2 className="text-4xl font-bold text-text-primary mb-4">
-            Three steps. No bullshit.
-          </h2>
+          <h2 className="text-4xl font-bold text-text-primary mb-4">Three steps. No API keys.</h2>
           <p className="text-text-secondary max-w-xl mx-auto">
-            You already know how to use OpenAI's Python SDK. ChaosCompute is the same thing — but your Solana wallet pays the bill, not a credit card.
+            pay.sh wraps standard HTTP tools. When the Gateway returns 402 Payment Required, pay.sh signs a wallet transfer and retries automatically.
           </p>
         </motion.div>
 
@@ -52,13 +47,11 @@ export function HowItWorks() {
               initial={prefersReduced ? undefined : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={prefersReduced
-                ? { duration: 0 }
-                : { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const, delay: i * 0.1 }}
+              transition={prefersReduced ? { duration: 0 } : { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const, delay: i * 0.1 }}
             >
               <Card className="h-full">
                 <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-                  <step.icon size={20} className={step.color} aria-hidden="true" />
+                  <step.icon size={20} className="text-accent" aria-hidden="true" />
                 </div>
                 <h3 className="text-text-primary font-semibold mb-2">{step.title}</h3>
                 <p className="text-text-secondary text-sm leading-relaxed">{step.description}</p>

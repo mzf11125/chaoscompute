@@ -9,10 +9,10 @@ export function Footer() {
           <a href="https://pay.sh" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">pay.sh</a>.
         </p>
         <div className="flex items-center gap-6">
-          <Link to="/docs" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">Docs</Link>
-          <Link to="/api" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">API</Link>
-          <a href="https://pay.sh/docs/building-with-pay/getting-started" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">pay.sh</a>
-          <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">GitHub</a>
+          <Link to="/docs" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none rounded">Docs</Link>
+          <Link to="/api" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none rounded">API</Link>
+          <a href="https://pay.sh/docs/building-with-pay/getting-started" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none rounded">pay.sh</a>
+          <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none rounded">GitHub</a>
         </div>
       </div>
     </footer>

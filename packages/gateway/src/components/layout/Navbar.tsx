@@ -21,7 +21,7 @@ const navLinks = [
 
 const linkClass = (active: boolean) =>
   `px-4 py-2 rounded-full text-sm min-h-[36px] flex items-center motion-safe:transition-colors motion-safe:duration-200
-   focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none
+   focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none
    ${active ? 'bg-accent/10 text-accent' : 'text-text-secondary hover:text-text-primary'}`
 
 export function Navbar() {
@@ -38,7 +38,7 @@ export function Navbar() {
         >
           <Link
             to="/"
-            className="flex items-center gap-2 text-text-primary font-semibold focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none rounded-full px-2 py-1"
+            className="flex items-center gap-2 text-text-primary font-semibold focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none rounded-full px-2 py-1"
           >
             <Sparkles size={20} className="text-accent" aria-hidden="true" />
             <span className="hidden sm:inline">ChaosCompute</span>
@@ -63,7 +63,7 @@ export function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub repository"
-              className="p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
+              className="p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none"
             >
               <GithubIcon />
             </a>
@@ -82,7 +82,7 @@ export function Navbar() {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
-              className="md:hidden p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
+              className="md:hidden p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none"
             >
               {mobileOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
             </button>

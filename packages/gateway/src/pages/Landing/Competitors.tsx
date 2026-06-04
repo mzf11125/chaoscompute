@@ -5,27 +5,23 @@ import Card from '@/components/ui/Card'
 const competitors = [
   {
     name: 'OpenRouter',
-    theirFlaw: 'Custodial credits, 5.5% top-up fee, centralized',
-    ourAnswer: 'Non-custodial. Wallet signs per request. Nothing deposited anywhere.',
-    status: 'incumbent' as const,
+    theirFlaw: 'Custodial credits, 5.5% top-up fee, centralized routing',
+    ourAnswer: 'Non-custodial HTTP 402. Wallet signs per token. No credit deposit. pay.sh handles settlement.',
   },
   {
     name: 'Jatevo',
     theirFlaw: 'Token-gated daily quota, unused capacity wasted',
-    ourAnswer: 'Per-request USDC. Pay exactly what you use. Zero wasted quota.',
-    status: 'incumbent' as const,
+    ourAnswer: 'Pay per token via pay.sh HTTP 402. Pay for what you use, nothing more.',
   },
   {
     name: '9router',
-    theirFlaw: 'Local proxy, no supply side, no payment layer',
-    ourAnswer: 'Same UX. Cloud-hosted. Solana-native billing + upgrade to Core.',
-    status: 'incumbent' as const,
+    theirFlaw: 'Local proxy, no payment layer, requires your own API keys',
+    ourAnswer: 'Cloud-hosted. pay.sh handles wallet payments. No API keys needed.',
   },
   {
     name: 'Bittensor',
-    theirFlaw: 'Complex UX, custom L1, not developer-friendly',
-    ourAnswer: 'Same architecture. OpenAI-compatible. Solana-native. 5-minute integration.',
-    status: 'incumbent' as const,
+    theirFlaw: 'Custom L1, complex UX, weeks to integrate',
+    ourAnswer: 'OpenAI-compatible API. Discoverable via pay.sh registry. 5-minute integration.',
   },
 ]
 
@@ -43,11 +39,9 @@ export function Competitors() {
           className="text-center mb-16"
         >
           <p className="text-text-muted text-xs uppercase tracking-widest mb-4">Competitive Positioning</p>
-          <h2 className="text-4xl font-bold text-text-primary mb-4">
-            The market exists. We're building the better version.
-          </h2>
+          <h2 className="text-4xl font-bold text-text-primary mb-4">The market exists. We fix what they broke.</h2>
           <p className="text-text-secondary max-w-xl mx-auto">
-            Every competitor proved the demand. Every competitor has a structural flaw we don't have.
+            Every competitor proved demand. Every competitor has a structural flaw that HTTP 402 wallet payments eliminate.
           </p>
         </motion.div>
 
@@ -58,16 +52,12 @@ export function Competitors() {
               initial={prefersReduced ? undefined : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={prefersReduced
-                ? { duration: 0 }
-                : { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const, delay: i * 0.1 }}
+              transition={prefersReduced ? { duration: 0 } : { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const, delay: i * 0.1 }}
             >
               <Card className="h-full">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-text-primary font-semibold text-lg">{comp.name}</h3>
-                  <Badge variant={comp.status === 'incumbent' ? 'warning' : 'success'}>
-                    {comp.status}
-                  </Badge>
+                  <Badge variant="warning">incumbent</Badge>
                 </div>
                 <p className="text-error/80 text-sm mb-2">
                   <span className="text-text-muted">Their flaw:</span> {comp.theirFlaw}
