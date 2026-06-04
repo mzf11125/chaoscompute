@@ -18,6 +18,11 @@ operator:
   network: localnet
   fee_payer: true
 
+free_tier:
+  unit: tokens
+  scale: 1000000
+  budget: 1
+
 endpoints:
   - method: GET
     path: 'v1/health'
@@ -54,9 +59,13 @@ endpoints:
     description: 'List 20+ supported AI providers, models, and per-provider pricing. Free.'
 
 notes: |
+  **Free Tier**
+  First 1M tokens per month are free. No credit card. No wallet deposit required.
+  Just `pay curl` and start building. Hit the limit? 5% margin kicks in automatically.
+
   **Dynamic Per-Provider Pricing**
 
-  You pay provider cost + 5% transparent margin. Every request shows the exact breakdown:
+  You pay provider cost + 5% transparent margin. Revenue funds Phase 2 treasury.
 
   ```
   Provider: OpenAI GPT-4o
@@ -73,15 +82,13 @@ notes: |
   | DeepSeek V3 | $0.27 | $1.10 | $0.284 / $1.155 |
   | Together Llama | $0.88 | $0.88 | $0.924 / $0.924 |
 
-  **Where the margin goes:**
-  100% of gateway revenue funds the Phase 2 decentralized compute treasury —
-  game-theoretic node selection, stake-weighted VRF racing, and on-chain settlement.
+  **Why use ChaosCompute instead of direct?**
+  1. 1M free tokens/month — zero risk trial
+  2. One endpoint for ALL providers — no API key management
+  3. Automatic fallback — never hit rate limits
+  4. HTTP 402 wallet payments — no subscriptions, no credit cards
+  5. On-chain audit trail — every settlement on Solana
+  6. Your fees fund decentralized compute — you're building Phase 2
 
-  Use cheaper providers (DeepSeek, Llama) for budget-sensitive workloads.
-  Use premium providers (GPT-4o, Claude) when quality matters most.
-  You always see what you're paying and where the money goes.
-
-  **Why not cheaper?**
-  The margin is the entire revenue model. No VC funding, no token pre-sale, no hidden fees.
-  Phase 2 (decentralized compute) is self-funded by Phase 1 (inference gateway).
-  Every request builds the decentralized future.
+  **Governance:** Open source. MIT. Sole maintainer: mzf11125.
+  See GOVERNANCE.md for full project governance.

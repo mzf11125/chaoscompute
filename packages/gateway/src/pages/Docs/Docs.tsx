@@ -58,9 +58,9 @@ export default function Docs() {
 
         <Card padding="lg">
           <Shield size={24} className="text-foreground mb-4" aria-hidden="true" />
-          <h2 className="text-foreground font-semibold mb-2">How We Make Money</h2>
+          <h2 className="text-foreground font-semibold mb-2">Pricing — Free Tier + 5% Margin</h2>
           <p className="text-muted-foreground text-sm mb-4">
-            Provider cost + 5% transparent margin. 100% of revenue funds the Phase 2 treasury.
+            First 1M tokens/month free. After that, provider cost + 5%.
           </p>
           <div className="space-y-2 text-xs mb-4">
             {[
