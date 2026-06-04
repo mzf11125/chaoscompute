@@ -2,13 +2,17 @@
 
 ## Project Overview
 ChaosCompute is a two-phase AI inference platform on Solana.
-- **Gateway (Phase 1):** Inference router. CLIProxyAPI routing + pay.sh HTTP 402 payments. 20+ upstream AI providers. OpenAI-compatible. Live today.
-- **Core (Phase 2):** Decentralized compute market. Game-theoretic node selection. Stake-weighted VRF racing. Blind race mechanic. Optimistic slashing. Anyone's GPU joins.
+- **Gateway (Phase 1):** Inference router. CLIProxyAPI routing. pay.sh HTTP 402 payments. 30 providers across 3 tiers. OpenAI-compatible. Funding needed for live launch.
+- **Core (Phase 2):** Decentralized compute market. Game-theoretic node selection. Stake-weighted VRF racing. Blind race. Optimistic slashing. Contract deployed to devnet.
 
 Tagline: "pay.sh payments. CLIProxyAPI routing. Decentralized compute next."
 
-## Security
-Designed for [Bastion Agentique](https://bastionagentique.com) — planned integration for agent security (transaction simulation, policy engine, on-chain audit, emergency pause). Both projects in development.
+**Deployed:** `5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg` on Solana devnet.
+
+## Community
+- Discord: https://discord.gg/xXCKpmt7d — weekly roadmap meetings
+- Sole maintainer: mzf11125
+- MIT licensed. Contributions welcome.
 
 ## Tech Stack
 | Layer | Tech |
@@ -21,10 +25,9 @@ Designed for [Bastion Agentique](https://bastionagentique.com) — planned integ
 | Routing | react-router-dom |
 | Payments | pay.sh HTTP 402 + USDC on Solana |
 | Backend Routing | CLIProxyAPI (Go) + 9router (Next.js fork) |
-| Smart Contract | Anchor (Rust) — `programs/chaos_compute` |
+| Smart Contract | Anchor (Rust) — `5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg` on devnet |
 | Monorepo | pnpm workspaces |
-| SDK | Python (pip) + Node.js (npm) |
-| Deployment | Docker + GitHub Actions |
+| CI/CD | GitHub Actions |
 
 ## Design System: Clean Monochrome
 - **Colors:** HSL tokens — background `hsl(0 0% 0%)`, foreground `hsl(0 0% 100%)`, card `hsl(0 0% 5%)`, border `hsl(0 0% 20%)`
@@ -36,12 +39,13 @@ Designed for [Bastion Agentique](https://bastionagentique.com) — planned integ
 
 ## Monorepo Structure
 ```
-packages/gateway/          Vite + React app (main product)
+packages/gateway/          Vite + React app
 packages/sdk/python/        Python SDK (chaos-sdk)
 packages/sdk/node/          Node.js SDK (@chaoscompute/sdk)
-programs/chaos_compute/     Anchor program (Rust)
+programs/chaos_compute/     Anchor program (Rust) — deployed to devnet
 docs/                       All documentation
 chaoscompute.yaml           pay.sh provider spec
+GOVERNANCE.md               Project governance
 ```
 
 ## Commands
@@ -49,9 +53,8 @@ chaoscompute.yaml           pay.sh provider spec
 pnpm install                                    # Install all deps
 pnpm --filter gateway dev                       # Run gateway dev server (port 20128)
 pnpm --filter gateway build                     # Build for production
-cd programs/chaos_compute && anchor build       # Build Anchor program
-cd programs/chaos_compute && anchor test        # Run Anchor tests
-cd packages/sdk/python && pip install -e .      # Install Python SDK locally
+cd programs/chaos_compute && cargo build-sbf    # Build Anchor program
+cd programs/chaos_compute && solana program deploy target/deploy/chaos_compute.so --url devnet
 ```
 
 ## Auth Model: HTTP 402 (pay.sh)
@@ -60,26 +63,25 @@ cd packages/sdk/python && pip install -e .      # Install Python SDK locally
 - pay.sh signs a USDC transfer authorization locally from wallet
 - pay.sh replays the request with `X-PAYMENT` proof header
 - Gateway broadcasts signed transfer, confirms on Solana, returns response
-- Async settlement — response streams before payment confirms
 
-## Key Conventions
-- All imports use `@/` path alias (maps to `src/`)
-- Provider routing is OpenAI-compatible (`/v1/chat/completions`)
-- Components are named exports from barrel files (`components/ui/index.ts`)
-- Pages are default exports in their own directories
-- pay.sh handles all payment authorization — no custom wallet connect needed
+## Pricing: Free Tier + 5% Margin
+- First 1M tokens/month free
+- After that, provider cost + 5% margin
+- 30 providers across 3 tiers: Premium/Cheap/Free
+- 100% of margin funds Phase 2 treasury
 
 ## Key Files
 - `packages/gateway/src/lib/routing/` — extracted 9router logic (fallback, providers, types)
-- `programs/chaos_compute/programs/chaos_compute/src/lib.rs` — Anchor program
+- `programs/chaos_compute/programs/chaos_compute/src/lib.rs` — Anchor program (deployed)
 - `chaoscompute.yaml` — pay.sh provider spec (routing, pricing, endpoints)
-- `packages/gateway/src/App.tsx` — route definitions (7 routes)
+- `packages/gateway/src/App.tsx` — route definitions
 - `packages/gateway/src/index.css` — HSL tokens, liquid glass, base styles
+- `GOVERNANCE.md` — Project governance and contribution rules
 
 ## Security
 - Never log private keys or seed phrases
 - Never commit .env files (see .env.example)
-- pay.sh handles all payment signing — no custom wallet code needed
+- pay.sh handles all payment signing
 - Solana RPC calls validate account ownership and data length
 - Devnet only for development; mainnet only when explicitly requested
 
@@ -87,4 +89,3 @@ cd packages/sdk/python && pip install -e .      # Install Python SDK locally
 - Feature branches from main
 - Conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `redesign:`
 - No force push to main
-- PR required for merge to main

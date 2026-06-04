@@ -2,14 +2,15 @@
 
 **pay.sh payments. CLIProxyAPI routing. Decentralized compute next.**
 
-ChaosCompute is a two-phase AI inference platform on Solana. Phase 1 delivers drop-in inference routing across 20+ real providers via CLIProxyAPI with pay.sh HTTP 402 wallet payments. Phase 2 replaces routing entirely with a game-theoretic decentralized compute market.
+ChaosCompute is a two-phase AI inference platform on Solana. Phase 1 delivers drop-in inference routing across 30 real providers via CLIProxyAPI with pay.sh HTTP 402 wallet payments. Phase 2 replaces routing entirely with a game-theoretic decentralized compute market.
 
-## Products
+## Status
 
-| Product | Status | Description |
+| Item | Status | Detail |
 |---|---|---|
-| **Gateway** | Live | Phase 1 — inference router. CLIProxyAPI routing + pay.sh HTTP 402 payments. 20+ upstream AI providers. OpenAI-compatible API. |
-| **Core** | Roadmap | Phase 2 — decentralized compute market. Game-theoretic node selection. Stake-weighted VRF racing. Anyone's GPU joins. |
+| Phase 2 Contract | Deployed | `5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg` on Solana devnet |
+| Frontend | Live | [github.com/mzf11125/chaoscompute](https://github.com/mzf11125/chaoscompute) |
+| Phase 1 Gateway | Funding needed | ~$100-300/month for provider keys + server. See `/status`. |
 
 ## Quick Start
 
@@ -28,24 +29,41 @@ git clone https://github.com/mzf11125/chaoscompute.git
 cd chaoscompute
 pnpm install
 pnpm --filter gateway dev
-# → http://localhost:20128
 ```
 
-## Security
+### Deploy Anchor Contract
 
-Designed for [Bastion Agentique](https://bastionagentique.com) — planned integration for transaction simulation, policy enforcement, on-chain audit, and emergency pause.
+```bash
+cd programs/chaos_compute
+cargo build-sbf
+solana program deploy target/deploy/chaos_compute.so --url devnet
+```
+
+## Products
+
+| Product | Status | Description |
+|---|---|---|
+| **Gateway** | Funding needed | Phase 1. Inference router. CLIProxyAPI routing. pay.sh HTTP 402. 30 providers across 3 tiers. |
+| **Core** | Contract deployed | Phase 2. Decentralized compute market. Game-theoretic node selection. Stake-weighted VRF racing. |
 
 ## Providers
 
-20+ real providers from CLIProxyAPI and 9router: OpenAI, Anthropic, Google Gemini, xAI/Grok, Mistral, DeepSeek, Together AI, Groq, and OpenRouter (GLM, Kimi, MiniMax, etc.). See `/providers` for the full catalog.
+30 providers across 3 tiers: Premium (OpenAI, Anthropic, Gemini, xAI, Mistral), Cheap (Nscale $0.01, DeepSeek $0.14, Hyperbolic, Fireworks, OpenRouter, etc.), Free (Groq, Cerebras, SambaNova, Nebius, Featherless). See `/providers` for the full catalog.
+
+## Community
+
+- Discord: [discord.gg/xXCKpmt7d](https://discord.gg/xXCKpmt7d) — weekly roadmap meetings
+- GitHub: [mzf11125/chaoscompute](https://github.com/mzf11125/chaoscompute) — MIT licensed, contributions welcome
+- Sole maintainer: mzf11125
 
 ## Docs
 
 - [`docs/PRD.md`](docs/PRD.md) — Full Product Requirements Document
 - [`docs/PRD-GATEWAY.md`](docs/PRD-GATEWAY.md) — Gateway sub-product PRD
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — Technical architecture + component map
-- [`docs/COMPETITIVE.md`](docs/COMPETITIVE.md) — Competitive positioning vs OpenRouter, Jatevo, 9router
-- [`docs/API.md`](docs/API.md) — API reference (OpenAI-compatible + HTTP 402)
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — Technical architecture
+- [`docs/COMPETITIVE.md`](docs/COMPETITIVE.md) — Competitive positioning
+- [`docs/API.md`](docs/API.md) — API reference
+- [`GOVERNANCE.md`](GOVERNANCE.md) — Project governance
 - [`chaoscompute.yaml`](chaoscompute.yaml) — pay.sh provider spec
 
 ## Tech Stack
@@ -54,25 +72,11 @@ Designed for [Bastion Agentique](https://bastionagentique.com) — planned integ
 |---|---|
 | Frontend | React 19 + Vite + TypeScript + Tailwind CSS v4 |
 | Fonts | Inter (body) + Instrument Serif (display accents) |
-| Animation | framer-motion |
-| Icons | lucide-react |
 | Payments | pay.sh HTTP 402 + USDC on Solana |
-| Routing | CLIProxyAPI (Go proxy) + 9router (Next.js) |
-| Smart Contract | Anchor (Rust) — `programs/chaos_compute` |
+| Routing | CLIProxyAPI (Go) + 9router (Next.js fork) |
+| Smart Contract | Anchor (Rust) — deployed to devnet |
 | Monorepo | pnpm workspaces |
-| CI/CD | GitHub Actions + Docker |
-
-## Monorepo
-
-```
-chaoscompute/
-├── packages/gateway/       Vite + React app
-├── packages/sdk/python/     Python SDK (chaos-sdk)
-├── packages/sdk/node/       Node.js SDK (@chaoscompute/sdk)
-├── programs/chaos_compute/  Anchor program (Rust)
-├── docs/                    Documentation
-└── chaoscompute.yaml        pay.sh provider spec
-```
+| CI/CD | GitHub Actions |
 
 ## License
 
