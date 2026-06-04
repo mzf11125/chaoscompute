@@ -20,12 +20,11 @@ export function SecuritySection() {
           className="text-center mb-16">
           <p className="text-text-muted text-xs uppercase tracking-widest mb-4">Security</p>
           <h2 className="text-4xl font-bold text-text-primary mb-4">
-            Natively integrated with{' '}
+            Designed for{' '}
             <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Bastion Agentique</a>
           </h2>
           <p className="text-text-secondary max-w-xl mx-auto">
-            Transaction simulation, policy enforcement, on-chain audit, and emergency pause.
-            Security built in, not bolted on.
+            Planned integration with Bastion's agent security layer. Transaction simulation, policy enforcement, on-chain audit, and emergency pause — all on the roadmap.
           </p>
         </motion.div>
 

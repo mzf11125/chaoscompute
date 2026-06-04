@@ -15,6 +15,7 @@ const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/status', label: 'Status' },
   { to: '/providers', label: 'Providers' },
+  { to: '/providers', label: 'Providers' },
   { to: '/docs', label: 'Docs' },
   { to: '/api', label: 'API' },
 ]
