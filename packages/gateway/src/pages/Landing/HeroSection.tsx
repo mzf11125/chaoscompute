@@ -13,7 +13,7 @@ export function HeroSection() {
   const d = (n: number) => prefersReduced ? 0 : n
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 pb-32">
+    <section className="relative min-h-[100svh] flex items-center justify-center py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
 
         <motion.h1
