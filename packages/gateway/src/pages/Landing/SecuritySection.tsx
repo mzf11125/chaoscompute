@@ -17,14 +17,8 @@ export function SecuritySection() {
           <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">Security</p>
           <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">Security built in, not bolted on</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Transaction simulation, policy enforcement, on-chain audit, and emergency pause.
-            Compatibility with{' '}
-            <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-foreground underline hover:no-underline">
-              Bastion Agentique
-            </a>{' '}
-            planned.
+            Simulated before execution. Policy enforced. Audit trail on chain. Emergency pause always available.
           </p>
-          <p className="text-muted-foreground max-w-xl mx-auto">Planned integration. Transaction simulation, policy enforcement, on-chain audit, emergency pause.</p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
