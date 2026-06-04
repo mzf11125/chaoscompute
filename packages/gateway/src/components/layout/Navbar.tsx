@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Sparkles, BookOpen } from 'lucide-react'
+import { Sparkles, BookOpen, Menu, X } from 'lucide-react'
 import Button from '@/components/ui/Button'
+import { useWallet } from '@/context/WalletProvider'
 
 function GithubIcon() {
   return (
@@ -10,9 +12,12 @@ function GithubIcon() {
   )
 }
 
+const truncated = (addr: string) => `${addr.slice(0, 4)}...${addr.slice(-4)}`
+
 const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/dashboard', label: 'Dashboard' },
+  { to: '/docs', label: 'Docs' },
   { to: '/api-keys', label: 'API Keys' },
 ]
 
@@ -23,55 +28,106 @@ const linkClass = (active: boolean) =>
 
 export function Navbar() {
   const location = useLocation()
+  const { connected, connecting, publicKey, connect, disconnect } = useWallet()
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-6xl">
-      <div className="glass rounded-full border border-border px-6 py-3 flex items-center justify-between" role="navigation" aria-label="Main navigation">
-        <Link
-          to="/"
-          className="flex items-center gap-2 text-text-primary font-semibold focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none rounded-full px-2 py-1"
+    <>
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-6xl">
+        <div
+          className="glass rounded-full border border-border px-6 py-3 flex items-center justify-between"
+          role="navigation"
+          aria-label="Main navigation"
         >
-          <Sparkles size={20} className="text-accent" aria-hidden="true" />
-          <span>ChaosCompute</span>
-        </Link>
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-text-primary font-semibold focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none rounded-full px-2 py-1"
+          >
+            <Sparkles size={20} className="text-accent" aria-hidden="true" />
+            <span className="hidden sm:inline">ChaosCompute</span>
+          </Link>
 
-        <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={linkClass(location.pathname === link.to)}
-              aria-current={location.pathname === link.to ? 'page' : undefined}
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={linkClass(location.pathname === link.to)}
+                aria-current={location.pathname === link.to ? 'page' : undefined}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <a
+              href="https://github.com/mzf11125/chaoscompute"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub repository"
+              className="p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
             >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+              <GithubIcon />
+            </a>
 
-        <div className="flex items-center gap-2">
-          <a
-            href="/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Documentation"
-            className="p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
-          >
-            <BookOpen size={18} aria-hidden="true" />
-          </a>
-          <a
-            href="https://github.com/protocoldaemon-sec/chaoscompute"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub repository"
-            className="p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
-          >
-            <GithubIcon />
-          </a>
-          <Button size="sm" variant="primary">
-            Get Started
-          </Button>
+            {/* Wallet button */}
+            {!connected ? (
+              <Button size="sm" variant="primary" onClick={connect} disabled={connecting}>
+                {connecting ? 'Connecting...' : 'Connect Wallet'}
+              </Button>
+            ) : (
+              <button
+                onClick={disconnect}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent/20 bg-accent/5 text-text-primary text-sm font-mono hover:bg-accent/10 motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none min-h-[36px]"
+              >
+                <span className="w-2 h-2 rounded-full bg-success" aria-hidden="true" />
+                {publicKey ? truncated(publicKey) : 'Connected'}
+              </button>
+            )}
+
+            {/* Mobile menu toggle */}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+              className="md:hidden p-2 rounded-full text-text-muted hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
+            >
+              {mobileOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 md:hidden">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+          <div className="absolute top-20 left-4 right-4 glass rounded-3xl border border-border p-6">
+            <nav className="flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setMobileOpen(false)}
+                  className={`px-4 py-3 rounded-2xl text-base font-medium motion-safe:transition-colors
+                    ${location.pathname === link.to ? 'bg-accent/10 text-accent' : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'}`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <a
+                href="https://github.com/mzf11125/chaoscompute"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-3 rounded-2xl text-base font-medium text-text-secondary hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors"
+              >
+                GitHub
+              </a>
+            </nav>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

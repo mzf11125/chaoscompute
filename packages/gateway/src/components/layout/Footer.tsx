@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export function Footer() {
   return (
     <footer className="relative z-10 border-t border-border py-8 mt-16">
@@ -6,9 +8,9 @@ export function Footer() {
           &copy; {new Date().getFullYear()} ChaosCompute. MIT License.
         </p>
         <div className="flex items-center gap-6">
-          <a href="/docs" className="text-text-muted hover:text-text-primary text-sm transition-colors">Docs</a>
-          <a href="/api" className="text-text-muted hover:text-text-primary text-sm transition-colors">API</a>
-          <a href="https://github.com/protocoldaemon-sec/chaoscompute" className="text-text-muted hover:text-text-primary text-sm transition-colors">GitHub</a>
+          <Link to="/docs" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">Docs</Link>
+          <Link to="/api" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">API</Link>
+          <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-text-primary text-sm motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">GitHub</a>
         </div>
       </div>
     </footer>

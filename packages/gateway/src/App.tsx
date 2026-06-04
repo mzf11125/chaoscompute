@@ -1,9 +1,14 @@
 import { Routes, Route } from 'react-router-dom'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
+import { ErrorBoundary } from '@/components/layout/ErrorBoundary'
+import { WalletProvider } from '@/context/WalletProvider'
 import Landing from '@/pages/Landing/Landing'
 import Dashboard from '@/pages/Dashboard/Dashboard'
 import ApiKeys from '@/pages/ApiKeys/ApiKeys'
+import Docs from '@/pages/Docs/Docs'
+import Api from '@/pages/Api/Api'
+import NotFound from '@/pages/NotFound'
 
 export default function App() {
   return (
@@ -15,13 +20,20 @@ export default function App() {
       </div>
       <div className="noise-overlay" />
       <div className="relative z-10">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/api-keys" element={<ApiKeys />} />
-        </Routes>
-        <Footer />
+        <WalletProvider>
+          <ErrorBoundary>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/api-keys" element={<ApiKeys />} />
+              <Route path="/docs" element={<Docs />} />
+              <Route path="/api" element={<Api />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Footer />
+          </ErrorBoundary>
+        </WalletProvider>
       </div>
     </div>
   )
