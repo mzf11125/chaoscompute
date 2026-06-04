@@ -3,8 +3,8 @@ import Card from '@/components/ui/Card'
 import { Shield, Eye, Pause, FileCheck } from 'lucide-react'
 
 const features = [
-  { icon: Eye, title: 'Transaction Simulation', desc: 'Every inference request is simulated before execution. Bastion validates state changes and catches unauthorized transfers before they hit the chain.' },
-  { icon: Shield, title: 'Policy Engine', desc: 'Program whitelist, SOL caps, rate limits, and cooldowns. Configurable per-agent. Blocks malicious transactions before execution.' },
+  { icon: Eye, title: 'Transaction Simulation', desc: 'Every inference request is simulated before execution. State changes and unauthorized transfers are caught before they hit the chain.' },
+  { icon: Shield, title: 'Policy Engine', desc: 'Program whitelist, SOL caps, rate limits, and cooldowns. Blocks malicious transactions before execution.' },
   { icon: FileCheck, title: 'On-Chain Audit', desc: 'Immutable audit records on Solana. Verifiable, permissionless, tamper-proof. Full transparency for every request.' },
   { icon: Pause, title: 'Emergency Pause', desc: 'Circuit breaker halts the protocol instantly. Human-in-the-loop override for blocked transactions. Safety first.' },
 ]
@@ -15,9 +15,7 @@ export function SecuritySection() {
       <div className="max-w-6xl mx-auto ">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }} className="text-center mb-16">
           <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">Security</p>
-          <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">
-            Designed for{' '}<a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-foreground underline hover:no-underline">Bastion Agentique</a>
-          </h2>
+          <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">Security built in, not bolted on</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">Planned integration. Transaction simulation, policy enforcement, on-chain audit, emergency pause.</p>
         </motion.div>
 

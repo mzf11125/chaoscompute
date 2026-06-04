@@ -149,7 +149,6 @@ endpoints:
             ['Provider YAML Spec', 'https://pay.sh/docs/building-with-pay/yaml-specification'],
             ['API Reference', '/api'],
             ['Supported Providers', '/providers'],
-            ['Bastion Agentique', 'https://bastionagentique.com'],
             ['ChaosCompute GitHub', 'https://github.com/mzf11125/chaoscompute'],
           ].map(([label, href]) => (
             <a key={label} href={href} {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}

@@ -44,7 +44,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-7xl tracking-[-2px] font-medium leading-tight md:leading-[1.15] mb-3 text-foreground"
+            className="text-3xl sm:text-5xl md:text-7xl tracking-[-2px] font-medium leading-tight md:leading-[1.15] mb-3 text-foreground"
           >
             pay.sh payments.
             <br />
@@ -59,14 +59,11 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base font-normal leading-6 opacity-90 mb-8 max-w-2xl"
+            className="text-sm md:text-base font-normal leading-6 opacity-90 mb-6 max-w-xl"
             style={{ color: 'hsl(var(--hero-subtitle))' }}
           >
             OpenAI-compatible. pay.sh HTTP 402. 30+ providers.
-            Game theory replaces routing next. Designed for{' '}
-            <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-foreground underline hover:no-underline">
-              Bastion Agentique
-            </a>.
+            Game theory replaces routing next.
           </motion.p>
 
           {/* CTAs */}
