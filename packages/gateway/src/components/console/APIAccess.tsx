@@ -30,7 +30,7 @@ export function APIAccess() {
           </div>
         </div>
       ) : (
-        <p className="text-muted-foreground text-sm">Connect your wallet to see API access details.</p>
+        <p className="text-muted-foreground text-sm">Connect your wallet above to see API access details.</p>
       )}
     </Card>
   )
