@@ -18,7 +18,7 @@ export function HeroSection() {
   const dashY = useTransform(scrollYProgress, [0, 0.5], [0, -250])
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen overflow-hidden pt-24 pb-16">
+    <section ref={sectionRef} className="relative min-h-[100svh] flex items-center justify-center py-32">
       <div className="max-w-6xl mx-auto px-8 md:px-28">
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
