@@ -60,19 +60,32 @@ export default function Docs() {
           <Code size={24} className="text-accent mb-4" aria-hidden="true" />
           <h2 className="text-text-primary font-semibold mb-2">Phase 2: Decentralized Compute</h2>
           <p className="text-text-secondary text-sm mb-4">
-            The endgame: a fully decentralized compute market with game-theoretic node selection. No centralized scheduler. No trust assumptions.
+            The endgame: a fully decentralized compute market where anyone's GPU competes.
+            No centralized scheduler. No trust assumptions. Game theory replaces routing algorithms.
           </p>
           <div className="space-y-2 text-xs mb-4">
-            {['Stake-weighted VRF racing', 'Optimistic slashing for bad outputs', 'Permissionless provider entry', 'Square-root stake anti-whale weighting'].map((item) => (
+            {[
+              'Speculative parallel execution — 3-5 nodes race each request',
+              'Stake-weighted VRF raffle — sqrt(stake) prevents whale domination',
+              'Blind race mechanic — all timely submissions have equal chance',
+              'Optimistic slashing — fraud proof within 10 blocks slashes stake',
+              'Ephemeral DH encryption — prompts never broadcast in plaintext',
+              'TEE attestation hashes — MVP proxy for full Intel SGX enforcement',
+              'Energy-efficient mini-cohorts — not the entire network, just 3-5 nodes',
+              'Geolocation fairness — 1.5s submission window neutralizes co-location',
+            ].map((item) => (
               <div key={item} className="flex items-center gap-2 py-1 border-b border-border last:border-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true" />
                 <span className="text-text-secondary">{item}</span>
               </div>
             ))}
           </div>
+          <p className="text-text-muted text-xs italic mb-4">
+            "The smart contract is the router. No one decides who runs your prompt — the protocol does, using slot hashes and stake weights that nobody controls."
+          </p>
           <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-accent text-sm hover:underline">
-            Architecture on GitHub <ArrowRight size={14} aria-hidden="true" />
+            Anchor program on GitHub <ArrowRight size={14} aria-hidden="true" />
           </a>
         </Card>
 

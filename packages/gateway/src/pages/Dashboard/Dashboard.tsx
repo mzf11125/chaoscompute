@@ -53,14 +53,14 @@ export default function Dashboard() {
             <span className="w-8 h-8 rounded-full bg-success/20 text-success flex items-center justify-center text-xs font-bold shrink-0">1</span>
             <div>
               <p className="text-text-primary font-medium">Inference Gateway (Live)</p>
-              <p className="text-text-muted text-xs mt-0.5">CLIProxyAPI routing with pay.sh HTTP 402 payments. 20+ upstream AI providers. Today.</p>
+              <p className="text-text-muted text-xs mt-0.5">CLIProxyAPI routing with pay.sh HTTP 402 payments. 20+ upstream AI providers. Live today.</p>
             </div>
           </div>
           <div className="flex gap-3">
             <span className="w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center text-xs font-bold shrink-0">2</span>
             <div>
               <p className="text-text-primary font-medium">Decentralized Compute (Coming)</p>
-              <p className="text-text-muted text-xs mt-0.5">Game-theoretic node selection. Stake-weighted VRF racing. Anyone's GPU can join. No centralized scheduler.</p>
+              <p className="text-text-muted text-xs mt-0.5">Game theory replaces routing. Stake-weighted VRF racing. Blind race. Optimistic slashing. Anyone's GPU joins. No centralized scheduler.</p>
             </div>
           </div>
         </div>
