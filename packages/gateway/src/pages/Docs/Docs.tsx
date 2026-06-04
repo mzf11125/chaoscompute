@@ -6,7 +6,7 @@ const QUICKSTART = `curl -fsSL https://pay.sh/install | sh
 pay --sandbox server start chaoscompute.yaml
 pay --sandbox curl http://127.0.0.1:1402/v1/chat/completions \\
   -H 'content-type: application/json' \\
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'`
+  -d '{"model":"gpt-5.5","messages":[{"role":"user","content":"Hello"}]}'`
 
 export default function Docs() {
   return (

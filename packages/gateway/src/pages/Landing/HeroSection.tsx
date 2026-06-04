@@ -5,7 +5,7 @@ const CODE = `curl -fsSL https://pay.sh/install | sh
 pay skills search chaoscompute
 pay curl https://gateway.chaoscompute.io/v1/chat/completions \\
   -H 'content-type: application/json' \\
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'`
+  -d '{"model":"gpt-5.5","messages":[{"role":"user","content":"Hello"}]}'`
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null)

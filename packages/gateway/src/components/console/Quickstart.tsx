@@ -3,7 +3,7 @@ import Card from '@/components/ui/Card'
 const CODE = `curl -fsSL https://pay.sh/install | sh
 pay curl https://gateway.chaoscompute.io/v1/chat/completions \\
   -H 'content-type: application/json' \\
-  -d '{"model":"gpt-4o","messages":[...]}'`
+  -d '{"model":"gpt-5.5","messages":[...]}'`
 
 const steps = [
   { step: 1, title: 'Connect wallet', desc: 'Phantom or Solflare. Your wallet is your API key. Tier auto-detected from balance.' },
