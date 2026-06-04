@@ -15,11 +15,6 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 pb-32">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <motion.div initial={initial} animate={animate} transition={{ ...t, delay: d(0) }}>
-          <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-surface-elevated text-text-secondary text-xs uppercase tracking-widest mb-8">
-            The smart contract is the router
-          </p>
-        </motion.div>
 
         <motion.h1
           initial={initial} animate={animate}
