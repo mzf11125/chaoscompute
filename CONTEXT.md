@@ -4,17 +4,19 @@
 
 | Term | Definition |
 |---|---|
-| **Gateway** | Phase 1 inference router. CLIProxyAPI routing + pay.sh HTTP 402 payments. OpenAI-compatible. 30 providers. Funding needed. |
-| **Core** | Phase 2 decentralized compute market. Game-theoretic node selection. Stake-weighted VRF racing. Blind race. Optimistic slashing. Contract deployed to devnet. |
-| **pay.sh** | HTTP 402 payment protocol. Wraps standard HTTP tools. Signs USDC transfer authorizations. Handles challenge/proof/settlement flow. |
-| **CLIProxyAPI** | Go proxy server wrapping CLI tools as OpenAI-compatible APIs. 36k GitHub stars. Upstream routing engine. Provider models sourced from models.dev + ai-sdk.dev. |
-| **9router** | Next.js fork of CLIProxyAPI. 16k stars. 60+ providers, smart fallback, RTK token saver. |
-| **HTTP 402** | Payment Required status code. Gateway returns 402 when payment needed. pay.sh handles automatically. |
-| **Liquid Glass** | CSS utility. Gradient-border translucent surfaces via `backdrop-filter: blur(4px)` and `::before` mask. |
-| **Bounty** | On-chain Anchor account. Phase 2 inference request. Contains challenger, prompt hash, cohort, fee, status. |
-| **Cohort** | 3-5 pre-selected nodes. Chosen via sqrt(stake) weighted slot-hash selection. Phase 2 mechanic. |
-| **VRF Raffle** | Verifiable Random Function. Picks winner from on-time commitments. Stake-weighted probability. |
-| **Slashing** | Fraud proof penalty. User submits proof within 10 blocks. Stake burned on failure. |
+| **Gateway** | Phase 1 inference router. CLIProxyAPI routing. pay.sh USDC payments. 30 providers. |
+| **Core** | Phase 2 decentralized compute market. Game theory. VRF racing. Blind race. Optimistic slashing. |
+| **Console** | Wallet connect page. Shows SOL staking tier, quickstart, API access. |
+| **Guest** | 0 SOL tier. pay.sh only. No wallet needed. Full price. |
+| **Builder** | 100 SOL tier. 5% discount. Wallet connect. |
+| **Operator** | 500 SOL tier. 10% discount. Priority routing. |
+| **Partner** | 1000+ SOL tier. 20% discount. Dedicated capacity. |
+| **pay.sh** | HTTP 402 payment protocol. USDC settlement on Solana. |
+| **CLIProxyAPI** | Go proxy server. 36k stars. Upstream routing engine. |
+| **SOL Staking** | Balance-based tier detection today. Native delegation contracts Phase 2. |
+| **Bounty** | On-chain account. Phase 2 inference request. |
+| **Cohort** | 3-5 pre-selected nodes. sqrt(stake) weighted selection. |
+| **Slashing** | Fraud proof penalty. Stake burned on invalid output. |
 
 ## Deployments
 
@@ -27,20 +29,20 @@
 
 | # | Decision | Rationale | Date |
 |---|---|---|---|
-| 1 | pay.sh HTTP 402 as payment layer | Non-custodial. Wallet signs per request. Standards-based. | Day 2 |
-| 2 | CLIProxyAPI as upstream routing | 36k-star battle-tested Go proxy. 30 real providers. | Day 1 |
-| 3 | Vite + React (not Next.js) | All existing projects use Vite. Consistent dev experience. | Day 1 |
-| 4 | Clean Monochrome design (not Dark Cinematic) | Inter + Instrument Serif. HSL tokens. Liquid glass. More modern. | Day 8 |
-| 5 | Gateway (Phase 1) + Core (Phase 2) | Phase 1 funds Phase 2. Solo dev, phased delivery. | Day 1 |
-| 6 | Anchor program with sqrt stake weighting | Prevents whale domination. 100x stake = 10x probability. | Day 6 |
-| 7 | 30 providers across 3 tiers (verified by models.dev + ai-sdk.dev) | Premium/Cheap/Free. Real model names and pricing sourced from authoritative databases. | Day 10 |
-| 8 | Deploy to devnet, target mainnet post-funding | Real contract live now. Phase 1 needs funding for production. | Day 11 |
+| 1 | USDC via pay.sh as payment layer | Non-custodial. Wallet signs per request. Standards-based. | Day 2 |
+| 2 | CLIProxyAPI as upstream routing | 36k-star Go proxy. 30 real providers. | Day 1 |
+| 3 | SOL staking for tier discounts (no new token) | SOL-native incentives. No regulatory risk. Community alignment. | Day 12 |
+| 4 | Console replacing mock Dashboard | Only real data. Wallet connect + SOL balance query. Honest about what is mock vs real. | Day 13 |
+| 5 | Guest/Builder/Operator/Partner tiers | Clear progression. Infrastructure-native naming. | Day 13 |
+| 6 | Wallet balance check for tier (no delegation yet) | Honest implementation. Native staking contracts Phase 2. | Day 13 |
+| 7 | 30 providers across 3 tiers | verified by models.dev + ai-sdk.dev. Real model names and pricing. | Day 10 |
+| 8 | Deploy to devnet, target mainnet post-funding | Real contract live. Phase 1 needs funding for production. | Day 11 |
 
 ## Risk Register
 
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
-| Provider API key funding | High | High | Crowdfunding. Phase 1 launch checklist on /status page. |
-| Phase 2 solo dev bottleneck | High | High | Open-source. Community contributions welcome. Discord for coordination. |
-| pay.sh integration complexity | Medium | Medium | Provider spec in chaoscompute.yaml. Sandbox testing first. |
-| Provider IP restrictions | Medium | Medium | Gateway manages keys at infrastructure level. CLIProxyAPI routing. |
+| Provider API key funding | High | High | Crowdfunding. Console shows funding needed. |
+| Phase 2 solo dev bottleneck | High | High | Open-source. Community contributions. Discord. |
+| SOL staking perceived as fake until contracts deploy | Medium | Medium | Honest about balance check vs staking. Phase 2 roadmap clear. |
+| pay.sh integration complexity | Medium | Medium | Provider spec in chaoscompute.yaml. Sandbox testing. |

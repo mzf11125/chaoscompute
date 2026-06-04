@@ -1,8 +1,21 @@
 # ChaosCompute
 
-**pay.sh payments. CLIProxyAPI routing. Decentralized compute next.**
+**One API for every AI model. Stake SOL for lower costs. Pay with USDC.**
 
-ChaosCompute is a two-phase AI inference platform on Solana. Phase 1 delivers drop-in inference routing across 30 real providers via CLIProxyAPI with pay.sh HTTP 402 wallet payments. Phase 2 replaces routing entirely with a game-theoretic decentralized compute market.
+ChaosCompute is a two-phase AI inference platform on Solana. Phase 1 delivers drop-in inference routing across 30 real providers with pay.sh HTTP 402 USDC payments. Phase 2 replaces routing entirely with a game-theoretic decentralized compute market.
+
+## Business Model
+
+| Tier | SOL Required | Discount | How It Works |
+|---|---|---|---|
+| **Guest** | 0 SOL | 0% | pay.sh HTTP 402. USDC per request. No wallet needed. |
+| **Builder** | 100 SOL | 5% | Wallet connect. USDC payments. Discount applied automatically. |
+| **Operator** | 500 SOL | 10% | Priority routing. Higher rate limits. |
+| **Partner** | 1,000+ SOL | 20% | Dedicated capacity. Custom pricing. |
+
+Revenue: Provider cost + 5% routing margin on USDC payments. 100% funds Phase 2 treasury.
+Tier detection: Based on wallet SOL balance. Native staking contracts coming in Phase 2.
+No new token. SOL-native incentives. USDC-only payments.
 
 ## Status
 
@@ -10,16 +23,15 @@ ChaosCompute is a two-phase AI inference platform on Solana. Phase 1 delivers dr
 |---|---|---|
 | Phase 2 Contract | Deployed | `5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg` on Solana devnet |
 | Frontend | Live | [github.com/mzf11125/chaoscompute](https://github.com/mzf11125/chaoscompute) |
-| Phase 1 Gateway | Funding needed | ~$100-300/month for provider keys + server. See `/status`. |
+| Phase 1 Gateway | Funding needed | Provider keys + server. See Console for details. |
 
 ## Quick Start
 
 ```bash
 curl -fsSL https://pay.sh/install | sh
-pay skills search chaoscompute
 pay curl https://gateway.chaoscompute.io/v1/chat/completions \
   -H 'content-type: application/json' \
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
+  -d '{"model":"gpt-5.5","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
 ### Run Locally
@@ -39,32 +51,25 @@ cargo build-sbf
 solana program deploy target/deploy/chaos_compute.so --url devnet
 ```
 
-## Products
-
-| Product | Status | Description |
-|---|---|---|
-| **Gateway** | Funding needed | Phase 1. Inference router. CLIProxyAPI routing. pay.sh HTTP 402. 30 providers across 3 tiers. |
-| **Core** | Contract deployed | Phase 2. Decentralized compute market. Game-theoretic node selection. Stake-weighted VRF racing. |
-
 ## Providers
 
-30 providers across 3 tiers, verified by [models.dev](https://models.dev) and [ai-sdk.dev](https://ai-sdk.dev): Premium (OpenAI gpt-5.5, Anthropic claude-opus-4.8, Google gemini-3.5-flash, xAI grok-4.3, Mistral), Cheap (DeepSeek v4-flash $0.14, Xiaomi MiMo v2.5 $0.14, Alibaba Qwen, Kimi k2.6, Nscale $0.01), Free (Groq, Cerebras, SambaNova, Nebius). See `/providers` for the full catalog.
+30 providers across 3 tiers, verified by [models.dev](https://models.dev) and [ai-sdk.dev](https://ai-sdk.dev). Premium (OpenAI gpt-5.5, Anthropic claude-opus-4.8, Google gemini-3.5-flash, xAI grok-4.3, Mistral). Cheap (DeepSeek v4-flash $0.14, Xiaomi MiMo $0.14, Alibaba Qwen, Kimi k2.6, Nscale $0.01). Free (Groq, Cerebras, SambaNova, Nebius). See `/providers` for the full catalog.
 
 ## Community
 
-- Discord: [discord.gg/xXCKpmt7d](https://discord.gg/xXCKpmt7d) — weekly roadmap meetings
-- GitHub: [mzf11125/chaoscompute](https://github.com/mzf11125/chaoscompute) — MIT licensed, contributions welcome
-- Sole maintainer: mzf11125
+- Discord: [discord.gg/xXCKpmt7d](https://discord.gg/xXCKpmt7d). Weekly roadmap meetings.
+- GitHub: [mzf11125/chaoscompute](https://github.com/mzf11125/chaoscompute). MIT licensed. Contributions welcome.
+- Sole maintainer: mzf11125.
 
 ## Docs
 
-- [`docs/PRD.md`](docs/PRD.md) — Full Product Requirements Document
-- [`docs/PRD-GATEWAY.md`](docs/PRD-GATEWAY.md) — Gateway sub-product PRD
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — Technical architecture
-- [`docs/COMPETITIVE.md`](docs/COMPETITIVE.md) — Competitive positioning
-- [`docs/API.md`](docs/API.md) — API reference
-- [`GOVERNANCE.md`](GOVERNANCE.md) — Project governance
-- [`chaoscompute.yaml`](chaoscompute.yaml) — pay.sh provider spec
+- [`docs/PRD.md`](docs/PRD.md). Full Product Requirements Document.
+- [`docs/PRD-GATEWAY.md`](docs/PRD-GATEWAY.md). Gateway sub-product PRD.
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). Technical architecture.
+- [`docs/COMPETITIVE.md`](docs/COMPETITIVE.md). Competitive positioning.
+- [`docs/API.md`](docs/API.md). API reference.
+- [`GOVERNANCE.md`](GOVERNANCE.md). Project governance and SOL staking model.
+- [`chaoscompute.yaml`](chaoscompute.yaml). pay.sh provider spec.
 
 ## Tech Stack
 
@@ -73,8 +78,9 @@ solana program deploy target/deploy/chaos_compute.so --url devnet
 | Frontend | React 19 + Vite + TypeScript + Tailwind CSS v4 |
 | Fonts | Inter (body) + Instrument Serif (display accents) |
 | Payments | pay.sh HTTP 402 + USDC on Solana |
+| Staking | SOL balance check. Native contracts Phase 2. |
 | Routing | CLIProxyAPI (Go) + 9router (Next.js fork) |
-| Smart Contract | Anchor (Rust) — deployed to devnet |
+| Smart Contract | Anchor (Rust). Deployed to devnet. |
 | Monorepo | pnpm workspaces |
 | CI/CD | GitHub Actions |
 

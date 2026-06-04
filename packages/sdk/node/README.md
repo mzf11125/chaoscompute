@@ -2,16 +2,16 @@
 
 `npm install @chaoscompute/sdk`
 
-ChaosCompute uses pay.sh for HTTP 402 wallet payments. Preferred integration:
+ChaosCompute uses pay.sh for HTTP 402 USDC payments. Preferred integration:
 
 ```bash
 curl -fsSL https://pay.sh/install | sh
 pay curl https://gateway.chaoscompute.io/v1/chat/completions \
   -H 'content-type: application/json' \
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
+  -d '{"model":"gpt-5.5","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
-For programmatic access without pay.sh:
+For programmatic access:
 
 ```javascript
 import { ChaosSigner } from '@chaoscompute/sdk'
@@ -24,7 +24,7 @@ const client = new OpenAI({
 })
 
 const response = await client.chat.completions.create({
-  model: 'gpt-4o',
+  model: 'gpt-5.5',
   messages: [{ role: 'user', content: 'Hello' }],
 })
 ```

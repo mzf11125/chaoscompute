@@ -54,9 +54,9 @@
 ## Auth Flow
 
 - pay.sh handles all payment authorization
-- Wallet signs USDC transfer locally — private key never exposed
+- Wallet signs USDC transfer locally. Private key never exposed.
 - Gateway broadcasts signed transfer on-chain
-- Settlement is async, non-blocking — response streams before confirmation
+- Settlement is async and non-blocking. Response streams before confirmation.
 - No API keys, no credit top-ups, no custodial risk
 
 ## Provider Health Registry

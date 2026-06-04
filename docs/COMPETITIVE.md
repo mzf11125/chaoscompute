@@ -10,7 +10,7 @@ ChaosCompute is not the biggest (OpenRouter, 300+ models), not the fastest (Cere
 
 | Competitor | Honest Take | Why Us |
 |---|---|---|
-| OpenRouter | 300+ models, $113M raised, 25T tokens/week. If you just need the cheapest call today, use OpenRouter. | Non-custodial HTTP 402. No credit deposit. And OpenRouter can never decentralize — Phase 2 gives us that structural advantage. |
+| OpenRouter | 300+ models, $113M raised, 25T tokens/week. If you just need the cheapest call today, use OpenRouter. | Non-custodial HTTP 402. No credit deposit. And OpenRouter can never decentralize. Phase 2 gives us that structural advantage. |
 | Jatevo | Also Solana native. Daily quota from JTVO token. Familiar UX. | Pay per token not per day. Unused capacity isnt wasted. Phase 2 replaces centralized scheduling entirely. |
 | 9router | We literally forked 9router. Same routing engine. Same RTK token saver. | Cloud hosted. pay.sh payments. Built in Phase 2 upgrade. No local proxy to maintain. |
 | Bittensor | They proved decentralized compute works. Real subnets. Billions in market cap. | OpenAI compatible API today. Same architecture as Phase 2. Usable in 5 minutes. |
@@ -18,7 +18,7 @@ ChaosCompute is not the biggest (OpenRouter, 300+ models), not the fastest (Cere
 
 ## The Real Pitch
 
-Use ChaosCompute if you believe centralized inference gateways have an expiration date. Your fees literally build the replacement. If you just want the cheapest GPT-4o call today, use OpenRouter — genuinely. We are not competing on price or breadth today. We are competing on the structural value of a decentralized future.
+Use ChaosCompute if you believe centralized inference gateways have an expiration date. Your fees build the replacement. If you just want the cheapest call today, use OpenRouter. Genuinely. We are not competing on price or breadth today. We are competing on the structural value of a decentralized future.
 
 ## Category Map
 

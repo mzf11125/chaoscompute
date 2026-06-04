@@ -1,44 +1,43 @@
 # ChaosCompute — 60-Second Pitch
 
-*"Every AI agent being built right now calls an inference API. OpenAI, Anthropic, OpenRouter — they all work the same way. You hand your money and your data to a company, they route your request, you hope they stay online.*
+*"Every AI agent calls an inference API. OpenAI, Anthropic, OpenRouter. You hand your money and your data to a company. They route your request. You hope they stay online.*
 
 *ChaosCompute removes the company from that equation.*
 
-*Install pay.sh. Point at our endpoint. Your wallet pays per token at execution time via HTTP 402. No sign-up. No subscription. No API key. CLIProxyAPI routes your request to the best provider across 20+ options. You get your answer.*
+*Connect your wallet. Stake SOL for a tier discount. Pay with USDC per request. Guest tier works with just pay.sh. No sign-up. No subscription. CLIProxyAPI routes your request to the best of 30 providers. You get your answer.*
 
-*[Show the pay curl flow]*
+*That's Phase 1. Inference routing. Live today. Phase 2 replaces routing entirely. Game theory picks the winner. Anyone's GPU competes. The smart contract becomes the router.*
 
-*That's Phase 1 — inference routing, live today. Phase 2 replaces routing entirely. Game theory picks the winner. Anyone's GPU competes. Stake-weighted VRF racing. Optimistic slashing. The smart contract becomes the router.*
-
-*pay.sh's payments. CLIProxyAPI routing. Decentralized compute next. ChaosCompute."*
+*One API for every AI model. Stake SOL for lower costs. Pay with USDC. ChaosCompute."*
 
 ---
 
 ## 30-Second Elevator Pitch
 
-*"ChaosCompute is what 9router would be if it were cloud-hosted with pay.sh HTTP 402 payments. One endpoint. 20+ providers. Your wallet pays per token. Phase 2 replaces routing with game theory."*
+*"One API for every AI model. Stake SOL for lower costs. Pay with USDC via pay.sh. 30 providers. Phase 2 replaces routing with game theory."*
 
 ---
 
 ## Key Lines (Memorize)
 
-1. "pay.sh's payments. CLIProxyAPI routing. Decentralized compute next."
-2. "No sign-up. No subscription. No API key. Wallet pays per token."
-3. "Phase 2 replaces routing entirely — game theory picks the winner."
-4. "The smart contract is the router."
+1. "One API for every AI model. Stake SOL for lower costs. Pay with USDC."
+2. "Guest. Builder. Operator. Partner. Your SOL balance determines your tier."
+3. "No sign-up. No subscription. No API key. Wallet is your identity."
+4. "Phase 2 replaces routing entirely. Game theory picks the winner."
+5. "The smart contract is the router."
 
 ---
 
 ## Handling Tough Questions
 
 **"How is this different from OpenRouter?"**
-"OpenRouter holds your money. We don't. pay.sh's HTTP 402 means your wallet signs per request — nothing deposited anywhere. Plus we have a Phase 2 upgrade path to a decentralized compute market."
+"OpenRouter holds your money. We don't. Wallet-based auth. SOL staking for discounts up to 20 percent. Phase 2 upgrade path to decentralized compute. OpenRouter can never decentralize."
 
 **"What if the nodes return garbage?"**
-"Phase 2 uses optimistic slashing. Fraud proof within 10 blocks. Accused node must reveal execution trace. Failure = entire stake burned. The collateral is real."
+"Phase 2 uses optimistic slashing. Fraud proof within 10 blocks. Execution trace revealed. Entire stake burned. The collateral is real."
 
-**"What about latency?"**
-"For Phase 1, latency is identical to any other router. For Phase 2, the 3-node parallel race adds ~100ms but provides redundancy and censorship resistance."
+**"How does SOL staking work?"**
+"Currently tier is based on wallet balance. Native staking contracts with ~7 percent APY coming in Phase 2. SOL for eligibility. USDC for payments. No new token."
 
-**"Bastion Agentique?"**
-"Planned integration. Transaction simulation, policy enforcement, on-chain audit, and emergency pause. Both projects in development — designed to work together."
+**"How is this different from Jatevo?"**
+"Jatevo uses a proprietary token for daily quotas. We use SOL for tier discounts. USDC per request via pay.sh. No unused quota wasted. SOL-native incentives."
