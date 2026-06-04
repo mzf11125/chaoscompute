@@ -16,6 +16,14 @@ export function SecuritySection() {
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }} className="text-center mb-16">
           <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">Security</p>
           <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">Security built in, not bolted on</h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            Transaction simulation, policy enforcement, on-chain audit, and emergency pause.
+            Compatibility with{' '}
+            <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-foreground underline hover:no-underline">
+              Bastion Agentique
+            </a>{' '}
+            planned.
+          </p>
           <p className="text-muted-foreground max-w-xl mx-auto">Planned integration. Transaction simulation, policy enforcement, on-chain audit, emergency pause.</p>
         </motion.div>
 
