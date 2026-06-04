@@ -1,0 +1,13 @@
+[workspace]
+members = ["programs/chaos_compute"]
+
+[workspace.metadata.solana]
+target = "sbf"
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+
+[profile.deploy]
+inherits = "release"

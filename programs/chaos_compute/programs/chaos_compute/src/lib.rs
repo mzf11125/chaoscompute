@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg");
 
 pub mod constants {
     pub const COHORT_SIZE: usize = 3;

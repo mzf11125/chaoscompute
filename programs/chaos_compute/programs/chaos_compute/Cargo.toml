@@ -18,4 +18,3 @@ default = []
 [dependencies]
 anchor-lang = "0.30.1"
 anchor-spl = "0.30.1"
-switchboard-on-demand = { version = "0.5", features = ["anchor"], optional = true }
