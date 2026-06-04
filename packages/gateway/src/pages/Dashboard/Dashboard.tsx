@@ -17,7 +17,7 @@ export default function Dashboard() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-text-primary">Gateway Status</h1>
         <p className="text-text-secondary text-sm mt-1">
-          Phase 1 — Inference routing via CLIProxyAPI. Phase 2 — Fully decentralized compute with game-theoretic node selection.
+          Provider cost + 5% margin. Revenue funds the Phase 2 decentralized compute treasury.
         </p>
       </div>
 

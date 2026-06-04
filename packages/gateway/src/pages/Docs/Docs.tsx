@@ -57,7 +57,30 @@ export default function Docs() {
         </Card>
 
         <Card padding="lg">
-          <Code size={24} className="text-accent mb-4" aria-hidden="true" />
+          <Shield size={24} className="text-foreground mb-4" aria-hidden="true" />
+          <h2 className="text-foreground font-semibold mb-2">How We Make Money</h2>
+          <p className="text-muted-foreground text-sm mb-4">
+            Provider cost + 5% transparent margin. 100% of revenue funds the Phase 2 treasury.
+          </p>
+          <div className="space-y-2 text-xs mb-4">
+            {[
+              ['OpenAI GPT-4o', '$2.50', '$0.125', '$2.625'],
+              ['Anthropic Sonnet', '$3.00', '$0.15', '$3.15'],
+              ['DeepSeek V3', '$0.27', '$0.014', '$0.284'],
+              ['Together Llama', '$0.88', '$0.044', '$0.924'],
+            ].map(([p, cost, fee, total]) => (
+              <div key={p} className="flex items-center justify-between py-1 border-b border-border last:border-0">
+                <span className="text-foreground">{p}</span>
+                <span className="text-muted-foreground font-mono">{cost} + {fee} = {total}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-muted-foreground text-xs">
+            Per 1M input tokens. Cheaper providers (DeepSeek, Llama) for budget. Premium (GPT-4o, Claude) for quality.
+          </p>
+        </Card>
+
+        <Card padding="lg">
           <h2 className="text-text-primary font-semibold mb-2">Phase 2: Decentralized Compute</h2>
           <p className="text-text-secondary text-sm mb-4">
             The endgame: a fully decentralized compute market where anyone's GPU competes.

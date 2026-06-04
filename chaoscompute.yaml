@@ -1,7 +1,7 @@
 name: chaoscompute
 subdomain: chaoscompute
 title: 'ChaosCompute — Decentralized AI Inference'
-description: 'Drop-in OpenAI-compatible AI inference API with pay.sh wallet-approved HTTP 402 payments on Solana.'
+description: 'OpenAI-compatible AI inference with pay.sh HTTP 402 payments on Solana. Provider cost + 5% margin. Revenue funds Phase 2 decentralized compute.'
 category: ai_ml
 version: v1
 
@@ -25,37 +25,63 @@ endpoints:
 
   - method: GET
     path: 'v1/models'
-    description: 'List available AI models from all supported providers. Free.'
+    description: 'List available AI models from all 20+ supported providers. Free.'
 
   - method: POST
     path: 'v1/chat/completions'
-    description: 'OpenAI-compatible chat completions routed to the best available provider. Per-token metering via HTTP 402.'
+    description: 'OpenAI-compatible chat completions. Dynamic per-provider pricing: provider cost + 5% gateway margin. Revenue funds the Phase 2 decentralized compute treasury.'
     metering:
       dimensions:
         - direction: input
           unit: tokens
           scale: 1000000
           tiers:
-            - price_usd: 0.50
+            - price_usd: 3.00
         - direction: output
           unit: tokens
           scale: 1000000
           tiers:
-            - price_usd: 1.50
+            - price_usd: 12.00
     session:
       ttl_seconds: 300
 
   - method: GET
     path: 'v1/spend'
-    description: 'Wallet spend summary. Free.'
+    description: 'Wallet spend summary with per-provider cost breakdown. Free.'
 
   - method: GET
     path: 'v1/providers'
-    description: 'List supported AI providers and their models. Free.'
+    description: 'List 20+ supported AI providers, models, and per-provider pricing. Free.'
 
 notes: |
-  **ChaosCompute** is a decentralized AI inference gateway powered by CLIProxyAPI routing
-  and pay.sh HTTP 402 payments on Solana. Drop-in OpenAI compatibility with 20+ upstream
-  providers including OpenAI, Anthropic, Google Gemini, xAI, Kimi, DeepSeek, GLM, and more.
+  **Dynamic Per-Provider Pricing**
 
-  `pay curl https://gateway.chaoscompute.io/v1/chat/completions`
+  You pay provider cost + 5% transparent margin. Every request shows the exact breakdown:
+
+  ```
+  Provider: OpenAI GPT-4o
+  Provider cost: $2.50/1M input
+  Gateway fee:  $0.125/1M (5%)
+  You pay:      $2.625/1M input
+  ```
+
+  | Provider | Input/1M | Output/1M | With 5% |
+  |---|---|---|---|
+  | OpenAI GPT-4o | $2.50 | $10.00 | $2.625 / $10.50 |
+  | Anthropic Sonnet | $3.00 | $15.00 | $3.15 / $15.75 |
+  | Gemini 2.5 Pro | $1.25 | $10.00 | $1.313 / $10.50 |
+  | DeepSeek V3 | $0.27 | $1.10 | $0.284 / $1.155 |
+  | Together Llama | $0.88 | $0.88 | $0.924 / $0.924 |
+
+  **Where the margin goes:**
+  100% of gateway revenue funds the Phase 2 decentralized compute treasury —
+  game-theoretic node selection, stake-weighted VRF racing, and on-chain settlement.
+
+  Use cheaper providers (DeepSeek, Llama) for budget-sensitive workloads.
+  Use premium providers (GPT-4o, Claude) when quality matters most.
+  You always see what you're paying and where the money goes.
+
+  **Why not cheaper?**
+  The margin is the entire revenue model. No VC funding, no token pre-sale, no hidden fees.
+  Phase 2 (decentralized compute) is self-funded by Phase 1 (inference gateway).
+  Every request builds the decentralized future.
