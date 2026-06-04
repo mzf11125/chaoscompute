@@ -1,12 +1,16 @@
 name: chaoscompute
 subdomain: chaoscompute
 title: 'ChaosCompute — Decentralized AI Inference'
-description: 'Drop-in OpenAI-compatible AI inference API with pay-as-you-go Solana stablecoin payments.'
+description: 'Drop-in OpenAI-compatible AI inference API with pay.sh wallet-approved HTTP 402 payments on Solana.'
 category: ai_ml
 version: v1
 
 routing:
-  type: respond
+  type: proxy
+  url: https://api.openai.com
+
+env:
+  UPSTREAM_API_KEY: ${UPSTREAM_API_KEY:-}
 
 operator:
   currencies:
@@ -17,15 +21,15 @@ operator:
 endpoints:
   - method: GET
     path: 'v1/health'
-    description: 'Health check (free).'
+    description: 'Gateway health check. Free.'
 
   - method: GET
     path: 'v1/models'
-    description: 'List available AI models (free).'
+    description: 'List available AI models from all supported providers. Free.'
 
   - method: POST
     path: 'v1/chat/completions'
-    description: 'OpenAI-compatible chat completions. Charged per token (input + output).'
+    description: 'OpenAI-compatible chat completions routed to the best available provider. Per-token metering via HTTP 402.'
     metering:
       dimensions:
         - direction: input
@@ -43,9 +47,15 @@ endpoints:
 
   - method: GET
     path: 'v1/spend'
-    description: 'Get wallet spend summary (free).'
+    description: 'Wallet spend summary. Free.'
+
+  - method: GET
+    path: 'v1/providers'
+    description: 'List supported AI providers and their models. Free.'
 
 notes: |
-  **ChaosCompute** is a decentralized AI inference gateway on Solana.
-  Drop-in OpenAI compatibility. Pay per token via HTTP 402.
+  **ChaosCompute** is a decentralized AI inference gateway powered by CLIProxyAPI routing
+  and pay.sh HTTP 402 payments on Solana. Drop-in OpenAI compatibility with 20+ upstream
+  providers including OpenAI, Anthropic, Google Gemini, xAI, Kimi, DeepSeek, GLM, and more.
+
   `pay curl https://gateway.chaoscompute.io/v1/chat/completions`

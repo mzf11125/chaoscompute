@@ -7,6 +7,7 @@ import Dashboard from '@/pages/Dashboard/Dashboard'
 import ApiKeys from '@/pages/ApiKeys/ApiKeys'
 import Docs from '@/pages/Docs/Docs'
 import Api from '@/pages/Api/Api'
+import Providers from '@/pages/Providers/Providers'
 import NotFound from '@/pages/NotFound'
 
 export default function App() {
@@ -22,15 +23,16 @@ export default function App() {
         <ErrorBoundary>
           <Navbar />
           <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/api-keys" element={<ApiKeys />} />
-              <Route path="/docs" element={<Docs />} />
-              <Route path="/api" element={<Api />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Footer />
-          </ErrorBoundary>
+            <Route path="/" element={<Landing />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/providers" element={<Providers />} />
+            <Route path="/api-keys" element={<ApiKeys />} />
+            <Route path="/docs" element={<Docs />} />
+            <Route path="/api" element={<Api />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </ErrorBoundary>
       </div>
     </div>
   )

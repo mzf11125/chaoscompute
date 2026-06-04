@@ -34,7 +34,7 @@ export function HeroSection() {
         >
           pay.sh payments.
           <br />
-          Bittensor architecture.
+          CLIProxyAPI routing.
           <br />
           <span className="text-accent">Solana speed.</span>
         </motion.h1>
@@ -44,8 +44,9 @@ export function HeroSection() {
           transition={{ ...t, delay: d(0.2) }}
           className="text-text-secondary text-lg max-w-2xl mx-auto mb-8"
         >
-          The first AI inference API with HTTP 402 wallet-approved payments.
-          No sign-up. No subscription. No API key. Your wallet pays per token at execution time.
+          AI inference API with HTTP 402 wallet-approved payments on Solana.
+          Powered by CLIProxyAPI's routing engine. 20+ upstream providers.
+          No sign-up. No subscription. No API key.
         </motion.p>
 
         <motion.div
@@ -53,38 +54,25 @@ export function HeroSection() {
           transition={{ ...t, delay: d(0.3) }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
-          <a
-            href="https://pay.sh/docs/get-started/install"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-accent text-surface font-medium text-base hover:bg-accent-hover motion-safe:transition-colors min-h-[48px] focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none"
-          >
+          <a href="https://pay.sh/docs/get-started/install" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-accent text-surface font-medium text-base hover:bg-accent-hover motion-safe:transition-colors min-h-[48px] focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none">
             Install pay.sh
           </a>
-          <a
-            href="https://github.com/mzf11125/chaoscompute"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-surface-elevated text-text-primary font-medium text-base border border-border hover:bg-surface-hover hover:border-border-strong motion-safe:transition-colors min-h-[48px] focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none"
-          >
+          <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-surface-elevated text-text-primary font-medium text-base border border-border hover:bg-surface-hover hover:border-border-strong motion-safe:transition-colors min-h-[48px] focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-surface outline-none">
             View on GitHub
           </a>
         </motion.div>
 
-        <motion.div
-          initial={initial} animate={animate}
-          transition={{ ...t, delay: d(0.4) }}
-          className="bg-surface-elevated border border-border rounded-2xl p-5 max-w-xl mx-auto text-left"
-        >
+        <motion.div initial={initial} animate={animate} transition={{ ...t, delay: d(0.4) }}
+          className="bg-surface-elevated border border-border rounded-2xl p-5 max-w-xl mx-auto text-left">
           <div className="flex items-center gap-2 text-text-muted text-xs mb-3" aria-hidden="true">
             <span className="w-3 h-3 rounded-full bg-error/40" />
             <span className="w-3 h-3 rounded-full bg-warning/40" />
             <span className="w-3 h-3 rounded-full bg-success/40" />
             <span className="ml-2">terminal — chaoscompute.sh</span>
           </div>
-          <pre className="text-sm text-text-primary overflow-x-auto leading-relaxed">
-            <code>{CODE}</code>
-          </pre>
+          <pre className="text-sm text-text-primary overflow-x-auto leading-relaxed"><code>{CODE}</code></pre>
         </motion.div>
       </div>
     </section>

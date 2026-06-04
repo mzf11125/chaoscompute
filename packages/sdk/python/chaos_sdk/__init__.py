@@ -1,28 +1,29 @@
-"""ChaosCompute Python SDK — Solana wallet-signed API authentication."""
+"""ChaosCompute Python SDK — pay.sh HTTP 402 wallet-approved API access.
 
-import json
-import time
-import secrets
-import base64
+ChaosCompute uses pay.sh for HTTP 402 wallet payments on Solana.
+Install pay.sh, then use the pay CLI to wrap any HTTP client:
 
+    curl -fsSL https://pay.sh/install | sh
+    pay curl https://gateway.chaoscompute.io/v1/chat/completions \\
+      -H 'content-type: application/json' \\
+      -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
 
-class ChaosSigner:
-    """Signs API requests using a Solana ed25519 keypair.
+For programmatic access, use the ChaosSigner to generate
+Solana wallet-signed JWTs for direct API calls.
 
-    Generates ephemeral JWTs (5-minute expiry) signed by the Solana
-    keypair. The Gateway verifies the signature and deducts USDC per
-    request — no API key, no subscription, no credit top-up needed.
+Usage:
+    from openai import OpenAI
+    from chaos_sdk import ChaosSigner
 
-    Usage:
-        from openai import OpenAI
-        from chaos_sdk import ChaosSigner
+    signer = ChaosSigner("YOUR_SOLANA_PRIVATE_KEY_BASE58")
+    client = OpenAI(
+        base_url="https://api.chaoscompute.io/v1",
+        api_key=signer.token(),
+    )
 
-        signer = ChaosSigner("YOUR_SOLANA_PRIVATE_KEY_BASE58")
-        client = OpenAI(
-            base_url="https://api.chaoscompute.io/v1",
-            api_key=signer.token(),
-        )
-    """
+See https://pay.sh/docs for full pay.sh documentation.
+See https://github.com/mzf11125/chaoscompute for provider spec and source.
+"""
 
     def __init__(self, private_key: str):
         """Initialize with a Solana private key (base58 or byte array).

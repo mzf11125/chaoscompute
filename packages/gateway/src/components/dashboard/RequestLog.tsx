@@ -3,9 +3,10 @@ import Card from '@/components/ui/Card'
 const logs = [
   { id: '1', time: '2m ago', model: 'gpt-4o', provider: 'OpenAI', tokens: 757, cost: '0.0021', latency: 320, status: '200' },
   { id: '2', time: '5m ago', model: 'claude-sonnet-4', provider: 'Anthropic', tokens: 3072, cost: '0.0150', latency: 410, status: '200' },
-  { id: '3', time: '12m ago', model: 'gpt-4o', provider: 'OpenAI → Anthropic', tokens: 345, cost: '0.0008', latency: 890, status: '402' },
-  { id: '4', time: '23m ago', model: 'llama-3-70b', provider: 'Together', tokens: 1591, cost: '0.0012', latency: 220, status: '200' },
+  { id: '3', time: '12m ago', model: 'gemini-2.5-flash', provider: 'Google Gemini → Anthropic', tokens: 345, cost: '0.0008', latency: 890, status: '402' },
+  { id: '4', time: '23m ago', model: 'llama-3-70b', provider: 'Together AI', tokens: 1591, cost: '0.0012', latency: 220, status: '200' },
   { id: '5', time: '45m ago', model: 'claude-haiku-4', provider: 'Anthropic', tokens: 245, cost: '0.0003', latency: 95, status: '200' },
+  { id: '6', time: '1h ago', model: 'deepseek-v3', provider: 'DeepSeek', tokens: 4890, cost: '0.0042', latency: 580, status: '200' },
 ]
 
 export function RequestLog() {
