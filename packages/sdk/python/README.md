@@ -2,7 +2,16 @@
 
 `pip install chaos-sdk`
 
-Swap two lines of code. Your Solana wallet pays the bill — per request, at execution time.
+ChaosCompute uses pay.sh for HTTP 402 wallet payments. Preferred integration:
+
+```bash
+curl -fsSL https://pay.sh/install | sh
+pay curl https://gateway.chaoscompute.io/v1/chat/completions \
+  -H 'content-type: application/json' \
+  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
+```
+
+For programmatic access without pay.sh:
 
 ```python
 from openai import OpenAI
@@ -13,7 +22,6 @@ client = OpenAI(
     base_url="https://api.chaoscompute.io/v1",
     api_key=signer.token(),
 )
-
 response = client.chat.completions.create(
     model="gpt-4o",
     messages=[{"role": "user", "content": "Hello"}],
@@ -22,7 +30,9 @@ response = client.chat.completions.create(
 
 ## Features
 
-- **Zero credentials stored** — ephemeral JWT, 5-minute expiry
-- **Non-custodial** — your wallet signs per request
+- **pay.sh HTTP 402** — preferred: `pay curl` handles auth automatically
+- **ChaosSigner fallback** — programmatic JWT from Solana keypair
 - **OpenAI-compatible** — drop-in replacement, existing code works unchanged
-- **Auto-refresh** — generate a fresh token before every call
+- **Non-custodial** — never deposit into anyone's account
+
+See [docs/API.md](../docs/API.md) for full API reference.

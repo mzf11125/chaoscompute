@@ -1,38 +1,24 @@
 # ChaosCompute — Product Requirements Document
 
-**Version:** 3.0
-**Deadline:** June 12, 2026 (EasyA Kickstart Hackathon)
-**Tagline:** 9router's simplicity. Bittensor's architecture. Solana's speed.
+**Version:** 4.0
+**Tagline:** pay.sh payments. CLIProxyAPI routing. Decentralized compute next.
 
 ---
 
 ## 1. Executive Summary
 
-**Start here:** Change two lines of code. That's the entire integration cost.
+ChaosCompute is a two-phase AI inference platform on Solana.
 
-```python
-# Before
-client = OpenAI(base_url="https://api.openai.com/v1", api_key="sk-...")
+**Phase 1 — Inference Gateway (Live):** Drop-in OpenAI-compatible API. CLIProxyAPI routing across 20+ upstream providers. pay.sh HTTP 402 wallet-approved payments. No sign-up. No subscription. No API key.
 
-# After
-client = OpenAI(base_url="https://api.chaoscompute.io/v1", api_key=signer.token())
+**Phase 2 — Decentralized Compute (Roadmap):** Game-theoretic compute market. Anyone's GPU competes. Stake-weighted VRF racing. Blind race mechanic. Optimistic slashing. Feature parity with Bittensor's architecture, delivered with OpenAI-compatible simplicity and Solana speed.
+
+```bash
+curl -fsSL https://pay.sh/install | sh
+pay curl https://gateway.chaoscompute.io/v1/chat/completions \
+  -H 'content-type: application/json' \
+  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
 ```
-
-Your app now runs on a decentralized compute market. Your AI agent now self-pays per request from its own Solana wallet. You never deposited anything into anyone's account. You never signed up for anything. You just swapped a URL.
-
-That's the product.
-
-**What's happening underneath** is what makes it defensible: every inference request is broadcast as an on-chain bounty on Solana. A cohort of independent GPU nodes races to execute it in parallel. A stake-weighted cryptographic raffle picks the winner. The smart contract pays out. The whole thing settles in under 400ms for a fraction of a cent.
-
-There is no router. No scheduler. No centralized gateway. The smart contract *is* the router.
-
-**The positioning in one sentence:**
-ChaosCompute is what you get when you take 9router's developer simplicity, rebuild the supply side as a Bittensor-style decentralized compute market, and settle every transaction on Solana.
-
-**Why each piece of that matters:**
-- **9router's simplicity** — developers adopt it in minutes, not days. Drop-in OpenAI compatibility. No new mental model required.
-- **Bittensor's architecture** — open supply side, permissionless provider entry, token-economic incentives. Anyone with a GPU can participate.
-- **Solana's speed** — 400ms block times, $0.00025 per transaction. Fast enough to settle inference requests in real time without adding noticeable latency.
 
 ---
 
@@ -40,184 +26,151 @@ ChaosCompute is what you get when you take 9router's developer simplicity, rebui
 
 ### 2.1 For Developers & AI Agents
 
-The current inference market has a structural trust problem. Every option requires you to hand control to a third party.
+**OpenAI / Anthropic:** Single provider. Single point of failure. Rate limits. Pricing changes.
 
-**OpenAI / Anthropic:** Single provider. Single point of failure. If they go down, rate-limit you, or change pricing, you're stuck.
+**OpenRouter:** $113M raised for a custodial credit system. You deposit money into their account. 5.5% top-up fee. No on-chain audit trail.
 
-**OpenRouter:** Unified credits solve the multi-key problem but introduce custodial risk. You deposit funds into their account. If they freeze access, your balance is gone. You're still paying corporate API markup on top.
+**9router:** Local proxy. No payment layer. Requires you to manage your own API keys for every provider.
 
-**9router:** Brilliant local proxy for managing your own subscriptions — but it's just a routing layer. You still pay for subscriptions you may not fully use. There's no supply side, no market pricing, no way for the network to get cheaper as it grows.
-
-**For AI agents specifically:** Codex, Devin, and similar agents can't safely store API keys. A self-paying agent needs to sign micropayments from its own wallet — not manage rotating credentials. No current solution supports this natively.
+**Jatevo:** Token-gated daily quota. Hold $JTVO to unlock capacity. Unused capacity wasted at reset.
 
 ### 2.2 For GPU Providers
 
-The supply side of AI compute is a closed club. Every major inference marketplace — OpenRouter, Together, Jatevo — requires whitelisting, enterprise contracts, or KYC. An independent developer running an idle RTX 4090 has no way to sell that compute. Idle GPU capacity is wasted capacity, and there's no open market to price it.
+The supply side of AI compute is closed. No open market for bare-metal GPU inference.
 
 ---
 
 ## 3. How ChaosCompute Fixes This
 
-| Problem | ChaosCompute's Fix |
-|---|---|
-| Custodial balance risk | Non-custodial — agent signs per request, never deposits |
-| Corporate API markup | Routes to bare-metal hardware; pricing is raw compute cost |
-| Single provider failure | 3-5 nodes race per request; if one fails, another finishes |
-| Agent credential management | Solana wallet = the API key; ephemeral JWT per request |
-| Closed supply side | Stake the token, run the daemon, you're a provider |
-| Complex web3 integration | OpenAI-compatible API; existing code works unchanged |
+| Problem | Phase 1 Fix | Phase 2 Fix |
+|---|---|---|
+| Custodial risk | pay.sh HTTP 402 — wallet signs per request | Same + on-chain settlement |
+| Single provider failure | CLIProxyAPI fallback across 20+ providers | Speculative parallel execution (3-5 node race) |
+| Agent credential mgmt | pay.sh wraps any CLI tool, handles 402 automatically | Same |
+| Closed supply side | n/a (Phase 2) | Stake token, run daemon, you're a provider |
+| Opaque billing | Solana memo per settlement | Same + immutable on-chain audit |
 
 ---
 
 ## 4. Users
 
 ### 4.1 Human Developers
-Builders of AI-powered applications who currently use OpenAI, Anthropic, or OpenRouter. They care about three things: cost, uptime, and zero migration friction. ChaosCompute delivers all three.
+Builders of AI-powered apps. One URL. All providers. Wallet pays per token.
 
-### 4.2 Autonomous AI Agents
-Coding agents (Codex, Devin, Claude Code) that self-fund from a Solana hot wallet. ChaosCompute is the first inference API designed for agents that actually own their own wallet.
+### 4.2 AI Agents
+Self-paying agents. pay.sh wraps Claude Code, Codex, OpenClaw — handles 402 automatically.
 
-### 4.3 GPU Providers
-Independent GPU operators who want to monetize compute without enterprise contracts. Run the node client, stake the token, earn fees.
+### 4.3 GPU Providers (Phase 2)
+Independent GPU operators. Stake token, run daemon, earn fees per race.
 
 ---
 
-## 5. The Developer Experience
+## 5. Developer Experience
 
-### 5.1 The Integration Flow
-
-**Step 1:** Install the SDK.
 ```bash
-pip install chaos-sdk
+# Install pay.sh
+curl -fsSL https://pay.sh/install | sh
+
+# Discover ChaosCompute
+pay skills search chaoscompute
+
+# Call any model
+pay curl https://gateway.chaoscompute.io/v1/chat/completions \
+  -H 'content-type: application/json' \
+  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
-**Step 2:** Swap the client.
-```python
-from openai import OpenAI
-from chaos_sdk import ChaosSigner
+### Model Aliases
 
-signer = ChaosSigner(private_key="YOUR_SOLANA_PRIVATE_KEY")
-client = OpenAI(
-    base_url="https://api.chaoscompute.io/v1",
-    api_key=signer.token()
-)
-response = client.chat.completions.create(
-    model="chaos-fast",
-    messages=[{"role": "user", "content": "Write a Rust function for token transfers"}]
-)
-```
-
-**Step 3:** Fund the wallet with a few USDC. Done.
-
-### 5.2 What the SDK Handles Automatically
-
-- Generates an ephemeral JWT signed by the Solana keypair on each request
-- Broadcasts the bounty transaction and micro-fee to Solana
-- Polls for bounty resolution (winner selected by VRF)
-- Decrypts and returns the plaintext response
-- Warns the developer when wallet balance drops below 10 requests of runway
-
-### 5.3 Model Names
-
-- `chaos-fast` — fastest available model in the selected cohort
-- `chaos-coder` — cohort biased toward code-optimized models
-- `chaos-reasoning` — cohort biased toward reasoning-capable models
+| Alias | Routing |
+|---|---|
+| `best-available` | Cheapest under rate limit |
+| `best-fast` | Lowest p50 latency |
+| `best-smart` | Highest capability tier |
+| `best-coder` | Code-optimized models |
+| `best-long` | 128k+ context windows |
 
 ---
 
-## 6. Core Architecture
+## 6. Phase 2: Decentralized Compute
 
 ### 6.1 The Speculative Racing Paradigm
 
-**Traditional inference (9router model):**
-Request → proxy selects best provider → single node executes → response
+**Traditional:** Request → proxy → single node → response
+**ChaosCompute:** Request → contract selects 3-5 nodes → all race → VRF picks winner → response
 
-**ChaosCompute Core:**
-Request → smart contract selects cohort of 3-5 nodes → all race in parallel → stake-weighted raffle picks winner → response
+### 6.2 Five-Step Flow
 
-### 6.2 The Five-Step Request Flow
+1. **REQUEST** — BountyAccount created on-chain with encrypted prompt hash
+2. **COHORT SELECTION** — Slot-hash pseudo-random sqrt(stake)-weighted selection
+3. **PARALLEL EXECUTION** — Nodes race, submit commitment within 3 slots (~1.5s)
+4. **WINNER SELECTION** — VRF provides tamper-proof randomness, raffle
+5. **DELIVERY + VERIFICATION** — Winner streams output, 10-block slashing window
 
-```
-1. REQUEST → BountyAccount created on-chain with encrypted prompt hash
-2. COHORT SELECTION → Slot-hash pseudo-random selection of 3-5 staked nodes
-3. PARALLEL EXECUTION → Nodes race, submit commitment_hash within 3 slots
-4. WINNER SELECTION → VRF oracle provides randomness, stake-weighted raffle
-5. DELIVERY + VERIFICATION → Winner streams output, 10-block slashing window opens
-```
+### 6.3 Security Fixes
 
-### 6.3 Stake-Weighted Raffle
-
-```
-P(node_i) = sqrt(stake_i) / Σ sqrt(stake_j)  for all j in cohort
-```
-
-### 6.4 Security Fixes
-
-**Fix 1 — Garbage Output:** Optimistic slashing. Fraud proof within 10 blocks. Execution trace revealed. Stake slashed.
-**Fix 2 — Energy Waste:** Mini-cohort (3-5 nodes) per request, not all nodes.
-**Fix 3 — MEV / Validator Collusion:** VRF from Pyth Entropy or Switchboard.
-**Fix 4 — Geolocation Bias:** 1.5-second submission window. All timely entries equal.
-**Fix 5 — Prompt Privacy:** Ephemeral Diffie-Hellman encryption + TEE execution.
+| Attack | Defense |
+|---|---|
+| Garbage output | Optimistic slashing — fraud proof within 10 blocks |
+| Energy waste | Mini-cohort (3-5 nodes, not entire network) |
+| MEV/validator collusion | VRF (Pyth Entropy or Switchboard) |
+| Geolocation bias | 1.5s submission window — all timely entries equal |
+| Prompt privacy | Ephemeral DH encryption + TEE execution |
 
 ---
 
 ## 7. Competitive Positioning
 
-| Competitor | Their strength | Their flaw | ChaosCompute's answer |
-|---|---|---|---|
-| OpenRouter | 300+ models, unified credits | Custodial, centralized | Non-custodial, bare-metal, no markup |
-| 9router | Drop-in proxy, RTK compression | No supply side | Same UX, decentralized backend |
-| Jatevo | Pooled model gateway | Centralized scheduler | No scheduler, smart contract router |
-| Bittensor | Proven decentralized AI incentives | Complex UX, custom L1 | Same architecture, drop-in, Solana-native |
-
-**One-liners:**
-- vs OpenRouter: "Non-custodial. Your wallet signs per request. Nothing deposited anywhere."
-- vs 9router: "Same UX, but the backend is an open market."
-- vs Jatevo: "No scheduler. Stake and probability decide."
-- vs Bittensor: "Same idea, usable in 5 minutes, settled on Solana."
+| Competitor | Our Answer |
+|---|---|
+| OpenRouter | Non-custodial HTTP 402. No credit deposit. |
+| Jatevo | Pay per token, not daily quota. |
+| 9router | Cloud-hosted. pay.sh handles payments. |
+| Bittensor | OpenAI-compatible today. Same architecture Phase 2. |
 
 ---
 
-## 8. Token Economics
+## 8. Token Economics (Phase 2)
 
-- **Staking collateral:** Nodes must stake tokens to enter cohort selection
-- **Slashing collateral:** Fraud proof penalty burns staked tokens
-- **Protocol fees:** ~1% per request to creator wallet
+- **Staking collateral** — enter cohort selection
+- **Slashing collateral** — fraud proof burns stake
+- **Protocol fees** — ~1% per request to creator wallet
 
 ---
 
-## 9. MVP Scope (June 12)
+## 9. Security
+
+Designed for [Bastion Agentique](https://bastionagentique.com) — planned integration:
+- Transaction simulation before execution
+- Policy engine (program whitelist, SOL caps, rate limits)
+- On-chain audit trail on Solana
+- Emergency pause circuit breaker
+
+---
+
+## 10. MVP Scope
 
 ### In Scope
-- Vite + React Gateway with Dark Cinematic design
-- 3 provider integrations (OpenAI, Anthropic, Together)
-- Solana wallet JWT authentication
-- Per-request USDC settlement (async)
-- Python SDK (chaos-sdk)
-- Node.js SDK (@chaoscompute/sdk)
-- Spend dashboard
-- Solana Blink demo
-- Anchor program skeleton
+- Vite + React Gateway with pay.sh HTTP 402 payments
+- CLIProxyAPI routing across 20+ real providers
+- Gateway Status page (ProviderHealth, SpendView, RequestLog)
+- Landing page (Hero, HowItWorks, Security, Competitors)
+- Docs, API, Providers pages
+- Python + Node.js SDKs
+- Anchor program skeleton (Phase 2 core)
+- chaoscompute.yaml pay.sh provider spec
 
-### Out of Scope (Post-Hackathon)
+### Out of Scope
 - Real TEE enforcement
-- Full IPFS/Arweave prompt encryption
-- Provider dashboard UI (CLI only for MVP)
+- Full IPFS/Arweave encryption pipeline
 - Multi-chain settlement
+- Bastion integration code (both in development)
 
 ---
 
-## 10. The 60-Second Pitch
+## 11. The Pitch
 
-*"Every AI agent being built right now calls an inference API. OpenAI, Anthropic, OpenRouter — they all work the same way. You hand your money and your data to a company, they route your request to their servers, you hope they stay online.*
-
-*ChaosCompute is a two-line change that removes the company from that equation.*
-
-*That's it. Your existing agent code works. But now, instead of calling OpenAI's server, you're broadcasting a bounty onto Solana. Three GPU nodes — anywhere in the world — race to answer your prompt in parallel. A cryptographic raffle picks the winner. The smart contract pays them out. You get your answer.*
-
-*There is no router. No scheduler. No company holding your funds. The smart contract is the router.*
-
-*9router's simplicity. Bittensor's architecture. Solana's speed. ChaosCompute."*
+*"pay.sh's payments. CLIProxyAPI routing. Decentralized compute next. ChaosCompute."*
 
 ---
 

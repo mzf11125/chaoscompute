@@ -3,61 +3,52 @@
 ## Getting Started
 
 ```bash
-git clone https://github.com/protocoldaemon-sec/chaoscompute.git
+git clone https://github.com/mzf11125/chaoscompute.git
 cd chaoscompute
 pnpm install
 pnpm --filter gateway dev
+# → http://localhost:20128
 ```
 
-## Monorepo Structure
+## Monorepo
 
 ```
 chaoscompute/
-├── packages/gateway/    ← Main app (Vite + React)
+├── packages/gateway/    ← Vite + React app
 ├── packages/sdk/        ← Python + Node.js SDKs
 ├── programs/            ← Anchor on-chain program (Rust)
 └── docs/                ← Documentation
 ```
 
-## Development Workflow
+## Development
 
 1. Create a feature branch: `git checkout -b feat/my-feature`
 2. Make changes, run checks: `pnpm lint && pnpm typecheck`
-3. Commit with conventional commits: `feat:`, `fix:`, `docs:`, `chore:`
+3. Commit: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `redesign:`
 4. Open a PR against `main`
 
 ## Code Style
 
 - TypeScript strict mode
-- No semicolons
-- Single quotes
-- 2-space indentation
+- No semicolons, single quotes, 2-space indent
 - Components: named exports, barrel files
 - Path aliases: `@/` → `src/`
 
 ## Design System
 
-Use the Dark Cinematic design system for all UI:
-- Colors: `--color-surface` (#000), `--color-accent` (#DEDBC8)
-- Buttons: `rounded-full` (pill)
-- Cards: `rounded-3xl`, `bg-[--color-surface-elevated]`
-- Font: Manrope (UI), Geist Mono (code)
-- Animations: framer-motion, `cubic-bezier(0.16, 1, 0.3, 1)`
+- Inter (body) + Instrument Serif italic (accents)
+- HSL tokens: `--background`, `--foreground`, `--card`, `--border`
+- Buttons: `rounded-full`, primary = `bg-foreground text-background`
+- Cards: `rounded-2xl`, `bg-card border border-border`
+- Liquid glass: `backdrop-filter: blur(4px)` + gradient mask
 
 ## Testing
 
 ```bash
-pnpm test                    # Run all tests
-pnpm --filter gateway test   # Gateway tests
+pnpm test                              # All tests
+pnpm --filter gateway test             # Gateway tests
 cd programs/chaos_compute && anchor test
 ```
-
-## Adding a Provider
-
-1. Create `packages/gateway/src/lib/providers/<provider>.ts`
-2. Implement the `Provider` interface from `src/lib/routing/types.ts`
-3. Add to provider registry in `src/lib/routing/providers.ts`
-4. Test with a real API key
 
 ## License
 

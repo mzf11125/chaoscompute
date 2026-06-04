@@ -1,51 +1,44 @@
-# ChaosCompute — 60-Second Pitch Script
+# ChaosCompute — 60-Second Pitch
 
-*"Every AI agent being built right now calls an inference API. OpenAI, Anthropic, OpenRouter — they all work the same way. You hand your money and your data to a company, they route your request to their servers, you hope they stay online.*
+*"Every AI agent being built right now calls an inference API. OpenAI, Anthropic, OpenRouter — they all work the same way. You hand your money and your data to a company, they route your request, you hope they stay online.*
 
-*ChaosCompute is a two-line change that removes the company from that equation.*
+*ChaosCompute removes the company from that equation.*
 
-*[SHOW THE CODE SWAP]*
+*Install pay.sh. Point at our endpoint. Your wallet pays per token at execution time via HTTP 402. No sign-up. No subscription. No API key. CLIProxyAPI routes your request to the best provider across 20+ options. You get your answer.*
 
-*That's it. Your existing agent code works. But now, instead of calling OpenAI's server, you're broadcasting a bounty onto Solana. Three GPU nodes — anywhere in the world — race to answer your prompt in parallel. A cryptographic raffle picks the winner. The smart contract pays them out. You get your answer.*
+*[Show the pay curl flow]*
 
-*There is no router. No scheduler. No company holding your funds. The smart contract is the router.*
+*That's Phase 1 — inference routing, live today. Phase 2 replaces routing entirely. Game theory picks the winner. Anyone's GPU competes. Stake-weighted VRF racing. Optimistic slashing. The smart contract becomes the router.*
 
-*[SHOW THE BLINK DEMO]*
-
-*For the demo — here's the same thing as a Solana Blink. Type a prompt. Approve one transaction. Watch three nodes race. Under three seconds.*
-
-*The supply side is open. Anyone with a GPU can stake our token and join. Solo RTX 4090 in your bedroom competes with a Frankfurt data center. Market pricing drives cost to the floor.*
-
-*9router's simplicity. Bittensor's architecture. Solana's speed. ChaosCompute."*
+*pay.sh's payments. CLIProxyAPI routing. Decentralized compute next. ChaosCompute."*
 
 ---
 
-## Alternate: 30-Second Elevator Pitch
+## 30-Second Elevator Pitch
 
-*"ChaosCompute is what 9router would be if it were built on Solana with non-custodial per-request payments. Two lines of code. Your agent self-pays from its own wallet. No subscriptions, no credits, no company holding your money. Gateway ships today. Core — the decentralized market — ships next."*
+*"ChaosCompute is what 9router would be if it were cloud-hosted with pay.sh HTTP 402 payments. One endpoint. 20+ providers. Your wallet pays per token. Phase 2 replaces routing with game theory."*
 
 ---
 
-## Key Lines (Memorize These)
+## Key Lines (Memorize)
 
-1. "The smart contract is the router."
-2. "Two lines of code. Your agent self-pays."
-3. "Non-custodial by design. Your wallet signs per request."
-4. "9router's simplicity. Bittensor's architecture. Solana's speed."
-5. "Gateway is what you ship today. Core is where we're going."
+1. "pay.sh's payments. CLIProxyAPI routing. Decentralized compute next."
+2. "No sign-up. No subscription. No API key. Wallet pays per token."
+3. "Phase 2 replaces routing entirely — game theory picks the winner."
+4. "The smart contract is the router."
 
 ---
 
 ## Handling Tough Questions
 
-**Q: "How is this different from OpenRouter?"**
-A: "OpenRouter holds your money. We don't. Your wallet signs per request. Nothing deposited anywhere. Plus we have a direct upgrade path to a decentralized compute market — which OpenRouter structurally cannot offer."
+**"How is this different from OpenRouter?"**
+"OpenRouter holds your money. We don't. pay.sh's HTTP 402 means your wallet signs per request — nothing deposited anywhere. Plus we have a Phase 2 upgrade path to a decentralized compute market."
 
-**Q: "What if the nodes return garbage?"**
-A: "Optimistic slashing. The user can submit a fraud proof within 10 blocks. The accused node must reveal its execution trace. If it can't — entire stake burned. The collateral is real, so the threat is credible."
+**"What if the nodes return garbage?"**
+"Phase 2 uses optimistic slashing. Fraud proof within 10 blocks. Accused node must reveal execution trace. Failure = entire stake burned. The collateral is real."
 
-**Q: "Why would nodes waste compute for a chance to win?"**
-A: "They're not wasting it. Idle GPUs cost money sitting there. The raffle is a lottery where every ticket is a real inference job. Over time, winning frequency × average payout > marginal electricity cost. The math works."
+**"What about latency?"**
+"For Phase 1, latency is identical to any other router. For Phase 2, the 3-node parallel race adds ~100ms but provides redundancy and censorship resistance."
 
-**Q: "What about latency? 400ms + inference time is slower than direct."**
-A: "For the Gateway product, latency is identical to any other router — we proxy directly. For Core, the 3-node race adds ~100ms for the parallel execution window, but you get redundancy and censorship resistance in return."
+**"Bastion Agentique?"**
+"Planned integration. Transaction simulation, policy enforcement, on-chain audit, and emergency pause. Both projects in development — designed to work together."

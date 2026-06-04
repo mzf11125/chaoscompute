@@ -1,41 +1,49 @@
 # ChaosCompute — Roadmap
 
-## Post-Hackathon (Month 1-3)
+## Phase 1: Inference Gateway (Live)
 
-### Month 1: Gateway Launch
-- [ ] Full 40+ provider integrations (beyond initial 3)
+- [x] pay.sh HTTP 402 payment integration
+- [x] CLIProxyAPI routing across 20+ providers
+- [x] OpenAI-compatible `/v1/chat/completions` endpoint
+- [x] Gateway Status page (ProviderHealth, SpendView, RequestLog)
+- [x] Landing page, Docs, API, Providers pages
+- [x] Python SDK (chaos-sdk) + Node.js SDK (@chaoscompute/sdk)
+- [x] Anchor program skeleton (cohort selection, VRF, slashing)
+- [x] chaoscompute.yaml pay.sh provider spec
+
+## Post-Hackathon (Month 1)
+
+- [ ] Full 40+ provider integrations from CLIProxyAPI/9router
+- [ ] Bastion Agentique integration (transaction simulation)
 - [ ] Real TEE enforcement (Intel SGX / NVIDIA Confidential Computing)
-- [ ] IPFS/Arweave prompt encryption pipeline
-- [ ] Provider dashboard UI (CLI → web)
-- [ ] Open provider onboarding flow
-- [ ] Mobile wallet support (beyond Phantom)
+- [ ] Provider dashboard UI for API key management
+- [ ] Mobile responsive polish
+- [ ] pay.sh provider registry submission
 
-### Month 2: Core Beta
-- [ ] Core decentralized network launches (beta)
+## Phase 2: Decentralized Compute (Month 2-3)
+
+- [ ] Core decentralized network beta
+- [ ] Node client daemon (Python): RPC listener + commitment pipeline
+- [ ] VRF integration (Switchboard or Pyth Entropy)
+- [ ] Optimistic slashing with automated referee
+- [ ] Token launch + staking pool
+- [ ] Permissionless provider onboarding
 - [ ] Model capability tiering and filtering
-- [ ] Latency SLA enforcement
-- [ ] Automated referee for slashing (AI-powered validation)
-- [ ] Developer portal with interactive docs
 
-### Month 3: Multi-Chain + Governance
+## Month 4-6
+
 - [ ] Multi-chain settlement (Ethereum L2s)
 - [ ] DAO governance for fee parameters
 - [ ] Enterprise dedicated cohorts
 - [ ] SDK for LangChain / LlamaIndex / AutoGen
-
-## Month 4-6: Enterprise
-
-- [ ] SLA guarantees (99.9% uptime)
-- [ ] Private deployments (VPC, on-prem)
+- [ ] Bastion Agentique full integration (policy engine, audit, pause)
+- [ ] SLA guarantees + private deployments
 - [ ] Agent-native billing dashboard
-- [ ] Whitelabel Gateway for enterprise teams
-- [ ] SOC 2 compliance
-- [ ] Dedicated support tiers
 
-## Long-Term Vision (Year 1)
+## Long-Term (Year 1)
 
-- [ ] ChaosCompute becomes the default inference API for all AI agents on Solana
+- [ ] ChaosCompute becomes the default inference API for AI agents on Solana
 - [ ] Core network exceeds 1000 independent GPU providers
 - [ ] Token economics sustain a self-regulating compute market
-- [ ] SDKs available in 5+ languages
-- [ ] Plugin ecosystem: LangChain, LlamaIndex, AutoGen, CrewAI, etc.
+- [ ] Plugin ecosystem: LangChain, LlamaIndex, AutoGen, CrewAI
+- [ ] 5+ language SDK support

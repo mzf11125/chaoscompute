@@ -8,27 +8,24 @@ https://gateway.chaoscompute.io/v1
 
 ## Authentication
 
-All requests require a Solana wallet-signed JWT in the `Authorization` header.
+ChaosCompute uses pay.sh HTTP 402 payment protocol. No API keys needed.
 
+**With pay.sh (recommended):**
 ```bash
-Authorization: Bearer <CHAOS_JWT>
+pay curl https://gateway.chaoscompute.io/v1/chat/completions \
+  -H 'content-type: application/json' \
+  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
-Generate the token using the SDK:
-
-```python
-from chaos_sdk import ChaosSigner
-signer = ChaosSigner("YOUR_SOLANA_PRIVATE_KEY")
-token = signer.token()  # Valid for 5 minutes
-```
-
-Or manually:
+**Without pay.sh (raw):**
 ```bash
-curl https://gateway.chaoscompute.io/v1/models \
-  -H "Authorization: Bearer $(chaos-signer token)"
+curl https://gateway.chaoscompute.io/v1/chat/completions \
+  -H 'Authorization: Bearer <SIGNED_JWT>' \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
----
+When called directly, the Gateway returns `402 Payment Required`. pay.sh detects this and handles the payment handshake automatically.
 
 ## Endpoints
 
@@ -38,7 +35,7 @@ curl https://gateway.chaoscompute.io/v1/models \
 GET /v1/models
 ```
 
-Returns all available models across all providers.
+Returns all available models across 20+ supported providers (OpenAI, Anthropic, Gemini, etc.).
 
 **Response:**
 ```json
@@ -46,8 +43,8 @@ Returns all available models across all providers.
   "object": "list",
   "data": [
     {"id": "gpt-4o", "object": "model", "owned_by": "openai"},
-    {"id": "claude-opus-4", "object": "model", "owned_by": "anthropic"},
-    {"id": "best-available", "object": "model", "owned_by": "chaoscompute"}
+    {"id": "claude-sonnet-4", "object": "model", "owned_by": "anthropic"},
+    {"id": "gemini-2.5-flash", "object": "model", "owned_by": "google"}
   ]
 }
 ```
@@ -58,7 +55,7 @@ Returns all available models across all providers.
 POST /v1/chat/completions
 ```
 
-OpenAI-compatible chat completions. Supports streaming.
+OpenAI-compatible chat completions. Metered per token via HTTP 402.
 
 **Request:**
 ```json
@@ -77,30 +74,7 @@ OpenAI-compatible chat completions. Supports streaming.
 **Streaming Response (SSE):**
 ```
 data: {"id":"chatcmpl-...","object":"chat.completion.chunk","choices":[{"index":0,"delta":{"content":"Hello"},"finish_reason":null}]}
-
-data: {"id":"chatcmpl-...","object":"chat.completion.chunk","choices":[{"index":0,"delta":{"content":"!"},"finish_reason":null}]}
-
 data: [DONE]
-```
-
-**Non-Streaming Response:**
-```json
-{
-  "id": "chatcmpl-...",
-  "object": "chat.completion",
-  "model": "gpt-4o",
-  "choices": [{
-    "index": 0,
-    "message": {"role": "assistant", "content": "Hello! How can I help?"},
-    "finish_reason": "stop"
-  }],
-  "usage": {
-    "prompt_tokens": 10,
-    "completion_tokens": 7,
-    "total_tokens": 17,
-    "cost_usdc": 0.000123
-  }
-}
 ```
 
 ### Get Spend
@@ -111,37 +85,21 @@ GET /v1/spend
 
 Returns spend summary for the authenticated wallet.
 
-**Response:**
-```json
-{
-  "wallet": "ABC123...",
-  "balance_usdc": 4.50,
-  "spend_24h_usdc": 0.23,
-  "spend_7d_usdc": 1.45,
-  "total_requests_24h": 142,
-  "by_model": {
-    "gpt-4o": {"tokens": 45000, "cost_usdc": 0.15},
-    "claude-opus-4": {"tokens": 23000, "cost_usdc": 0.08}
-  }
-}
+### List Providers
+
+```
+GET /v1/providers
 ```
 
----
+Returns all supported AI providers and their models.
 
-## Error Codes
+### Health Check
 
-| Code | Meaning |
-|---|---|
-| 200 | Success |
-| 400 | Bad request (invalid JSON, missing fields) |
-| 401 | Unauthorized (invalid/expired JWT) |
-| 402 | Insufficient USDC balance |
-| 429 | Rate limited (per-wallet) |
-| 500 | Internal server error |
-| 502 | All providers failed (fallback exhausted) |
-| 503 | Gateway overloaded |
+```
+GET /v1/health
+```
 
----
+Returns gateway health status.
 
 ## Model Aliases
 
@@ -150,51 +108,28 @@ Returns spend summary for the authenticated wallet.
 | `best-available` | Cheapest provider currently under rate limit |
 | `best-fast` | Lowest p50 latency across available providers |
 | `best-smart` | Highest capability tier currently available |
-| `best-coder` | Code-optimized models (DeepSeek, GPT-4o, Claude Sonnet) |
+| `best-coder` | Code-optimized models (gpt-4o, claude-sonnet-4, deepseek-v3) |
 | `best-long` | Models with 128k+ context windows |
 
----
+## Error Codes
 
-## SDKs
+| Code | Meaning |
+|---|---|
+| 200 | Success |
+| 400 | Bad request |
+| 401 | Unauthorized (invalid/expired JWT when using raw auth) |
+| 402 | Payment Required (handled automatically by pay.sh) |
+| 429 | Rate limited |
+| 500 | Internal error |
+| 502 | All providers failed (fallback exhausted) |
 
-### Python
+## pricing
 
-```bash
-pip install chaos-sdk
-```
+Per pay.sh provider spec (`chaoscompute.yaml`):
 
-```python
-from openai import OpenAI
-from chaos_sdk import ChaosSigner
+| Direction | Unit | Scale | Price |
+|---|---|---|---|
+| Input | tokens | 1,000,000 | $0.50 |
+| Output | tokens | 1,000,000 | $1.50 |
 
-client = OpenAI(
-    base_url="https://gateway.chaoscompute.io/v1",
-    api_key=ChaosSigner("YOUR_KEY").token()
-)
-```
-
-### Node.js
-
-```bash
-npm install @chaoscompute/sdk
-```
-
-```javascript
-import { ChaosSigner } from '@chaoscompute/sdk';
-import OpenAI from 'openai';
-
-const signer = new ChaosSigner(process.env.CHAOS_KEY);
-const client = new OpenAI({
-  baseURL: 'https://gateway.chaoscompute.io/v1',
-  apiKey: await signer.token(),
-});
-```
-
-### Raw HTTP
-
-```bash
-curl https://gateway.chaoscompute.io/v1/chat/completions \
-  -H "Authorization: Bearer <JWT>" \
-  -H "Content-Type: application/json" \
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
-```
+Session channels available for streaming, 300-second TTL.
