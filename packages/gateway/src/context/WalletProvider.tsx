@@ -1,3 +1,9 @@
+/**
+ * @deprecated Replaced by pay.sh HTTP 402 payment layer.
+ * Wallet connect is now handled by pay.sh's CLI (pay curl, pay whoami).
+ * See chaoscompute.yaml for the pay.sh provider spec.
+ */
+
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react'
 
 const truncated = (addr: string) => `${addr.slice(0, 4)}...${addr.slice(-4)}`

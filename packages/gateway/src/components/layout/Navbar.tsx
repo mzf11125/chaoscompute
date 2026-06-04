@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Sparkles, BookOpen, Menu, X } from 'lucide-react'
+import { Sparkles, BookOpen, Menu, X, Terminal } from 'lucide-react'
 import Button from '@/components/ui/Button'
-import { useWallet } from '@/context/WalletProvider'
 
 function GithubIcon() {
   return (
@@ -12,13 +11,12 @@ function GithubIcon() {
   )
 }
 
-const truncated = (addr: string) => `${addr.slice(0, 4)}...${addr.slice(-4)}`
-
 const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/dashboard', label: 'Dashboard' },
   { to: '/docs', label: 'Docs' },
-  { to: '/api-keys', label: 'API Keys' },
+  { to: '/api', label: 'API' },
+  { to: '/api-keys', label: 'Keys' },
 ]
 
 const linkClass = (active: boolean) =>
@@ -28,7 +26,6 @@ const linkClass = (active: boolean) =>
 
 export function Navbar() {
   const location = useLocation()
-  const { connected, connecting, publicKey, connect, disconnect } = useWallet()
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
@@ -47,7 +44,6 @@ export function Navbar() {
             <span className="hidden sm:inline">ChaosCompute</span>
           </Link>
 
-          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
@@ -71,23 +67,18 @@ export function Navbar() {
             >
               <GithubIcon />
             </a>
-
-            {/* Wallet button */}
-            {!connected ? (
-              <Button size="sm" variant="primary" onClick={connect} disabled={connecting}>
-                {connecting ? 'Connecting...' : 'Connect Wallet'}
+            <a
+              href="https://pay.sh/docs/get-started/install"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex"
+            >
+              <Button size="sm" variant="primary">
+                <Terminal size={14} aria-hidden="true" />
+                Install pay.sh
               </Button>
-            ) : (
-              <button
-                onClick={disconnect}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent/20 bg-accent/5 text-text-primary text-sm font-mono hover:bg-accent/10 motion-safe:transition-colors focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none min-h-[36px]"
-              >
-                <span className="w-2 h-2 rounded-full bg-success" aria-hidden="true" />
-                {publicKey ? truncated(publicKey) : 'Connected'}
-              </button>
-            )}
+            </a>
 
-            {/* Mobile menu toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
@@ -99,7 +90,6 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
@@ -117,12 +107,12 @@ export function Navbar() {
                 </Link>
               ))}
               <a
-                href="https://github.com/mzf11125/chaoscompute"
+                href="https://pay.sh/docs/get-started/install"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-3 rounded-2xl text-base font-medium text-text-secondary hover:text-text-primary hover:bg-surface-hover motion-safe:transition-colors"
+                className="px-4 py-3 rounded-2xl text-base font-medium text-accent bg-accent/5 hover:bg-accent/10 motion-safe:transition-colors"
               >
-                GitHub
+                Install pay.sh
               </a>
             </nav>
           </div>

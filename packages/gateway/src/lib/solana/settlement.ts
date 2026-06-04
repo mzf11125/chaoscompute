@@ -1,3 +1,9 @@
+/**
+ * @deprecated Replaced by pay.sh HTTP 402 payment layer.
+ * Settlement is now handled by pay.sh's gateway (pay server).
+ * See chaoscompute.yaml for the pay.sh provider spec.
+ */
+
 import type { SettlementPayload } from '../routing/types'
 
 const GATEWAY_MARGIN_BPS = 500 // 5%

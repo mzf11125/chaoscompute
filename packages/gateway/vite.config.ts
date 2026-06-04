@@ -17,6 +17,10 @@ export default defineConfig({
     fs: {
       allow: [__dirname],
     },
+    watch: {
+      usePolling: true,
+      interval: 1000,
+    },
   },
   optimizeDeps: {
     entries: ['./index.html'],

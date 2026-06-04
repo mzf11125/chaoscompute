@@ -1,80 +1,117 @@
 import { DashboardShell } from '@/components/layout/DashboardShell'
 import { SpendView } from '@/components/dashboard/SpendView'
-import { RequestLog } from '@/components/dashboard/RequestLog'
 import { ProviderHealth } from '@/components/dashboard/ProviderHealth'
-import { WalletBalance } from '@/components/dashboard/WalletBalance'
-import { LowBalanceAlert } from '@/components/dashboard/LowBalanceAlert'
-import { SpendSkeleton, TableSkeleton } from '@/components/ui/Skeleton'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
-import { Wallet } from 'lucide-react'
-import { useWallet } from '@/context/WalletProvider'
-import { useState, useEffect } from 'react'
+import { ArrowRight, Terminal, Download, ExternalLink } from 'lucide-react'
 
 export default function Dashboard() {
-  const { connected, connecting, connect } = useWallet()
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 800)
-    return () => clearTimeout(t)
-  }, [])
-
   return (
     <DashboardShell>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-text-primary">Dashboard</h1>
         <p className="text-text-secondary text-sm mt-1">
-          Real-time spend and usage for your Solana wallet.
+          ChaosCompute uses <span className="text-accent">pay.sh</span> for wallet-approved HTTP 402 payments.
         </p>
       </div>
 
-      {!connected ? (
-        <Card padding="lg" className="text-center max-w-md mx-auto">
-          <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6">
-            <Wallet size={28} className="text-accent" aria-hidden="true" />
-          </div>
-          <h2 className="text-xl font-semibold text-text-primary mb-2">Connect your wallet</h2>
-          <p className="text-text-secondary text-sm mb-6">
-            Connect a Solana wallet to view real-time spend, request logs, and provider health.
-            Your wallet pays per request — nothing is deposited anywhere.
-          </p>
-          <Button variant="primary" size="lg" onClick={connect} disabled={connecting}>
-            {connecting ? 'Connecting...' : 'Connect Solana Wallet'}
+      {/* Quickstart card */}
+      <Card padding="lg" className="mb-6">
+        <div className="flex items-center gap-3 mb-4">
+          <Terminal size={22} className="text-accent" aria-hidden="true" />
+          <h2 className="text-text-primary font-semibold">Quickstart</h2>
+        </div>
+        <p className="text-text-secondary text-sm mb-4">
+          Install pay.sh, then run this command to make your first wallet-approved API call.
+        </p>
+        <pre className="bg-surface-input rounded-xl p-4 text-sm text-text-primary overflow-x-auto mb-4">
+          <code>
+            <span className="text-text-muted"># Install pay.sh</span>{'\n'}
+            <span className="text-accent">curl</span> -fsSL https://pay.sh/install | <span className="text-accent">sh</span>{'\n\n'}
+            <span className="text-text-muted"># Run the gateway locally</span>{'\n'}
+            <span className="text-accent">pay</span> --sandbox server start chaoscompute.yaml{'\n\n'}
+            <span className="text-text-muted"># Call any model</span>{'\n'}
+            <span className="text-accent">pay</span> --sandbox curl http://127.0.0.1:1402/v1/chat/completions \{'\n'}
+            {'  '}-H <span className="text-success">'content-type: application/json'</span> \{'\n'}
+            {'  '}-d <span className="text-success">'</span><span className="text-success">{`{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}`}</span><span className="text-success">'</span>{'\n'}
+          </code>
+        </pre>
+        <div className="flex flex-wrap gap-3">
+          <Button variant="primary" size="sm" onClick={() => window.open('https://pay.sh/docs/get-started/install', '_blank')}>
+            <Download size={14} aria-hidden="true" />
+            Install pay.sh
           </Button>
-          <p className="text-text-muted text-xs mt-4">Supports Phantom, Solflare, and Backpack</p>
-        </Card>
-      ) : loading ? (
-        <>
-          <SpendSkeleton />
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-4">
-            <div className="lg:col-span-3"><TableSkeleton /></div>
-            <div className="lg:col-span-1"><div className="h-64 rounded-3xl bg-surface-elevated border border-border animate-pulse" /></div>
-          </div>
-        </>
-      ) : (
-        <>
-          <LowBalanceAlert balance_usdc={0.45} />
+          <Button variant="secondary" size="sm" onClick={() => window.open('https://pay.sh/docs/building-with-pay/getting-started', '_blank')}>
+            <ExternalLink size={14} aria-hidden="true" />
+            pay.sh Docs
+          </Button>
+        </div>
+      </Card>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-6">
-            <div className="lg:col-span-1">
-              <WalletBalance />
-            </div>
-            <div className="lg:col-span-3">
-              <SpendView />
-            </div>
+      {/* Live stats */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+        <div className="lg:col-span-3">
+          <SpendView />
+        </div>
+        <div className="lg:col-span-1">
+          <div className="flex flex-col gap-4">
+            <Card padding="md" className="text-center">
+              <p className="text-text-muted text-xs uppercase tracking-wider mb-1">Payment rail</p>
+              <p className="text-lg font-semibold text-accent">HTTP 402</p>
+              <p className="text-text-muted text-xs">via pay.sh</p>
+            </Card>
+            <Card padding="md" className="text-center">
+              <p className="text-text-muted text-xs uppercase tracking-wider mb-1">Currency</p>
+              <p className="text-lg font-semibold text-accent font-mono">USDC</p>
+              <p className="text-text-muted text-xs">Solana</p>
+            </Card>
           </div>
+        </div>
+      </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-4">
-            <div className="lg:col-span-3">
-              <RequestLog />
+      {/* How it works */}
+      <Card padding="lg" className="mb-6">
+        <h2 className="text-text-primary font-semibold mb-4">How HTTP 402 Payments Work</h2>
+        <div className="grid sm:grid-cols-3 gap-6 text-sm">
+          {[
+            { step: '1', title: 'Challenge', desc: 'Gateway returns 402 Payment Required with amount and recipient.' },
+            { step: '2', title: 'Proof', desc: 'pay.sh signs a transfer authorization locally. No on-chain step.' },
+            { step: '3', title: 'Settle', desc: 'Gateway submits the signed transfer, waits for confirmation, returns response.' },
+          ].map((s) => (
+            <div key={s.step} className="flex gap-3">
+              <span className="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm font-bold shrink-0">
+                {s.step}
+              </span>
+              <div>
+                <p className="text-text-primary font-medium mb-1">{s.title}</p>
+                <p className="text-text-muted">{s.desc}</p>
+              </div>
             </div>
-            <div className="lg:col-span-1">
-              <ProviderHealth />
-            </div>
-          </div>
-        </>
-      )}
+          ))}
+        </div>
+      </Card>
+
+      {/* Provider health */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div className="lg:col-span-3">
+          <ProviderHealth />
+        </div>
+        <div className="lg:col-span-1">
+          <Card padding="md">
+            <h3 className="text-text-primary font-semibold mb-2">Agent-ready</h3>
+            <p className="text-text-muted text-xs mb-4">
+              AI agents discover and pay ChaosCompute automatically via pay.sh's agent commands.
+            </p>
+            <pre className="bg-surface-input rounded-xl p-3 text-xs text-text-primary overflow-x-auto">
+              <code>
+                <span className="text-accent">pay</span> claude{'\n'}
+                <span className="text-accent">pay</span> codex{'\n'}
+                <span className="text-text-muted"># Agents self-pay via HTTP 402</span>
+              </code>
+            </pre>
+          </Card>
+        </div>
+      </div>
     </DashboardShell>
   )
 }

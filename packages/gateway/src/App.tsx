@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { ErrorBoundary } from '@/components/layout/ErrorBoundary'
-import { WalletProvider } from '@/context/WalletProvider'
 import Landing from '@/pages/Landing/Landing'
 import Dashboard from '@/pages/Dashboard/Dashboard'
 import ApiKeys from '@/pages/ApiKeys/ApiKeys'
@@ -20,10 +19,9 @@ export default function App() {
       </div>
       <div className="noise-overlay" />
       <div className="relative z-10">
-        <WalletProvider>
-          <ErrorBoundary>
-            <Navbar />
-            <Routes>
+        <ErrorBoundary>
+          <Navbar />
+          <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/api-keys" element={<ApiKeys />} />
@@ -33,7 +31,6 @@ export default function App() {
             </Routes>
             <Footer />
           </ErrorBoundary>
-        </WalletProvider>
       </div>
     </div>
   )

@@ -1,3 +1,9 @@
+/**
+ * @deprecated Replaced by pay.sh HTTP 402 payment layer.
+ * This file is kept for reference during the transition.
+ * See chaoscompute.yaml for the pay.sh provider spec.
+ */
+
 interface JwtPayload {
   wallet_pubkey: string
   timestamp: number

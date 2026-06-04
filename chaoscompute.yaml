@@ -1,0 +1,51 @@
+name: chaoscompute
+subdomain: chaoscompute
+title: 'ChaosCompute — Decentralized AI Inference'
+description: 'Drop-in OpenAI-compatible AI inference API with pay-as-you-go Solana stablecoin payments.'
+category: ai_ml
+version: v1
+
+routing:
+  type: respond
+
+operator:
+  currencies:
+    usd: ['USDC']
+  network: localnet
+  fee_payer: true
+
+endpoints:
+  - method: GET
+    path: 'v1/health'
+    description: 'Health check (free).'
+
+  - method: GET
+    path: 'v1/models'
+    description: 'List available AI models (free).'
+
+  - method: POST
+    path: 'v1/chat/completions'
+    description: 'OpenAI-compatible chat completions. Charged per token (input + output).'
+    metering:
+      dimensions:
+        - direction: input
+          unit: tokens
+          scale: 1000000
+          tiers:
+            - price_usd: 0.50
+        - direction: output
+          unit: tokens
+          scale: 1000000
+          tiers:
+            - price_usd: 1.50
+    session:
+      ttl_seconds: 300
+
+  - method: GET
+    path: 'v1/spend'
+    description: 'Get wallet spend summary (free).'
+
+notes: |
+  **ChaosCompute** is a decentralized AI inference gateway on Solana.
+  Drop-in OpenAI compatibility. Pay per token via HTTP 402.
+  `pay curl https://gateway.chaoscompute.io/v1/chat/completions`
