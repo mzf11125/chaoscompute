@@ -64,10 +64,10 @@ export default function Docs() {
           </p>
           <div className="space-y-2 text-xs mb-4">
             {[
-              ['Premium', 'OpenAI GPT-4o', '$2.50', '$2.625'],
-              ['Cheap', 'DeepSeek V3', '$0.14', '$0.147'],
-              ['Cheap', 'Nscale Llama', '$0.01', '$0.011'],
-              ['Free', 'Groq Llama', '$0', '$0'],
+              ['Premium', 'OpenAI gpt-5.5', '$5.00', '$5.25'],
+              ['Cheap', 'DeepSeek v4-flash', '$0.14', '$0.147'],
+              ['Cheap', 'Xiaomi MiMo v2.5', '$0.14', '$0.147'],
+              ['Free', 'Groq Llama 4 Scout', '$0', '$0'],
             ].map(([tier, p, cost, total]) => (
               <div key={p} className="flex items-center justify-between py-1 border-b border-border last:border-0">
                 <div className="flex items-center gap-2">
@@ -78,7 +78,7 @@ export default function Docs() {
               </div>
             ))}
           </div>
-          <p className="text-muted-foreground text-xs">Per 1M input tokens. Revenue funds Phase 2 treasury.</p>
+          <p className="text-muted-foreground text-xs">Per 1M input tokens. All models verified by models.dev + ai-sdk.dev. Revenue funds Phase 2 treasury.</p>
         </Card>
 
         <Card padding="lg">

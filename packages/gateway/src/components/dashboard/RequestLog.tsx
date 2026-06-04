@@ -1,12 +1,12 @@
 import Card from '@/components/ui/Card'
 
 const logs = [
-  { id: '1', time: '2m ago', model: 'gpt-4o', provider: 'OpenAI', tokens: 757, cost: '0.0021', latency: 320, status: '200' },
-  { id: '2', time: '5m ago', model: 'claude-sonnet-4', provider: 'Anthropic', tokens: 3072, cost: '0.0150', latency: 410, status: '200' },
-  { id: '3', time: '12m ago', model: 'gemini-2.5-flash', provider: 'Google Gemini', tokens: 345, cost: '0.0004', latency: 290, status: '200' },
-  { id: '4', time: '23m ago', model: 'deepseek-v3', provider: 'DeepSeek', tokens: 1591, cost: '0.0002', latency: 580, status: '200' },
-  { id: '5', time: '45m ago', model: 'llama-4-scout', provider: 'Groq', tokens: 245, cost: '0.0000', latency: 95, status: '200' },
-  { id: '6', time: '1h ago', model: 'grok-4', provider: 'xAI', tokens: 4890, cost: '0.0150', latency: 350, status: '200' },
+  { id: '1', time: '2m ago', model: 'gpt-5.5', provider: 'OpenAI', tokens: 757, cost: '0.0040', latency: 320, status: '200' },
+  { id: '2', time: '5m ago', model: 'claude-sonnet-4.6', provider: 'Anthropic', tokens: 3072, cost: '0.0090', latency: 410, status: '200' },
+  { id: '3', time: '12m ago', model: 'gemini-3.5-flash', provider: 'Google Gemini', tokens: 345, cost: '0.0005', latency: 290, status: '200' },
+  { id: '4', time: '23m ago', model: 'deepseek-v4-flash', provider: 'DeepSeek', tokens: 1591, cost: '0.0002', latency: 580, status: '200' },
+  { id: '5', time: '45m ago', model: 'grok-4.3', provider: 'xAI', tokens: 4890, cost: '0.0060', latency: 350, status: '200' },
+  { id: '6', time: '1h ago', model: 'qwen3.7-plus', provider: 'Alibaba Qwen', tokens: 2340, cost: '0.0010', latency: 400, status: '200' },
 ]
 
 export function RequestLog() {

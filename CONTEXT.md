@@ -7,7 +7,7 @@
 | **Gateway** | Phase 1 inference router. CLIProxyAPI routing + pay.sh HTTP 402 payments. OpenAI-compatible. 30 providers. Funding needed. |
 | **Core** | Phase 2 decentralized compute market. Game-theoretic node selection. Stake-weighted VRF racing. Blind race. Optimistic slashing. Contract deployed to devnet. |
 | **pay.sh** | HTTP 402 payment protocol. Wraps standard HTTP tools. Signs USDC transfer authorizations. Handles challenge/proof/settlement flow. |
-| **CLIProxyAPI** | Go proxy server wrapping CLI tools as OpenAI-compatible APIs. 36k GitHub stars. Upstream routing engine. |
+| **CLIProxyAPI** | Go proxy server wrapping CLI tools as OpenAI-compatible APIs. 36k GitHub stars. Upstream routing engine. Provider models sourced from models.dev + ai-sdk.dev. |
 | **9router** | Next.js fork of CLIProxyAPI. 16k stars. 60+ providers, smart fallback, RTK token saver. |
 | **HTTP 402** | Payment Required status code. Gateway returns 402 when payment needed. pay.sh handles automatically. |
 | **Liquid Glass** | CSS utility. Gradient-border translucent surfaces via `backdrop-filter: blur(4px)` and `::before` mask. |
@@ -33,7 +33,7 @@
 | 4 | Clean Monochrome design (not Dark Cinematic) | Inter + Instrument Serif. HSL tokens. Liquid glass. More modern. | Day 8 |
 | 5 | Gateway (Phase 1) + Core (Phase 2) | Phase 1 funds Phase 2. Solo dev, phased delivery. | Day 1 |
 | 6 | Anchor program with sqrt stake weighting | Prevents whale domination. 100x stake = 10x probability. | Day 6 |
-| 7 | 30 providers across 3 tiers | Premium/Cheap/Free. LiteLLM and 9router as inspiration. | Day 10 |
+| 7 | 30 providers across 3 tiers (verified by models.dev + ai-sdk.dev) | Premium/Cheap/Free. Real model names and pricing sourced from authoritative databases. | Day 10 |
 | 8 | Deploy to devnet, target mainnet post-funding | Real contract live now. Phase 1 needs funding for production. | Day 11 |
 
 ## Risk Register

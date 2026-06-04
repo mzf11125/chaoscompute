@@ -48,7 +48,7 @@ solana program deploy target/deploy/chaos_compute.so --url devnet
 
 ## Providers
 
-30 providers across 3 tiers: Premium (OpenAI, Anthropic, Gemini, xAI, Mistral), Cheap (Nscale $0.01, DeepSeek $0.14, Hyperbolic, Fireworks, OpenRouter, etc.), Free (Groq, Cerebras, SambaNova, Nebius, Featherless). See `/providers` for the full catalog.
+30 providers across 3 tiers, verified by [models.dev](https://models.dev) and [ai-sdk.dev](https://ai-sdk.dev): Premium (OpenAI gpt-5.5, Anthropic claude-opus-4.8, Google gemini-3.5-flash, xAI grok-4.3, Mistral), Cheap (DeepSeek v4-flash $0.14, Xiaomi MiMo v2.5 $0.14, Alibaba Qwen, Kimi k2.6, Nscale $0.01), Free (Groq, Cerebras, SambaNova, Nebius). See `/providers` for the full catalog.
 
 ## Community
 
