@@ -23,7 +23,7 @@ export default function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/status" element={<Dashboard />} />
             <Route path="/providers" element={<Providers />} />
             <Route path="/docs" element={<Docs />} />
             <Route path="/api" element={<Api />} />

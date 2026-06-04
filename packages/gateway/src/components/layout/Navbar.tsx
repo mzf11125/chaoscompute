@@ -13,7 +13,7 @@ function GithubIcon() {
 
 const navLinks = [
   { to: '/', label: 'Home' },
-  { to: '/dashboard', label: 'Dashboard' },
+  { to: '/status', label: 'Status' },
   { to: '/providers', label: 'Providers' },
   { to: '/docs', label: 'Docs' },
   { to: '/api', label: 'API' },

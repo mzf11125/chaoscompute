@@ -28,6 +28,7 @@ export function HeroSection() {
           AI inference with HTTP 402 wallet-approved payments on Solana.
           Drop-in OpenAI compatibility. 20+ upstream providers. One endpoint.
           Phase 2 replaces routing entirely — game theory picks the winner.
+          Natively integrated with <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-accent underline hover:no-underline">Bastion Agentique</a>.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
