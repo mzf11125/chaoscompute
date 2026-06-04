@@ -4,12 +4,12 @@ export function SpendView() {
   const stats = [
     { label: '24H Requests', value: '142' },
     { label: 'Avg Cost', value: '$0.0021' },
-    { label: 'Providers', value: '3 online' },
+    { label: 'Providers Online', value: '9' },
     { label: 'Uptime', value: '99.9%' },
   ]
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4" aria-label="Gateway statistics">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4" aria-label="Gateway statistics">
       {stats.map((stat) => (
         <Card key={stat.label} padding="md">
           <p className="text-text-muted text-xs uppercase tracking-wider mb-1">{stat.label}</p>

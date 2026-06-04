@@ -1,6 +1,6 @@
 import { DashboardShell } from '@/components/layout/DashboardShell'
 import Card from '@/components/ui/Card'
-import { ArrowRight, Terminal, Globe, Shield, ExternalLink } from 'lucide-react'
+import { ArrowRight, Terminal, Globe, Shield, ExternalLink, Code } from 'lucide-react'
 
 const QUICKSTART = `curl -fsSL https://pay.sh/install | sh
 pay --sandbox server start chaoscompute.yaml
@@ -14,57 +14,65 @@ export default function Docs() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-text-primary">Documentation</h1>
         <p className="text-text-secondary text-sm mt-1">
-          Everything you need to integrate ChaosCompute with pay.sh.
+          ChaosCompute: Phase 1 inference gateway with pay.sh HTTP 402 payments. Phase 2 decentralized compute on the way.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 mb-6">
         <Card padding="lg">
           <Terminal size={24} className="text-accent mb-4" aria-hidden="true" />
           <h2 className="text-text-primary font-semibold mb-2">Quickstart</h2>
           <p className="text-text-secondary text-sm mb-4">
             Install pay.sh and make your first wallet-approved API call in under 5 minutes.
           </p>
-          <pre className="bg-surface-input rounded-xl p-4 text-xs text-text-primary overflow-x-auto mb-4 leading-relaxed">
-            <code>{QUICKSTART}</code>
-          </pre>
-          <a
-            href="https://pay.sh/docs/get-started/install"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-accent text-sm hover:underline"
-          >
+          <pre className="bg-surface-input rounded-xl p-4 text-xs text-text-primary overflow-x-auto mb-4 leading-relaxed"><code>{QUICKSTART}</code></pre>
+          <a href="https://pay.sh/docs/get-started/install" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-accent text-sm hover:underline">
             Full install guide <ArrowRight size={14} aria-hidden="true" />
           </a>
         </Card>
 
         <Card padding="lg">
           <Shield size={24} className="text-accent mb-4" aria-hidden="true" />
-          <h2 className="text-text-primary font-semibold mb-2">HTTP 402 Payments</h2>
+          <h2 className="text-text-primary font-semibold mb-2">HTTP 402 Payment Flow</h2>
           <p className="text-text-secondary text-sm mb-4">
-            ChaosCompute uses pay.sh's HTTP 402 protocol. The Gateway returns 402 Payment Required. pay.sh signs a wallet transfer. Request retries automatically.
+            Calling the Gateway without pay.sh returns 402 Payment Required. pay.sh handles the handshake automatically.
           </p>
-          <div className="space-y-2 text-sm mb-4">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-accent shrink-0" aria-hidden="true" />
-              <p className="text-text-secondary">No API keys. No credit top-ups.</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-accent shrink-0" aria-hidden="true" />
-              <p className="text-text-secondary">USDC per token, settled on Solana.</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-accent shrink-0" aria-hidden="true" />
-              <p className="text-text-secondary">Wallet signs locally. Never exposed to the Gateway.</p>
-            </div>
+          <div className="grid sm:grid-cols-3 gap-3 text-sm mb-4">
+            {[
+              { step: '1', title: 'Challenge', desc: 'Gateway returns 402 with amount, recipient, and nonce.' },
+              { step: '2', title: 'Proof', desc: 'pay.sh signs a USDC transfer authorization from your wallet locally.' },
+              { step: '3', title: 'Settle', desc: 'Gateway broadcasts the signed transfer, confirms on Solana, returns response.' },
+            ].map((s) => (
+              <div key={s.step} className="flex gap-2">
+                <span className="text-accent font-bold text-sm shrink-0">{s.step}.</span>
+                <div><p className="text-text-primary font-medium text-sm mb-0.5">{s.title}</p><p className="text-text-muted text-xs">{s.desc}</p></div>
+              </div>
+            ))}
           </div>
-          <a
-            href="https://pay.sh/docs/building-with-pay/getting-started"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-accent text-sm hover:underline"
-          >
+          <a href="https://pay.sh/docs/building-with-pay/getting-started" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-accent text-sm hover:underline">
             pay.sh payment docs <ArrowRight size={14} aria-hidden="true" />
+          </a>
+        </Card>
+
+        <Card padding="lg">
+          <Code size={24} className="text-accent mb-4" aria-hidden="true" />
+          <h2 className="text-text-primary font-semibold mb-2">Phase 2: Decentralized Compute</h2>
+          <p className="text-text-secondary text-sm mb-4">
+            The endgame: a fully decentralized compute market with game-theoretic node selection. No centralized scheduler. No trust assumptions.
+          </p>
+          <div className="space-y-2 text-xs mb-4">
+            {['Stake-weighted VRF racing', 'Optimistic slashing for bad outputs', 'Permissionless provider entry', 'Square-root stake anti-whale weighting'].map((item) => (
+              <div key={item} className="flex items-center gap-2 py-1 border-b border-border last:border-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true" />
+                <span className="text-text-secondary">{item}</span>
+              </div>
+            ))}
+          </div>
+          <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-accent text-sm hover:underline">
+            Architecture on GitHub <ArrowRight size={14} aria-hidden="true" />
           </a>
         </Card>
 
@@ -72,13 +80,14 @@ export default function Docs() {
           <Globe size={24} className="text-accent mb-4" aria-hidden="true" />
           <h2 className="text-text-primary font-semibold mb-2">Provider Spec</h2>
           <p className="text-text-secondary text-sm mb-4">
-            ChaosCompute is defined as a pay.sh provider in <code className="text-accent text-xs">chaoscompute.yaml</code>. Pricing, endpoints, and routing are all declared in the spec.
+            ChaosCompute is defined as a pay.sh provider in <code className="text-accent text-xs">chaoscompute.yaml</code>.
           </p>
           <pre className="bg-surface-input rounded-xl p-4 text-xs text-text-primary overflow-x-auto mb-4 leading-relaxed">
             <code>{`name: chaoscompute
 category: ai_ml
 routing:
-  type: respond
+  type: proxy
+  url: https://api.openai.com
 endpoints:
   - method: POST
     path: v1/chat/completions
@@ -91,31 +100,27 @@ endpoints:
             - price_usd: 0.50`}</code>
           </pre>
         </Card>
-
-        <Card padding="lg">
-          <ExternalLink size={24} className="text-accent mb-4" aria-hidden="true" />
-          <h2 className="text-text-primary font-semibold mb-2">Resources</h2>
-          <nav className="flex flex-col gap-2 text-sm" aria-label="External resources">
-            {[
-              ['pay.sh Install', 'https://pay.sh/docs/get-started/install'],
-              ['pay.sh Building Guide', 'https://pay.sh/docs/building-with-pay/getting-started'],
-              ['Provider YAML Spec', 'https://pay.sh/docs/building-with-pay/yaml-specification'],
-              ['ChaosCompute GitHub', 'https://github.com/mzf11125/chaoscompute'],
-              ['API Reference', '/api'],
-            ].map(([label, href]) => (
-              <a
-                key={label}
-                href={href}
-                {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="flex items-center gap-2 text-text-secondary hover:text-text-primary motion-safe:transition-colors py-1 focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded"
-              >
-                <span className="w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
-                {label}
-              </a>
-            ))}
-          </nav>
-        </Card>
       </div>
+
+      <Card padding="lg">
+        <ExternalLink size={24} className="text-accent mb-4" aria-hidden="true" />
+        <h2 className="text-text-primary font-semibold mb-2">Resources</h2>
+        <nav className="grid sm:grid-cols-2 gap-2 text-sm" aria-label="External resources">
+          {[
+            ['pay.sh Install', 'https://pay.sh/docs/get-started/install'],
+            ['pay.sh Building Guide', 'https://pay.sh/docs/building-with-pay/getting-started'],
+            ['Provider YAML Spec', 'https://pay.sh/docs/building-with-pay/yaml-specification'],
+            ['API Reference', '/api'],
+            ['Supported Providers', '/providers'],
+            ['ChaosCompute GitHub', 'https://github.com/mzf11125/chaoscompute'],
+          ].map(([label, href]) => (
+            <a key={label} href={href} {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className="flex items-center gap-2 text-text-secondary hover:text-text-primary motion-safe:transition-colors py-1.5 focus-visible:ring-2 focus-visible:ring-accent/50 outline-none rounded">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true" />{label}
+            </a>
+          ))}
+        </nav>
+      </Card>
     </DashboardShell>
   )
 }

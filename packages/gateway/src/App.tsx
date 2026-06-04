@@ -4,7 +4,6 @@ import { Footer } from '@/components/layout/Footer'
 import { ErrorBoundary } from '@/components/layout/ErrorBoundary'
 import Landing from '@/pages/Landing/Landing'
 import Dashboard from '@/pages/Dashboard/Dashboard'
-import ApiKeys from '@/pages/ApiKeys/ApiKeys'
 import Docs from '@/pages/Docs/Docs'
 import Api from '@/pages/Api/Api'
 import Providers from '@/pages/Providers/Providers'
@@ -26,7 +25,6 @@ export default function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/providers" element={<Providers />} />
-            <Route path="/api-keys" element={<ApiKeys />} />
             <Route path="/docs" element={<Docs />} />
             <Route path="/api" element={<Api />} />
             <Route path="*" element={<NotFound />} />

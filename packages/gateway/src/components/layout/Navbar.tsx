@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Sparkles, BookOpen, Menu, X, Terminal } from 'lucide-react'
+import { Sparkles, Menu, X, Terminal } from 'lucide-react'
 import Button from '@/components/ui/Button'
 
 function GithubIcon() {
