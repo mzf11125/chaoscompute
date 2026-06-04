@@ -1,5 +1,7 @@
 # Contributing to ChaosCompute
 
+Thanks for your interest in contributing. ChaosCompute is maintained by a sole developer (mzf11125) and contributions are welcome.
+
 ## Getting Started
 
 ```bash
@@ -7,49 +9,61 @@ git clone https://github.com/mzf11125/chaoscompute.git
 cd chaoscompute
 pnpm install
 pnpm --filter gateway dev
-# → http://localhost:20128
 ```
 
-## Monorepo
+## How to Contribute
 
-```
-chaoscompute/
-├── packages/gateway/    ← Vite + React app
-├── packages/sdk/        ← Python + Node.js SDKs
-├── programs/            ← Anchor on-chain program (Rust)
-└── docs/                ← Documentation
-```
+1. **Open an issue** first to discuss your proposed change
+2. **Fork the repo** and create a feature branch
+3. **Make your changes** following the code conventions below
+4. **Run checks** — `pnpm --filter gateway typecheck` and `pnpm --filter gateway build`
+5. **Submit a PR** against `main` with a clear description
+6. **Wait for review** — the maintainer reviews PRs at their discretion
 
-## Development
+## Commit Conventions
 
-1. Create a feature branch: `git checkout -b feat/my-feature`
-2. Make changes, run checks: `pnpm lint && pnpm typecheck`
-3. Commit: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `redesign:`
-4. Open a PR against `main`
+Use conventional commits:
+
+- `feat:` — new feature
+- `fix:` — bug fix
+- `docs:` — documentation only
+- `refactor:` — code change that neither fixes a bug nor adds a feature
+- `chore:` — maintenance, CI, dependencies
+- `redesign:` — visual or design system changes
 
 ## Code Style
 
 - TypeScript strict mode
-- No semicolons, single quotes, 2-space indent
-- Components: named exports, barrel files
-- Path aliases: `@/` → `src/`
+- No semicolons
+- Single quotes
+- 2 space indentation
+- Components use named exports from barrel files
+- Pages are default exports in their own directories
+- Path alias `@/` maps to `src/`
 
 ## Design System
 
-- Inter (body) + Instrument Serif italic (accents)
-- HSL tokens: `--background`, `--foreground`, `--card`, `--border`
+- Inter (body) + Instrument Serif italic (display accents)
+- HSL tokens: `--foreground`, `--background`, `--card`, `--border`
 - Buttons: `rounded-full`, primary = `bg-foreground text-background`
 - Cards: `rounded-2xl`, `bg-card border border-border`
-- Liquid glass: `backdrop-filter: blur(4px)` + gradient mask
+- Liquid glass: `backdrop-filter` + gradient mask for glass surfaces
 
-## Testing
+## PR Requirements
 
-```bash
-pnpm test                              # All tests
-pnpm --filter gateway test             # Gateway tests
-cd programs/chaos_compute && anchor test
-```
+All PRs must pass:
+
+- `pnpm --filter gateway typecheck` — no TypeScript errors
+- `pnpm --filter gateway build` — production build succeeds
+
+The GitHub Actions CI workflow runs both checks automatically on every PR.
 
 ## License
 
-MIT
+By contributing, you agree that your code will be licensed under the MIT License.
+
+## Questions
+
+- GitHub issues for bugs and feature requests
+- Discord for discussions: https://discord.gg/xXCKpmt7d
+- Weekly community meetings on Discord to discuss the roadmap

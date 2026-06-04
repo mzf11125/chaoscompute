@@ -14,14 +14,8 @@ export function CommunitySection() {
           className="text-center mb-16">
           <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">Community</p>
           <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">Open source. Sole developer. Community driven.</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto mb-4">
-            ChaosCompute is maintained by mzf11125. MIT licensed. Free to fork, contribute, or deploy.
-          </p>
-          <p className="text-foreground font-medium max-w-lg mx-auto text-sm">
-            Making AI inference and computing decentralized and open source natively on Solana.
-          </p>
-          <p className="text-muted-foreground max-w-xl mx-auto mt-4">
-            Join the Discord for weekly roadmap discussions and community meetings.
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            MIT licensed. Sole maintainer mzf11125. Discord for weekly roadmap meetings.
           </p>
         </motion.div>
 

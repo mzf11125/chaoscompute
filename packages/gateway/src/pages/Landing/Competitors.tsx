@@ -6,7 +6,7 @@ const competitors = [
     name: 'OpenRouter',
     status: 'Leader',
     honestTake: '300+ models, $113M raised, 25T tokens/week. If you just need the cheapest GPT-4o call today, use OpenRouter.',
-    ourEdge: 'Non-custodial HTTP 402. No credit deposit. No top-up fee. And OpenRouter can never decentralize — Phase 2 gives us that structural advantage.',
+    ourEdge: 'Non-custodial HTTP 402. No credit deposit. No top-up fee. OpenRouter can never decentralize. Phase 2 gives us that structural advantage.',
   },
   {
     name: 'Jatevo',
@@ -41,7 +41,7 @@ export function Competitors() {
           <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">Honest Competitive Positioning</p>
           <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">The market exists. Heres where we actually fit.</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Were not the biggest. Were not the cheapest. Were the only one with a structurally built in Phase 2 — decentralized compute funded by Phase 1 revenue.
+            Were not the biggest. Were not the cheapest. Were the only one with a structurally built in Phase 2. Decentralized compute funded by Phase 1 revenue.
           </p>
         </motion.div>
 
