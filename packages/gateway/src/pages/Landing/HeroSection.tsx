@@ -18,8 +18,8 @@ export function HeroSection() {
   const dashY = useTransform(scrollYProgress, [0, 0.5], [0, -250])
 
   return (
-    <section ref={sectionRef} className="relative min-h-[100svh] flex items-center justify-center py-32">
-      <div className="max-w-6xl mx-auto px-8 md:px-28">
+    <section ref={sectionRef} className="relative min-h-[100svh] flex items-center justify-center py-16 md:py-32">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-28">
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
           className="flex flex-col items-center text-center"
@@ -44,7 +44,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl tracking-[-2px] font-medium leading-tight md:leading-[1.15] mb-3 text-foreground"
+            className="text-4xl sm:text-5xl md:text-7xl tracking-[-2px] font-medium leading-tight md:leading-[1.15] mb-3 text-foreground"
           >
             pay.sh payments.
             <br />
@@ -59,14 +59,12 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg font-normal leading-6 opacity-90 mb-8 max-w-2xl"
+            className="text-base font-normal leading-6 opacity-90 mb-8 max-w-2xl"
             style={{ color: 'hsl(var(--hero-subtitle))' }}
           >
-            AI inference with HTTP 402 wallet-approved payments on Solana.
-            Drop-in OpenAI compatibility. 20+ upstream providers.
+            OpenAI-compatible. pay.sh wallet payments. 20+ providers.
             <br />
-            Phase 2 replaces routing entirely — game theory picks the winner.
-            Designed for{' '}
+            Game theory replaces routing next. Designed for{' '}
             <a href="https://bastionagentique.com" target="_blank" rel="noopener noreferrer" className="text-foreground underline hover:no-underline">
               Bastion Agentique
             </a>.
@@ -111,7 +109,7 @@ export function HeroSection() {
               <span className="w-3 h-3 rounded-full bg-success/40" />
               <span className="ml-2">terminal</span>
             </div>
-            <pre className="text-base text-foreground overflow-x-auto leading-relaxed font-mono">
+            <pre className="text-sm md:text-base text-foreground overflow-x-auto leading-relaxed font-mono">
               <code>{CODE}</code>
             </pre>
           </motion.div>

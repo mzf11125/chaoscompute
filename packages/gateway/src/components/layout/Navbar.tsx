@@ -30,7 +30,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-lg px-8 md:px-28 py-4">
+      <nav className="fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-lg px-4 sm:px-6 md:px-28 py-4">
         <div className="max-w-6xl mx-auto flex items-center gap-6 md:gap-12">
           <Link to="/" className="flex items-center gap-2 text-foreground font-semibold text-xl tracking-tight shrink-0 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none rounded-lg px-2 py-1">
             <Sparkles size={20} className="text-foreground" aria-hidden="true" />

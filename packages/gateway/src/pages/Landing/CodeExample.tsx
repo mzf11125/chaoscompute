@@ -5,7 +5,7 @@ import Card from '@/components/ui/Card'
 export function CodeExample() {
   return (
     <section className="py-28">
-      <div className="max-w-6xl mx-auto px-8 md:px-28">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-28">
         <div className="grid md:grid-cols-3 gap-6 mb-16">
           {[
             { icon: Globe, value: '20+', label: 'Providers' },
