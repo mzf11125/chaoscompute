@@ -3,6 +3,7 @@ import { HowItWorks } from './HowItWorks'
 import { SecuritySection } from './SecuritySection'
 import { Competitors } from './Competitors'
 import { CodeExample } from './CodeExample'
+import { CommunitySection } from './CommunitySection'
 
 export default function Landing() {
   return (
@@ -12,6 +13,7 @@ export default function Landing() {
       <SecuritySection />
       <Competitors />
       <CodeExample />
+      <CommunitySection />
     </>
   )
 }
