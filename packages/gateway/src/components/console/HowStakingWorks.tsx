@@ -23,7 +23,7 @@ export function HowStakingWorks() {
           <span className="text-foreground font-bold shrink-0">3</span>
           <div>
             <p className="text-foreground font-medium">Get discounts</p>
-            <p className="text-muted-foreground text-xs mt-0.5">5% off at 100 SOL. 10% at 500 SOL. 20% at 1000+ SOL. Discount applies to every inference request paid in USDC.</p>
+            <p className="text-muted-foreground text-xs mt-0.5">5% off at 100 SOL. 10% at 500 SOL. 20% at 1000+ SOL. Discount applied to every inference request paid in USDC. Earn ~7% APY when native staking launches in Phase 2.</p>
           </div>
         </div>
         <div className="flex gap-3">
@@ -35,7 +35,7 @@ export function HowStakingWorks() {
         </div>
       </div>
       <p className="text-muted-foreground text-xs mt-4 pt-4 border-t border-border">
-        Currently tier is based on wallet SOL balance. Native staking contracts coming in Phase 2. SOL is never locked — withdraw anytime.
+        Currently tier is based on wallet SOL balance — no delegation required. Phase 2 introduces native staking contracts where delegated SOL earns ~7% APY for stakers and funds the ChaosCompute protocol treasury. SOL is never locked — withdraw anytime.
       </p>
     </Card>
   )

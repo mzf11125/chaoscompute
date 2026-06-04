@@ -26,7 +26,7 @@ export function StakingTier() {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-foreground font-semibold">Staking Tier</h2>
         <span className="text-xs text-muted-foreground uppercase tracking-wider">
-          Tier from wallet balance
+          Balance check · no delegation yet
         </span>
       </div>
 
@@ -66,7 +66,7 @@ export function StakingTier() {
       </div>
 
       <p className="text-muted-foreground text-xs mt-3">
-        Native SOL staking contracts coming in Phase 2. Currently tier is based on wallet balance.
+        Currently tier is based on wallet SOL balance. No delegation. No lockup. Phase 2 native staking earns ~7% APY for stakers and funds the protocol treasury.
       </p>
     </Card>
   )
