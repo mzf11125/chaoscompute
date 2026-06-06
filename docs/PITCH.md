@@ -1,43 +1,40 @@
-# ChaosCompute — 60-Second Pitch
+# Pitch — ChaosCompute
 
-*"Every AI agent calls an inference API. OpenAI, Anthropic, OpenRouter. You hand your money and your data to a company. They route your request. You hope they stay online.*
+## 60-Second Pitch
 
-*ChaosCompute removes the company from that equation.*
+ChaosCompute is a decentralized AI inference network on Solana.
 
-*Connect your wallet. Stake SOL for a tier discount. Pay with USDC per request. Guest tier works with just pay.sh. No sign-up. No subscription. CLIProxyAPI routes your request to the best of 30 providers. You get your answer.*
+Phase 1 is shipping: an OpenAI-compatible gateway routing to 30 providers with USDC payments via pay.sh. SOL staking gives up to 20% discount.
 
-*That's Phase 1. Inference routing. Live today. Phase 2 replaces routing entirely. Game theory picks the winner. Anyone's GPU competes. The smart contract becomes the router.*
+Phase 2 is the endgame: a game-theoretic compute market where node operators stake SOL, run TEE-protected inference nodes, and earn USDC from jobs. VRF selects node cohorts. Blind race prevents front-running. Optimistic slashing penalizes bad output.
 
-*One API for every AI model. Stake SOL for lower costs. Pay with USDC. ChaosCompute."*
-
----
+We don't route to providers. We ARE the provider. And we prove it with math, not marketing.
 
 ## 30-Second Elevator Pitch
 
-*"One API for every AI model. Stake SOL for lower costs. Pay with USDC via pay.sh. 30 providers. Phase 2 replaces routing with game theory."*
+AI inference is a $50B market. Every provider holds your data and controls pricing. ChaosCompute lets anyone stake SOL, run encrypted compute, and earn from inference — with game-theoretic guarantees that the output is correct.
 
----
+## 5 Key Lines
 
-## Key Lines (Memorize)
+1. "Decentralized AI compute on Solana."
+2. "Stake SOL. Run inference. Earn USDC."
+3. "TEE encryption — prompts never broadcast in plaintext."
+4. "VRF selection + blind race — provably fair, no front-running."
+5. "Optimistic slashing — fraud = stake burn."
 
-1. "One API for every AI model. Stake SOL for lower costs. Pay with USDC."
-2. "Guest. Builder. Operator. Partner. Your SOL balance determines your tier."
-3. "No sign-up. No subscription. No API key. Wallet is your identity."
-4. "Phase 2 replaces routing entirely. Game theory picks the winner."
-5. "The smart contract is the router."
+## Tough Questions
 
----
+### "How is this different from OpenRouter?"
+OpenRouter routes to providers. We ARE the provider. Non-custodial. TEE encryption. Game-theoretic security. OpenRouter can never decentralize.
 
-## Handling Tough Questions
+### "What prevents garbage output?"
+Optimistic slashing. Node operators stake SOL. If output is invalid, anyone can submit a fraud proof. Stake gets burned. Accuser posts bond — false accusations cost money too.
 
-**"How is this different from OpenRouter?"**
-"OpenRouter holds your money. We don't. Wallet-based auth. SOL staking for discounts up to 20 percent. Phase 2 upgrade path to decentralized compute. OpenRouter can never decentralize."
+### "Why Solana?"
+Speed. Finality. Low fees. Native VRF. SOL staking aligns incentives without a new token.
 
-**"What if the nodes return garbage?"**
-"Phase 2 uses optimistic slashing. Fraud proof within 10 blocks. Execution trace revealed. Entire stake burned. The collateral is real."
+### "How do you get nodes?"
+Phase 1: 30 providers via CLIProxyAPI. Phase 2: TEE nodes run by operators who stake SOL. Hybrid approach — your own baseline + decentralized overflow.
 
-**"How does SOL staking work?"**
-"Currently tier is based on wallet balance. Native staking contracts with ~7 percent APY coming in Phase 2. SOL for eligibility. USDC for payments. No new token."
-
-**"How is this different from Jatevo?"**
-"Jatevo uses a proprietary token for daily quotas. We use SOL for tier discounts. USDC per request via pay.sh. No unused quota wasted. SOL-native incentives."
+### "What's the revenue model?"
+1% protocol fee on all compute sales. Phase 1 routing margin funds Phase 2 development. No VC. No token pre-sale. Self-sustaining.

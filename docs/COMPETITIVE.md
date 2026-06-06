@@ -1,65 +1,76 @@
-# ChaosCompute — Competitive Positioning
+# Competitive Positioning — ChaosCompute
 
 ## Honest Assessment
 
-ChaosCompute is not the biggest (OpenRouter, 300+ models), not the fastest (Cerebras, custom silicon), and not the most established (Jatevo, already in the Solana ecosystem). Our pitch is structural, not scale-based.
-
-**The structural advantage:** Phase 1 inference gateway funds Phase 2 decentralized compute. No competitor has this built in upgrade path. OpenRouter structurally cannot decentralize (VC backed, custodial model). Jatevo is centralized by design. Bittensor is decentralized but not developer friendly.
-
-## One Sentence Per Competitor
-
-| Competitor | Honest Take | Why Us |
-|---|---|---|
-| OpenRouter | 300+ models, $113M raised, 25T tokens/week. If you just need the cheapest call today, use OpenRouter. | Non-custodial HTTP 402. No credit deposit. And OpenRouter can never decentralize. Phase 2 gives us that structural advantage. |
-| Jatevo | Also Solana native. Daily quota from JTVO token. Familiar UX. | Pay per token not per day. Unused capacity isnt wasted. Phase 2 replaces centralized scheduling entirely. |
-| 9router | We literally forked 9router. Same routing engine. Same RTK token saver. | Cloud hosted. pay.sh payments. Built in Phase 2 upgrade. No local proxy to maintain. |
-| Bittensor | They proved decentralized compute works. Real subnets. Billions in market cap. | OpenAI compatible API today. Same architecture as Phase 2. Usable in 5 minutes. |
-| LiteLLM | Free (BYO keys). 100+ providers. Full control. | We manage the provider relationships. One wallet, one endpoint, zero key rotation. |
-
-## The Real Pitch
-
-Use ChaosCompute if you believe centralized inference gateways have an expiration date. Your fees build the replacement. If you just want the cheapest call today, use OpenRouter. Genuinely. We are not competing on price or breadth today. We are competing on the structural value of a decentralized future.
+We're not the biggest. We're not the cheapest. We're the only one with game-theoretic security on Solana.
 
 ## Category Map
 
-```
-CUSTODIAL AGGREGATORS — OpenRouter, Jatevo
-  You top up credits or hold their token to get capacity.
-  They hold your money. They decide routing. You trust their uptime.
+| Category | Players | Our Position |
+|---|---|---|
+| API Routers | OpenRouter, LiteLLM, Jatevo | We were here (Phase 1). Now we're building compute. |
+| GPU Marketplaces | Akash, Render, io.net | We compete here. But with game theory + TEE. |
+| Decentralized Compute | Bittensor, Gensyn | Vision aligned. We ship OpenAI-compatible API today. |
+| Cloud GPU | Lambda, CoreWeave, RunPod | Different market. We're decentralized, not enterprise. |
 
-BYOK PROXIES — LiteLLM, Portkey, Helicone, 9router
-  You bring your own API keys. They add routing and observability.
-  No payment layer. Free or near free.
+## Direct Competitors
 
-NON-CUSTODIAL GATEWAY + DECENTRALIZED FUTURE — ChaosCompute
-  Wallet signs per request. Nothing deposited anywhere.
-  Cloud hosted. Provider relationships managed for you.
-  Phase 1 revenue funds Phase 2 decentralized compute.
-```
+### Akash Network
+- **What:** Decentralized GPU marketplace.akashCompute rents闲置 GPUs.
+- **Honest take:** Proved demand for decentralized compute. Real network. $AKT has real utility.
+- **Our edge:** Game-theoretic security. TEE encryption. VRF selection. Blind race. Akash has no slashing — garbage output = no penalty.
 
-## Full Competitive Matrix
+### IO.net
+- **What:** GPU aggregator. Pools GPUs from data centers, crypto miners, DePIN.
+- **Honest take:** Fast growth. Real hardware. Backed by VC.
+- **Our edge:** Decentralized selection (not centralized scheduler). TEE attestation. Optimistic slashing. IO.net controls allocation.
 
-| Feature | Gateway | OpenRouter | Jatevo | LiteLLM | 9router |
+### Bittensor
+- **What:** Proof of intelligence. Subnets for different AI tasks.
+- **Honest take:** Vision-aligned. Proved decentralized AI works. Billions in market cap.
+- **Our edge:** OpenAI-compatible API today. Same architecture. Usable in 5 minutes. Bittensor requires subnet participation.
+
+### Render Network
+- **What:** Decentralized GPU rendering. RNDR token.
+- **Honest take:** Proven in production. Real demand. But rendering, not inference.
+- **Our edge:** AI inference specific. Game theory. TEE. Same network effects, different workload.
+
+### OpenRouter
+- **What:** API router. 300+ models. $113M raised.
+- **Honest take:** Best routing today. If you just need the cheapest call, use OpenRouter.
+- **Our edge:** We don't route to providers. We ARE the provider. Non-custodial. Own your compute. OpenRouter can never decentralize.
+
+## Feature Matrix
+
+| Feature | ChaosCompute | Akash | IO.net | Bittensor | OpenRouter |
 |---|---|---|---|---|---|
-| Custody model | Non-custodial wallet | Custodial credits | Token gated quota | BYO keys | BYO keys |
-| Billing | Per-request USDC | Prepaid credit top up | Daily quota from token | Free (BYO) | Free (BYO) |
-| Provider mgmt | Managed by Gateway | Managed | Managed | You manage | You manage |
-| On-chain receipt | Solana memo per tx | None | None | None | None |
-| Deployment | Cloud hosted | Cloud hosted | Cloud hosted | Self hosted | Local/npm |
-| Upgrade to decentralized | Phase 2 (structural) | None | None | None | None |
-| Free tier | 1M tokens/month | None | 0 (need token) | Free (BYO) | Free (BYO) |
-| Security | Bastion Agentique (planned) | None | None | None | None |
+| OpenAI-compatible API | ✅ | ❌ | ❌ | ❌ | ✅ |
+| TEE encryption | ✅ | ❌ | ❌ | ❌ | ❌ |
+| VRF selection | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Blind race | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Optimistic slashing | ✅ | ❌ | ❌ | ❌ | ❌ |
+| SOL staking | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Non-custodial | ✅ | ✅ | ❌ | ✅ | ❌ |
+| USDC payments | ✅ | ❌ | ❌ | ❌ | ✅ |
+| Game-theoretic security | ✅ | ❌ | ❌ | Partial | ❌ |
 
 ## Honest Weak Points
 
-**"OpenRouter has 300+ models. You have 20+ providers."**
-Correct. The 20+ providers we support cover the overwhelming majority of production inference. Exotic and research models are not our focus today. If you need a specific fine tuned model that only OpenRouter carries, use OpenRouter.
+- **Network size:** We have 0 TEE nodes today. Akash has 1000+ GPUs.
+- **Maturity:** Phase 2 is building. Phase 1 is shipping (routing).
+- **Funding:** Solo maintainer. No VC. Self-funded from routing revenue.
+- **Model support:** Phase 1 supports 30 providers. Phase 2 will support models run by node operators.
 
-**"Why pay Gateway's margin when LiteLLM is free?"**
-If you have a DevOps team and want full control, use LiteLLM. Our margin pays for managed provider relationships, no API key rotation, cloud hosted reliability, Solana native billing, and the Phase 2 treasury.
+## Our Structural Advantage
 
-**"Jatevo is also Solana native. What is your edge?"**
-Jatevo uses token gated daily quotas. We use per token payment via pay.sh HTTP 402. You pay for what you use, nothing wasted. And Jatevo is v0.1 with 5 models currently in their playground.
+1. **Game theory is the moat.** Anyone can spin up GPU marketplace. Few can build VRF + blind race + slashing.
+2. **TEE encryption is the differentiator.** Prompts never broadcast in plaintext. Enterprise requires this.
+3. **SOL-native staking aligns incentives.** No new token. No regulatory risk. Community alignment.
+4. **OpenAI-compatible API is the distribution.** Same code, same models, decentralized backend.
+5. **Phase 1 revenue funds Phase 2.** No VC dependency. Self-sustaining.
 
-**"OpenRouter raised $113M. How do you compete?"**
-The raise proves the market exists. We are not competing for OpenRouter's existing users today. We are building for the customers who will outgrow custodial models as crypto native AI workflows become standard over the next 2 to 5 years.
+## Narrative
+
+> "Akash gives you a GPU. IO.net gives you a GPU pool. Bittensor gives you a subnet. ChaosCompute gives you a GPU that's cryptographically guaranteed to run your prompt correctly, in an encrypted environment, selected randomly, with economic penalties for cheating."
+
+> "We don't route to providers. We ARE the provider. And we prove it with math, not marketing."

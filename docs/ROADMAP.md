@@ -1,49 +1,71 @@
-# ChaosCompute — Roadmap
+# Roadmap — ChaosCompute
 
-## Phase 1: Inference Gateway (In Progress)
+## Phase 1: Inference Gateway ✅ Shipping
 
-- [x] pay.sh HTTP 402 payment integration
-- [x] CLIProxyAPI routing across 30 providers
-- [x] OpenAI-compatible `/v1/chat/completions` endpoint
-- [x] Console page (wallet connect, SOL staking tier, quickstart)
-- [x] Landing page, Docs, API, Providers pages
-- [x] Python SDK (chaos-sdk) + Node.js SDK (@chaoscompute/sdk)
+- [x] CLIProxyAPI integration (Go proxy, 36k stars)
+- [x] 30 providers across 3 tiers (Premium/Cheap/Free)
+- [x] pay.sh HTTP 402 USDC payments
+- [x] Wallet-based auth (Phantom, Solflare)
+- [x] SOL staking tiers (Guest/Builder/Operator/Partner)
+- [x] OpenAI-compatible API
+- [x] Landing page + Console + Docs
 - [x] Anchor program deployed to devnet
-- [x] chaoscompute.yaml pay.sh provider spec
-- [ ] Provider API keys funded (crowdfunding target)
-- [ ] CLIProxyAPI running on production server
-- [ ] End-to-end live: pay curl to 402 to routing to response
-- [ ] Domain + HTTPS (chaoscompute.io)
+- [x] Python SDK (`chaos-sdk`)
+- [x] Node.js SDK (`@chaoscompute/sdk`)
 
-## Post-Hackathon (Month 1)
+## Phase 2: Decentralized Compute 🔨 Building
 
-- [ ] Provider API keys funded (OpenAI, Anthropic, DeepSeek, etc.)
-- [ ] VPS hosting for CLIProxyAPI + pay.sh gateway
-- [ ] pay.sh provider registry submission
-- [ ] Mobile responsive polish
+### Month 1: Foundation
+- [ ] Anchor program rewrite (real staking, TEE attestation, marketplace)
+- [ ] TEE node registration flow
+- [ ] On-chain SOL escrow (StakeVault PDA)
+- [ ] Timelocked unstake (7-day cooldown)
 
-## Phase 2: Decentralized Compute (Month 2-3)
+### Month 2: Core Mechanics
+- [ ] VRF cohort selection (sqrt(stake) weighting)
+- [ ] Blind race (commit-reveal pattern)
+- [ ] Job lifecycle (Requested → Assigned → Computing → Verified → Settled)
+- [ ] USDC escrow for job bounties
 
-- [ ] Native SOL staking contracts (delegation + yield)
-- [ ] Core decentralized network beta
-- [ ] Node client daemon (Python): RPC listener + commitment pipeline
-- [ ] VRF integration (Switchboard or Pyth Entropy)
-- [ ] Optimistic slashing with automated referee
-- [ ] Permissionless provider onboarding
-- [ ] Model capability tiering and filtering
+### Month 3: Security
+- [ ] Optimistic slashing (bond + counter-proof window)
+- [ ] Fraud proof verification
+- [ ] TEE attestation freshness checks
+- [ ] Admin access controls
 
-## Month 4-6
+### Month 4-5: Frontend
+- [ ] Compute node explorer (`/nodes`)
+- [ ] Job marketplace (`/marketplace`)
+- [ ] Node operator dashboard (`/operators`)
+- [ ] Wallet → on-chain staking integration
+- [ ] Live attestation status display
 
-- [ ] Multi-chain settlement (Ethereum L2s)
-- [ ] SOL-weighted governance for fee parameters
-- [ ] Enterprise dedicated cohorts
-- [ ] SDK for LangChain / LlamaIndex / AutoGen
-- [ ] SLA guarantees + private deployments
+### Month 6: Integration
+- [ ] Gateway → Compute Network routing
+- [ ] External provider fallback (Phase 1 as backup)
+- [ ] OpenRouter integration (sell compute wholesale)
+- [ ] SDK updates for compute API
 
-## Long-Term (Year 1)
+## Long-term: Year 1
 
-- [ ] Default inference API for AI agents on Solana
-- [ ] Core network exceeds 1000 independent GPU providers
-- [ ] SOL staking yields sustain a self-regulating compute market
-- [ ] Plugin ecosystem: LangChain, LlamaIndex, AutoGen, CrewAI
-- [ ] 5+ language SDK support
+- [ ] Mainnet deployment
+- [ ] 100+ TEE nodes
+- [ ] Custom model hosting
+- [ ] Multi-chain settlement (EVM bridge)
+- [ ] DAO governance (SOL-weighted voting)
+- [ ] Enterprise SLA guarantees
+- [ ] Mobile app
+
+## Key Milestones
+
+| Milestone | Target | Status |
+|---|---|---|
+| Gateway live | Hackathon | ✅ Done |
+| Anchor deployed | Hackathon | ✅ Done |
+| Anchor rewrite | Month 1 | 🔨 Building |
+| TEE node registration | Month 1 | 🔨 Building |
+| VRF selection | Month 2 | 🔨 Building |
+| Blind race | Month 2 | 🔨 Building |
+| Job marketplace | Month 4 | 🔨 Building |
+| 100 TEE nodes | Year 1 | 🎯 Target |
+| Mainnet | Year 1 | 🎯 Target |

@@ -7,7 +7,7 @@ export default function Api() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-foreground">API Reference</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          OpenAI-compatible chat completions with HTTP 402 wallet-approved payments.
+          OpenAI-compatible chat completions. Decentralized backend. USDC payments.
         </p>
       </div>
 
@@ -49,6 +49,8 @@ export default function Api() {
           { method: 'POST', path: '/v1/chat/completions', desc: 'OpenAI-compatible chat. Metered per token via 402.' },
           { method: 'GET', path: '/v1/spend', desc: 'Wallet spend summary. Free.' },
           { method: 'GET', path: '/v1/health', desc: 'Gateway health check. Free.' },
+          { method: 'GET', path: '/v1/nodes', desc: 'Active compute nodes. TEE status. Stake amounts.' },
+          { method: 'GET', path: '/v1/jobs', desc: 'Recent inference jobs. Bounties. Cohorts. Status.' },
         ].map((ep) => (
           <Card key={ep.path} padding="md">
             <span className="text-xs font-mono text-accent uppercase tracking-wider">{ep.method}</span>

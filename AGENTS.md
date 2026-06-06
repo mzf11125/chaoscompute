@@ -1,25 +1,35 @@
 # AGENTS.md — ChaosCompute
 
 ## Project Overview
-ChaosCompute is a two-phase AI inference platform on Solana.
+ChaosCompute is a decentralized AI inference network on Solana.
 
-- **Gateway (Phase 1):** Inference router. CLIProxyAPI routing. pay.sh USDC payments. 30 providers across 3 tiers. OpenAI-compatible. Funding needed for live launch.
-- **Core (Phase 2):** Decentralized compute market. Game-theoretic node selection. Stake-weighted VRF racing. Blind race. Optimistic slashing. Contract deployed to devnet.
+- **Gateway (Phase 1):** Inference routing. CLIProxyAPI routing. pay.sh USDC payments. 30 providers across 3 tiers. OpenAI-compatible. Shipping.
+- **Compute Network (Phase 2):** Decentralized compute market. TEE-protected nodes. VRF cohort selection. Blind race. Optimistic slashing. Stake-weighted raffle. Building.
 
-Tagline: "One API for every AI model. Stake SOL for lower costs. Pay with USDC."
+Tagline: "Decentralized AI compute on Solana. Stake SOL. Run inference. Earn USDC."
 
 **Deployed:** `5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg` on Solana devnet.
 
 ## Business Model
 
-| Tier | SOL | Discount | Auth |
-|---|---|---|---|
-| Guest | 0 | 0% | pay.sh HTTP 402 |
-| Builder | 100 | 5% | Wallet connect. Ephemeral JWT. |
-| Operator | 500 | 10% | Wallet connect. Priority routing. |
-| Partner | 1000+ | 20% | Wallet connect. Dedicated capacity. |
+### Consumers (API Users)
 
-All payments in USDC via pay.sh. Provider cost + 5% margin funds Phase 2. SOL for tier eligibility only. No new token. Native staking contracts on Phase 2 roadmap.
+| Tier | SOL Staked | Discount | Auth |
+|---|---|---|---|
+| Free | 0 | 0% | pay.sh HTTP 402 |
+| Standard | 100 | 5% | Wallet connect. Ephemeral JWT. |
+| Pro | 500 | 10% | Wallet connect. Priority routing. |
+| Enterprise | 1000+ | 20% | Wallet connect. Dedicated capacity. |
+
+### Node Operators
+
+| Tier | Min Stake | Role |
+|---|---|---|
+| Standard | 100 SOL | Run TEE node. Participate in cohort selection. |
+| Pro | 500 SOL | Higher selection probability via sqrt(stake). |
+| Enterprise | 1000+ SOL | Dedicated capacity. Maximum yield. |
+
+All payments in USDC. Protocol fee (1%) funds treasury. 100% of Phase 1 margin funds Phase 2. No new token. SOL-native incentives.
 
 ## Community
 - Discord: https://discord.gg/xXCKpmt7d. Weekly roadmap meetings.
@@ -35,9 +45,10 @@ All payments in USDC via pay.sh. Provider cost + 5% margin funds Phase 2. SOL fo
 | Animation | framer-motion |
 | Icons | lucide-react |
 | Routing | react-router-dom |
-| Payments | pay.sh HTTP 402 + USDC on Solana |
+| Payments | USDC on Solana (pay.sh HTTP 402) |
 | Backend Routing | CLIProxyAPI (Go) + 9router (Next.js fork) |
 | Smart Contract | Anchor (Rust). `5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg` on devnet |
+| Compute | TEE attestation, VRF cohort selection, blind race, optimistic slashing |
 | Monorepo | pnpm workspaces |
 | CI/CD | GitHub Actions |
 
@@ -70,29 +81,37 @@ cd programs/chaos_compute && solana program deploy target/deploy/chaos_compute.s
 ```
 
 ## Routes
-- `/` Landing page
+- `/` Landing page (compute-first messaging)
 - `/console` Wallet connect, SOL staking tier, quickstart, API access
-- `/providers` 30 providers across 3 tiers
-- `/docs` Documentation, quickstart, Phase 2 architecture
+- `/nodes` Compute node explorer (replaces /providers)
+- `/marketplace` Live inference job marketplace
+- `/operators` Node operator dashboard
+- `/docs` Documentation, quickstart, architecture
 - `/api` API reference
 
 ## Auth Model: Wallet-Based
-- Guest: pay.sh HTTP 402. No wallet needed.
-- Builder+: Wallet connect in Console. Ephemeral JWT from wallet signature.
+- Free: pay.sh HTTP 402. No wallet needed.
+- Standard+: Wallet connect in Console. Ephemeral JWT from wallet signature.
 - USDC per request via pay.sh. SOL staking for tier discounts.
+- Node operators: Wallet = node identity + collateral.
 - No traditional API keys. Wallet IS the identity.
 
 ## Key Files
-- `packages/gateway/src/lib/routing/` — extracted 9router logic
+- `packages/gateway/src/lib/routing/` — extracted 9router routing logic
+- `packages/gateway/src/lib/providers/` — provider definitions
 - `packages/gateway/src/components/console/` — Console components (StakingTier, WalletConnect, etc.)
+- `packages/gateway/src/pages/Nodes/` — Compute node explorer
+- `packages/gateway/src/pages/Marketplace/` — Job marketplace
+- `packages/gateway/src/pages/Operators/` — Node operator dashboard
 - `programs/chaos_compute/programs/chaos_compute/src/lib.rs` — Anchor program (deployed)
 - `chaoscompute.yaml` — pay.sh provider spec
-- `GOVERNANCE.md` — Project governance and SOL staking model
+- `GOVERNANCE.md` — Project governance and staking model
 
 ## Security
 - Never log private keys or seed phrases
 - Never commit .env files
 - pay.sh handles all payment signing
+- TEE attestation verified on-chain before node can participate
 - Devnet only for development. Mainnet only when explicitly requested.
 
 ## Git Workflow

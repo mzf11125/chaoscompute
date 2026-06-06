@@ -14,9 +14,10 @@ function GithubIcon() {
 const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/console', label: 'Console' },
-  { to: '/providers', label: 'Providers' },
+  { to: '/nodes', label: 'Nodes' },
+  { to: '/marketplace', label: 'Marketplace' },
+  { to: '/operators', label: 'Operators' },
   { to: '/docs', label: 'Docs' },
-  { to: '/api', label: 'API' },
 ]
 
 const linkClass = (active: boolean) =>
@@ -48,8 +49,8 @@ export function Navbar() {
               className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center outline-none">
               <GithubIcon />
             </a>
-            <Link to="/console" className="hidden sm:inline-flex">
-              <Button size="sm" variant="primary">Console</Button>
+            <Link to="/operators" className="hidden sm:inline-flex">
+              <Button size="sm" variant="primary">Run a Node</Button>
             </Link>
             <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu"
               className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card motion-safe:transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center outline-none">

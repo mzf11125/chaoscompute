@@ -30,8 +30,24 @@ Security reports are accepted for:
 
 - The ChaosCompute Gateway application
 - The chaoscompute.yaml pay.sh provider spec
-- The Anchor on-chain program
+- The Anchor on-chain program (staking, TEE attestation, slashing, marketplace)
 - The Python and Node.js SDKs
 - The ChaosCompute Docker setup
+- TEE node software and attestation verification
+- VRF cohort selection logic
+- Blind race commit-reveal mechanics
+- Optimistic slashing fraud proof system
 
 Reports for npm dependency vulnerabilities are also accepted but may be lower priority if they do not affect production builds.
+
+## Security Model
+
+ChaosCompute relies on:
+
+- **TEE attestation** for node verification (hardware-enforced)
+- **VRF** for unpredictable node selection (cryptographic)
+- **Blind race** for anti-frontrunning (commit-reveal)
+- **Optimistic slashing** for fraud detection (economic incentives)
+- **SOL escrow** for node collateral (on-chain custody)
+
+Any weakness in these mechanisms is a critical security issue.

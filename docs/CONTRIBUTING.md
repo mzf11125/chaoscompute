@@ -49,14 +49,32 @@ Use conventional commits:
 - Cards: `rounded-2xl`, `bg-card border border-border`
 - Liquid glass: `backdrop-filter` + gradient mask for glass surfaces
 
+## Anchor Program
+
+For contributing to the Anchor program:
+
+```bash
+cd programs/chaos_compute
+cargo build-sbf          # Build
+cargo test               # Run tests
+anchor test              # Run integration tests
+```
+
+Rust code style:
+- Follow existing patterns in `lib.rs`
+- All instructions must have access control
+- All financial operations must use escrow PDAs
+- Tests for every new instruction
+
 ## PR Requirements
 
 All PRs must pass:
 
 - `pnpm --filter gateway typecheck` — no TypeScript errors
 - `pnpm --filter gateway build` — production build succeeds
+- `cd programs/chaos_compute && cargo test` — Anchor tests pass
 
-The GitHub Actions CI workflow runs both checks automatically on every PR.
+The GitHub Actions CI workflow runs these checks automatically on every PR.
 
 ## License
 

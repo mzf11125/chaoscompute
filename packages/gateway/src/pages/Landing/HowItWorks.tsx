@@ -3,9 +3,9 @@ import Card from '@/components/ui/Card'
 
 export function HowItWorks() {
   const steps = [
-    { title: 'Connect Wallet', desc: 'Connect Phantom or Solflare. Your wallet is your identity. No API keys to manage.' },
-    { title: 'Stake for Tier', desc: '100/500/1000 SOL = 5/10/20% discount. Tier auto-detected from wallet balance. Staking contracts coming in Phase 2.' },
-    { title: 'Call Any Model', desc: 'OpenAI-compatible. USDC settles per request via pay.sh. Same URL for every provider across all tiers.' },
+    { title: 'Stake SOL', desc: 'Lock SOL as collateral. Higher stake = higher selection probability via sqrt(stake) weighting.' },
+    { title: 'Run TEE Node', desc: 'Run inference inside a Trusted Execution Environment. Your hardware, your earnings. Attestation proves integrity.' },
+    { title: 'Earn from Jobs', desc: 'Compete in VRF-selected cohorts. Blind race prevents cheating. Valid output = USDC payout.' },
   ]
 
   return (
@@ -13,8 +13,8 @@ export function HowItWorks() {
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }} className="text-center mb-16">
           <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">How It Works</p>
-          <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">Three steps. Your wallet is the key.</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">Wallet auth replaces API keys. SOL staking unlocks discounts. USDC settles every request.</p>
+          <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">Three steps. Your GPU earns.</h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">Stake SOL to collateralize your node. Run inference in TEEs. Earn USDC from compute jobs.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-16">
@@ -31,8 +31,8 @@ export function HowItWorks() {
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {[
-            { label: 'Phase 1 · Shipping', title: 'Inference Gateway', desc: 'CLIProxyAPI routing with pay.sh USDC payments. 30+ providers. Guest tier works with just pay.sh.', color: 'bg-success/20 text-success' },
-            { label: 'Phase 2 · Roadmap', title: 'Decentralized Compute', desc: "Game theory replaces routing. Stake-weighted VRF racing. Blind race. Optimistic slashing. Native SOL staking contracts.", color: 'bg-accent/20 text-accent' },
+            { label: 'Shipping', title: 'Inference Gateway', desc: 'OpenAI-compatible API. 30 providers. USDC payments via pay.sh. SOL staking for discounts.', color: 'bg-success/20 text-success' },
+            { label: 'Building', title: 'Decentralized Compute', desc: 'TEE nodes. VRF selection. Blind race. Optimistic slashing. Stake-weighted raffle. Own your compute.', color: 'bg-accent/20 text-accent' },
           ].map((phase) => (
             <Card key={phase.title} padding="lg">
               <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider mb-4 ${phase.color}`}>{phase.label}</span>

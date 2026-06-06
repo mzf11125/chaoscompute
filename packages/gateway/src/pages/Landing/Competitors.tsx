@@ -3,24 +3,24 @@ import Card from '@/components/ui/Card'
 
 const competitors = [
   {
-    name: 'Jatevo', status: 'Solana-native',
-    honestTake: 'Token-gated daily quota from JTVO holdings. Familiar UX for Solana devs. 5 models in playground.',
-    ourEdge: 'SOL staking for real discounts, not a proprietary token quota. USDC settlement via pay.sh. No unused quota wasted. No new token needed.',
+    name: 'Akash Network', status: 'GPU Marketplace',
+    honestTake: 'Proved demand for decentralized compute. Real network. $AKT has real utility. But no game theory — garbage output = no penalty.',
+    ourEdge: 'TEE encryption + VRF selection + blind race + optimistic slashing. Game-theoretic security that Akash lacks.',
   },
   {
-    name: 'OpenRouter', status: 'Leader',
-    honestTake: '300+ models, $113M raised, 25T tokens/week. If you just need the cheapest call today, use OpenRouter.',
-    ourEdge: 'SOL staking for up to 20% off. Wallet-based auth. No credit deposits. Built-in Phase 2 upgrade path. OpenRouter can never decentralize.',
+    name: 'IO.net', status: 'GPU Aggregator',
+    honestTake: 'Fast growth. Real hardware. Backed by VC. But centralized scheduler controls allocation.',
+    ourEdge: 'Decentralized VRF selection. No central scheduler. TEE attestation. Optimistic slashing. IO.net controls who gets work.',
   },
   {
-    name: '9router', status: 'Similar stack',
-    honestTake: 'We literally forked 9router. Same routing engine. Same RTK token saver.',
-    ourEdge: 'Cloud hosted. SOL staking tiers. API keys for teams. Direct USDC billing. Phase 2 upgrade path.',
+    name: 'Bittensor', status: 'Vision Aligned',
+    honestTake: 'Proved decentralized AI works. Real subnets. Billions in market cap. But complex subnet model.',
+    ourEdge: 'OpenAI-compatible API today. Same architecture. Usable in 5 minutes. Bittensor requires subnet participation.',
   },
   {
-    name: 'Bittensor', status: 'Vision aligned',
-    honestTake: 'They proved decentralized compute works. Real subnets. Billions in market cap.',
-    ourEdge: 'OpenAI-compatible API today. Same Phase 2 architecture. SOL staking for tiered access. Usable in 5 minutes.',
+    name: 'OpenRouter', status: 'API Router',
+    honestTake: '300+ models, $113M raised. Best routing today. But they route to providers — they ARE not the provider.',
+    ourEdge: 'We don\'t route to providers. We ARE the provider. Non-custodial. Own your compute. OpenRouter can never decentralize.',
   },
 ]
 
@@ -31,7 +31,7 @@ export function Competitors() {
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }} className="text-center mb-16">
           <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">Honest Competitive Positioning</p>
           <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">The market exists. Heres where we actually fit.</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">Were not the biggest. Were not the cheapest. Were the only one with SOL staking tiers and a built-in Phase 2 upgrade.</p>
+          <p className="text-muted-foreground max-w-xl mx-auto">Were not the biggest. Were not the cheapest. Were the only ones with game-theoretic security on Solana.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">

@@ -1,177 +1,176 @@
-# ChaosCompute — Product Requirements Document
+# PRD — ChaosCompute
 
-**Version:** 4.0
-**Tagline:** pay.sh payments. CLIProxyAPI routing. Decentralized compute next.
+## Executive Summary
 
----
+ChaosCompute is a decentralized AI inference network on Solana. Node operators stake SOL, run TEE-protected inference nodes, and earn USDC from compute jobs. Game theory replaces centralized routing.
 
-## 1. Executive Summary
+**Phase 1 (Shipping):** Inference gateway. CLIProxyAPI routing. 30 providers. USDC payments.
+**Phase 2 (Building):** Decentralized compute market. TEE nodes. VRF selection. Blind race. Slashing.
 
-ChaosCompute is a two-phase AI inference platform on Solana.
+## Problem Statement
 
-**Phase 1 — Inference Gateway (Live):** Drop-in OpenAI-compatible API. CLIProxyAPI routing across 20+ upstream providers. pay.sh HTTP 402 wallet-approved payments. No sign-up. No subscription. No API key.
+AI inference today has three structural problems:
 
-**Phase 2 — Decentralized Compute (Roadmap):** Game-theoretic compute market. Anyone's GPU competes. Stake-weighted VRF racing. Blind race mechanic. Optimistic slashing. Feature parity with Bittensor's architecture, delivered with OpenAI-compatible simplicity and Solana speed.
+1. **Custodial trust:** Every API provider holds your data, keys, and billing. You trust them not to scrape, leak, or overcharge.
+2. **No compute ownership:** If you run GPUs, you sell through centralized marketplaces (OpenRouter, Akash) that take 10-30% and control pricing.
+3. **No game-theoretic security:** Existing compute networks rely on reputation, not cryptographic incentives. Garbage output = no penalty.
 
-```bash
-curl -fsSL https://pay.sh/install | sh
-pay curl https://gateway.chaoscompute.io/v1/chat/completions \
-  -H 'content-type: application/json' \
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
-```
+## How ChaosCompute Fixes This
 
----
+| Problem | ChaosCompute Solution |
+|---|---|
+| Custodial trust | Non-custodial. Wallet signs per request. TEE encrypts all data. |
+| No compute ownership | Stake SOL → run TEE node → earn from jobs. Operator-owned. |
+| No game security | VRF selection + blind race + optimistic slashing. Fraud = stake burn. |
 
-## 2. Problem Statement
+## User Types
 
-### 2.1 For Developers & AI Agents
+### 1. Consumer (API User)
+- Calls OpenAI-compatible API
+- Pays USDC per token
+- Stakes SOL for discounts
+- No API keys needed — wallet is identity
 
-**OpenAI / Anthropic:** Single provider. Single point of failure. Rate limits. Pricing changes.
+### 2. Node Operator
+- Stakes SOL (100/500/1000+)
+- Runs TEE inference node
+- Participates in cohort selection
+- Earns USDC from jobs
+- Risk of slashing for bad output
 
-**OpenRouter:** $113M raised for a custodial credit system. You deposit money into their account. 5.5% top-up fee. No on-chain audit trail.
+### 3. Protocol Treasury
+- Collects 1% protocol fee
+- Funds development
+- Governed by SOL-weighted voting (future)
 
-**9router:** Local proxy. No payment layer. Requires you to manage your own API keys for every provider.
+## Developer Experience
 
-**Jatevo:** Token-gated daily quota. Hold $JTVO to unlock capacity. Unused capacity wasted at reset.
-
-### 2.2 For GPU Providers
-
-The supply side of AI compute is closed. No open market for bare-metal GPU inference.
-
----
-
-## 3. How ChaosCompute Fixes This
-
-| Problem | Phase 1 Fix | Phase 2 Fix |
-|---|---|---|
-| Custodial risk | pay.sh HTTP 402 — wallet signs per request | Same + on-chain settlement |
-| Single provider failure | CLIProxyAPI fallback across 20+ providers | Speculative parallel execution (3-5 node race) |
-| Agent credential mgmt | pay.sh wraps any CLI tool, handles 402 automatically | Same |
-| Closed supply side | n/a (Phase 2) | Stake token, run daemon, you're a provider |
-| Opaque billing | Solana memo per settlement | Same + immutable on-chain audit |
-
----
-
-## 4. Users
-
-### 4.1 Human Developers
-Builders of AI-powered apps. One URL. All providers. Wallet pays per token.
-
-### 4.2 AI Agents
-Self-paying agents. pay.sh wraps Claude Code, Codex, OpenClaw — handles 402 automatically.
-
-### 4.3 GPU Providers (Phase 2)
-Independent GPU operators. Stake token, run daemon, earn fees per race.
-
----
-
-## 5. Developer Experience
+### Consumer Flow
 
 ```bash
-# Install pay.sh
+# Install
 curl -fsSL https://pay.sh/install | sh
-
-# Discover ChaosCompute
-pay skills search chaoscompute
 
 # Call any model
 pay curl https://gateway.chaoscompute.io/v1/chat/completions \
   -H 'content-type: application/json' \
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
+  -d '{"model":"gpt-5.5","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
-### Model Aliases
+### Node Operator Flow
 
-| Alias | Routing |
+```bash
+# 1. Stake SOL
+solana transfer <stake-vault> 100 --from <wallet>
+
+# 2. Register node with TEE attestation
+solana program invoke <program-id> \
+  -- '{"register_node":{"stake_amount":100000000000,"tee_attestation_hash":"abc..."}}'
+
+# 3. Start TEE inference server
+chaos-node start --tee --port 8080
+
+# 4. Earn from jobs (automatic via on-chain selection)
+```
+
+## Phase 2 Specification
+
+### Speculative Parallel Execution
+
+Instead of centralized load balancers, the network uses competitive execution:
+- 3-5 nodes race each request
+- All submit encrypted output
+- Winner gets the bounty
+- Losers get refunded (minus gas)
+
+### VRF-Based Routing
+
+Verifiable Random Functions dictate workload allocation:
+- Cryptographically unpredictable
+- No centralized scheduler
+- Prevents MEV manipulation
+- Provably fair selection
+
+### Stake-Weighted Raffle
+
+Square root stake weighting:
+- Prevents whale domination
+- 100 SOL = 10 units, 10000 SOL = 100 units (not 10000)
+- Sybil resistant (spinning up cheap nodes doesn't help)
+- Fair across operator sizes
+
+### Blind Race
+
+Commit-reveal pattern:
+- Phase 1: Nodes compute output, submit hash
+- Phase 2: After commit window, nodes reveal actual output
+- Verification: hash(output) == committed_hash
+- Prevents front-running and copying
+
+### Optimistic Slashing
+
+Low-latency settlement with fraud proofs:
+- Accuser posts bond (SOL)
+- Submits proof of invalid output
+- 10-slot counter-proof window for node
+- If no counter: slash stake, redistribute
+- If counter valid: slash accuser's bond
+
+### Hardware-Enforced Privacy
+
+All compute in Trusted Execution Environments:
+- Prompts never broadcast in plaintext
+- Model weights encrypted in memory
+- TEE attestation proves execution integrity
+- Node operators cannot scrape user data
+
+## Competitive Positioning
+
+### vs Akash Network
+- Akash: Commodity GPU marketplace. No game theory. No TEE.
+- ChaosCompute: Game-theoretic compute. TEE encryption. VRF selection.
+
+### vs IO.net
+- IO.net: GPU aggregator. Centralized scheduling. No slashing.
+- ChaosCompute: Decentralized selection. Blind race. Optimistic slashing.
+
+### vs Bittensor
+- Bittensor: Proof of intelligence. Complex subnet model.
+- ChaosCompute: OpenAI-compatible API. Same architecture. Usable in 5 minutes.
+
+### vs OpenRouter
+- OpenRouter: API router. Custodial. No compute ownership.
+- ChaosCompute: Compute provider. Non-custodial. Own your nodes.
+
+## Token Economics
+
+| Component | Detail |
 |---|---|
-| `best-available` | Cheapest under rate limit |
-| `best-fast` | Lowest p50 latency |
-| `best-smart` | Highest capability tier |
-| `best-coder` | Code-optimized models |
-| `best-long` | 128k+ context windows |
+| Staking currency | SOL (native) |
+| Payment currency | USDC |
+| Protocol fee | 1% of compute sales |
+| New token | None |
+| Node earnings | USDC from jobs |
+| Slashing | SOL burned |
 
----
-
-## 6. Phase 2: Decentralized Compute
-
-### 6.1 The Speculative Racing Paradigm
-
-**Traditional:** Request → proxy → single node → response
-**ChaosCompute:** Request → contract selects 3-5 nodes → all race → VRF picks winner → response
-
-### 6.2 Five-Step Flow
-
-1. **REQUEST** — BountyAccount created on-chain with encrypted prompt hash
-2. **COHORT SELECTION** — Slot-hash pseudo-random sqrt(stake)-weighted selection
-3. **PARALLEL EXECUTION** — Nodes race, submit commitment within 3 slots (~1.5s)
-4. **WINNER SELECTION** — VRF provides tamper-proof randomness, raffle
-5. **DELIVERY + VERIFICATION** — Winner streams output, 10-block slashing window
-
-### 6.3 Security Fixes
-
-| Attack | Defense |
-|---|---|
-| Garbage output | Optimistic slashing — fraud proof within 10 blocks |
-| Energy waste | Mini-cohort (3-5 nodes, not entire network) |
-| MEV/validator collusion | VRF (Pyth Entropy or Switchboard) |
-| Geolocation bias | 1.5s submission window — all timely entries equal |
-| Prompt privacy | Ephemeral DH encryption + TEE execution |
-
----
-
-## 7. Competitive Positioning
-
-| Competitor | Our Answer |
-|---|---|
-| OpenRouter | Non-custodial HTTP 402. No credit deposit. |
-| Jatevo | Pay per token, not daily quota. |
-| 9router | Cloud-hosted. pay.sh handles payments. |
-| Bittensor | OpenAI-compatible today. Same architecture Phase 2. |
-
----
-
-## 8. Token Economics (Phase 2)
-
-- **Staking collateral** — enter cohort selection
-- **Slashing collateral** — fraud proof burns stake
-- **Protocol fees** — ~1% per request to creator wallet
-
----
-
-## 9. Security
-
-Designed for [Bastion Agentique](https://bastionagentique.com) — planned integration:
-- Transaction simulation before execution
-- Policy engine (program whitelist, SOL caps, rate limits)
-- On-chain audit trail on Solana
-- Emergency pause circuit breaker
-
----
-
-## 10. MVP Scope
+## MVP Scope
 
 ### In Scope
-- Vite + React Gateway with pay.sh HTTP 402 payments
-- CLIProxyAPI routing across 20+ real providers
-- Gateway Status page (ProviderHealth, SpendView, RequestLog)
-- Landing page (Hero, HowItWorks, Security, Competitors)
-- Docs, API, Providers pages
-- Python + Node.js SDKs
-- Anchor program skeleton (Phase 2 core)
-- chaoscompute.yaml pay.sh provider spec
+- [x] Gateway with CLIProxyAPI routing (Phase 1)
+- [x] pay.sh USDC payments
+- [x] 30 providers across 3 tiers
+- [x] Wallet-based auth
+- [x] Anchor program (skeleton)
+- [ ] TEE node registration
+- [ ] VRF cohort selection
+- [ ] Blind race mechanics
+- [ ] Optimistic slashing
+- [ ] Node operator dashboard
+- [ ] Job marketplace
 
-### Out of Scope
-- Real TEE enforcement
-- Full IPFS/Arweave encryption pipeline
-- Multi-chain settlement
-- Bastion integration code (both in development)
-
----
-
-## 11. The Pitch
-
-*"pay.sh's payments. CLIProxyAPI routing. Decentralized compute next. ChaosCompute."*
-
----
-
-*ChaosCompute — The smart contract is the router.*
+### Out of Scope (for now)
+- Mainnet deployment
+- Multi-chain support
+- Mobile app
+- DAO governance
+- Custom model hosting

@@ -1,112 +1,171 @@
-# ChaosCompute — Architecture
+# Architecture — ChaosCompute
 
-## System Overview
+## Overview
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                        Clients                                   │
-│  pay curl | pay claude | pay codex | OpenAI SDK (raw)           │
-└──────────────────────────┼──────────────────────────────────────┘
-                           │ POST /v1/chat/completions
-                           │ HTTP 402 + X-PAYMENT
-┌──────────────────────────▼──────────────────────────────────────┐
-│                    ChaosCompute Gateway                           │
-│                    (Vite + React SPA)                             │
-│                                                                   │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────────┐ │
-│  │ pay.sh Auth     │  │ Rate Limiter    │  │ Request Logger   │ │
-│  │ (402 challenge)  │  │ (per wallet)    │  │                  │ │
-│  └────────┬────────┘  └────────┬────────┘  └────────┬─────────┘ │
-│           └────────────────────┴─────────────────────┘           │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────────┐
-│                    CLIProxyAPI Router                             │
-│                                                                   │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────────┐ │
-│  │ Provider Registry│  │ Fallback Engine │  │ Format Translator│ │
-│  │ (health checks)  │  │ (chain executor)│  │ (OpenAI↔Claude…) │ │
-│  └────────┬────────┘  └────────┬────────┘  └────────┬─────────┘ │
-│                                                                   │
-│  ┌──────────────────────────────────────────────────────────────┐ │
-│  │ Upstream Providers: OpenAI / Anthropic / Gemini / xAI /     │ │
-│  │ Mistral / DeepSeek / Together / Groq / OpenRouter (GLM,     │ │
-│  │ Kimi, MiniMax)                                              │ │
-│  └──────────────────────────────────────────────────────────────┘ │
-└──────────────────────────────────────────────────────────────────┘
-```
+ChaosCompute is a decentralized AI inference network on Solana. Two layers:
 
-## HTTP 402 Payment Flow
+1. **Gateway (Phase 1):** CLIProxyAPI routing to 30 providers. pay.sh USDC payments. Shipping.
+2. **Compute Network (Phase 2):** Decentralized TEE nodes. VRF selection. Blind race. Optimistic slashing. Building.
+
+## System Diagram
 
 ```
-1. Client calls POST /v1/chat/completions
-2. Gateway returns 402 Payment Required with:
-   - X-Payment-Amount: USDC amount
-   - X-Payment-Recipient: operator wallet
-   - X-Payment-Nonce: server-issued nonce
-3. pay.sh detects 402, signs USDC transfer authorization locally
-4. pay.sh replays request with X-PAYMENT proof header
-5. Gateway broadcasts signed transfer to Solana
-6. Gateway confirms transaction, forwards to CLIProxyAPI router
-7. CLIProxyAPI selects best provider, returns response
+                    ┌─────────────────────┐
+                    │      Consumer        │
+                    │  (API / SDK / CLI)   │
+                    └──────────┬──────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │   API Gateway        │
+                    │  OpenAI-compatible   │
+                    │  /v1/chat/completions│
+                    └──────────┬──────────┘
+                               │
+              ┌────────────────┼────────────────┐
+              │                │                │
+    ┌─────────▼─────────┐  ┌──▼──────────┐  ┌──▼──────────────┐
+    │  Phase 1: Routing  │  │ Phase 2:    │  │  External       │
+    │  CLIProxyAPI       │  │ TEE Nodes   │  │  Providers      │
+    │  30 providers      │  │ (on-chain)  │  │  (OpenRouter)   │
+    └───────────────────┘  └─────────────┘  └─────────────────┘
 ```
 
-## Auth Flow
+## Phase 1: Gateway (Shipping)
 
-- pay.sh handles all payment authorization
-- Wallet signs USDC transfer locally. Private key never exposed.
-- Gateway broadcasts signed transfer on-chain
-- Settlement is async and non-blocking. Response streams before confirmation.
-- No API keys, no credit top-ups, no custodial risk
+```
+Consumer → pay.sh → Gateway → CLIProxyAPI → Provider → Response
+                ↓
+        USDC settlement (per token)
+```
 
-## Provider Health Registry
+- **pay.sh:** HTTP 402 protocol. Wallet signs USDC transfer per request.
+- **CLIProxyAPI:** Go proxy. Routes to 30 providers across 3 tiers.
+- **Providers:** OpenAI, Anthropic, Google, xAI, DeepSeek, Groq, etc.
+- **Settlement:** USDC per token. Provider cost + 5% margin.
 
-Health checks run every 15 seconds across all 20+ providers:
+### Provider Registry
 
-| Provider | Models | Latency |
+| Tier | Providers | Price Range |
 |---|---|---|
-| OpenAI | gpt-4o, o1, gpt-4o-mini | 320ms |
-| Anthropic | claude-opus-4, claude-sonnet-4, claude-haiku-4 | 410ms |
-| Google Gemini | gemini-2.5-flash, gemini-2.5-pro | 280ms |
-| xAI | grok-4.3, grok-3-mini | 350ms |
-| Mistral | mistral-large, mistral-small | 350ms |
-| DeepSeek | deepseek-v3, deepseek-r1 | 600ms |
-| Together AI | llama-3-70b | 220ms |
-| Groq | llama-3-70b | 95ms |
-| OpenRouter | GLM-5, Kimi K2.5, MiniMax | 450ms |
+| Premium | OpenAI, Anthropic, Google, xAI, Mistral | $1.25-$5.00/1M input |
+| Cheap | DeepSeek, Xiaomi, Hyperbolic, Fireworks, Qwen, etc. | $0.01-$0.95/1M input |
+| Free | Groq, Cerebras, SambaNova, Nebius | $0/1M input |
 
-## Phase 2: Decentralized Compute
+### HTTP 402 Flow
 
-The endgame architecture replaces centralized routing with a game-theoretic compute market:
+1. Consumer calls `POST /v1/chat/completions`
+2. Gateway returns `402 Payment Required` with amount + recipient + nonce
+3. pay.sh signs USDC transfer authorization locally
+4. pay.sh replays request with `X-PAYMENT` proof header
+5. Gateway settles payment, returns response
+
+## Phase 2: Compute Network (Building)
 
 ```
-1. REQUEST → BountyAccount created on-chain with encrypted prompt hash
-2. COHORT SELECTION → Slot-hash pseudo-random selection of 3-5 staked nodes
-3. PARALLEL EXECUTION → Nodes race, submit commitment_hash within 3 slots
-4. WINNER SELECTION → VRF oracle provides randomness, stake-weighted raffle
-5. DELIVERY + VERIFICATION → Winner streams output, 10-block slashing window opens
+Consumer → API Gateway → VRF Cohort Selection → TEE Nodes → Output
+                                ↓
+                    ┌───────────┴───────────┐
+                    │  sqrt(stake) Weighted  │
+                    │  Random Selection      │
+                    └───────────┬───────────┘
+                                │
+                    ┌───────────▼───────────┐
+                    │   Blind Race          │
+                    │   Commit → Reveal     │
+                    └───────────┬───────────┘
+                                │
+                    ┌───────────▼───────────┐
+                    │  Resolution           │
+                    │  Winner gets bounty   │
+                    │  Others get refund    │
+                    └───────────┬───────────┘
+                                │
+                    ┌───────────▼───────────┐
+                    │  Optimistic Slashing  │
+                    │  Fraud proof if fraud │
+                    │  Counter-proof window │
+                    └───────────────────────┘
 ```
 
-## On-Chain Accounts (Anchor — Core Program)
+### On-Chain Accounts
 
-```rust
-GlobalConfig          // admin, total_staked, creator_fee_bps
-ComputeNode           // owner, stake_amount, TEE attestation
-InferenceBounty       // challenger, prompt_hash, cohort, status, winner
-CommitmentSubmission  // bounty, node, commitment_hash, submitted_slot
+| Account | Purpose |
+|---|---|
+| `GlobalConfig` | Singleton. Admin, fees, parameters. |
+| `StakeVault` | PDA holding escrowed SOL for all nodes. |
+| `ComputeNode` | Per-node state. Owner, stake, attestation, stats. |
+| `Job` | Inference job. Bounty, model, status, cohort. |
+| `JobEscrow` | Per-job USDC escrow. |
+| `Commitment` | Node's blind commit (hash of output). |
+| `SlashingDispute` | Active slashing cases. Bond, timestamp, status. |
+
+### TEE Attestation
+
+All inference runs in Trusted Execution Environments:
+
+1. Node operator registers with TEE attestation hash
+2. Attestation proves: correct hardware, correct software, encrypted memory
+3. On-chain verification: hash must match known-good values
+4. Freshness check: attestation must be within N slots
+5. Stale attestation → node deactivated until re-attested
+
+### VRF Cohort Selection
+
 ```
+slot_hash = hash(current_slot + job_id)
+randomness = vrf_derive(slot_hash)
+cohort = sqrt_stake_weighted_select(eligible_nodes, cohort_size, randomness)
+```
+
+- **Cohort size:** 3-5 nodes per job
+- **Selection:** sqrt(stake) weighting prevents whale domination
+- **Unpredictable:** Slot hash + VRF = no MEV, no front-running
+- **Provable:** Anyone can verify selection was fair
+
+### Blind Race
+
+1. **Commit phase:** Each cohort node computes output, submits `hash(output)`
+2. **Reveal phase:** After commit window, nodes reveal actual output
+3. **Verification:** `hash(revealed_output) == committed_hash`
+4. **Selection:** Winner chosen from valid reveals via stake-weighted random
+
+### Optimistic Slashing
+
+1. **Fraud proof:** Accuser posts bond (SOL) + submits proof of invalid output
+2. **Counter-proof window:** 10 slots for node to defend itself
+3. **Resolution:** If no counter → slash stake, redistribute to accuser + treasury
+4. **Appeal:** If counter-proof valid → slash accuser's bond instead
 
 ## Directory Map
 
 ```
 packages/gateway/src/
-├── lib/routing/      ← Provider registry, fallback engine, types
-├── lib/providers/    ← Provider setup (openai.ts)
-├── components/ui/    ← Button, Card, Badge, Input, Modal
-├── components/layout/← Navbar, Footer, DashboardShell, ErrorBoundary
-├── components/dashboard/← SpendView, ProviderHealth, RequestLog
-├── pages/Landing/    ← HeroSection, HowItWorks, SecuritySection, Competitors, CodeExample
-├── pages/Dashboard/  ← Status, Docs, Api, Providers, NotFound
-├── context/          ← WalletProvider (deprecated — pay.sh handles wallets)
-└── hooks/            ← (reserved for future hooks)
+├── App.tsx                    # Root router + providers
+├── components/
+│   ├── console/               # WalletConnect, StakingTier, Quickstart, etc.
+│   ├── layout/                # Navbar, Footer, DashboardShell
+│   └── ui/                    # Button, Card, Badge, Input, Modal
+├── lib/
+│   ├── providers/             # Provider definitions (Phase 1)
+│   ├── routing/               # CLIProxyAPI routing logic (Phase 1)
+│   └── solana/                # Wallet, settlement, auth
+└── pages/
+    ├── Landing/               # Hero, HowItWorks, Competitors, etc.
+    ├── Console/               # Wallet connect, staking, quickstart
+    ├── Nodes/                 # Compute node explorer
+    ├── Marketplace/           # Live inference jobs
+    ├── Operators/             # Node operator dashboard
+    ├── Docs/                  # Documentation
+    └── Api/                   # API reference
 ```
+
+## Security Model
+
+| Layer | Mechanism |
+|---|---|
+| Execution | TEE attestation. Hardware-enforced encryption. |
+| Selection | VRF. Cryptographic randomness. Unpredictable. |
+| Anti-frontrun | Blind race. Commit-reveal. No output visible until reveal. |
+| Fraud detection | Optimistic slashing. Bond + counter-proof. Due process. |
+| Economic | SOL escrow. Slashing = stake burn. Incentive alignment. |
+| Payment | USDC per token. Non-custodial. pay.sh protocol. |

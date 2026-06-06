@@ -2,10 +2,10 @@ import Card from '@/components/ui/Card'
 import { useWallet } from '@/components/console/WalletConnect'
 
 const tiers = [
-  { name: 'Guest', sol: 0, discount: 0, benefits: ['pay.sh access', 'standard limits'] },
-  { name: 'Builder', sol: 100, discount: 5, benefits: ['API key access', '5% discount', 'standard routing'] },
-  { name: 'Operator', sol: 500, discount: 10, benefits: ['API key access', '10% discount', 'priority routing', 'higher limits'] },
-  { name: 'Partner', sol: 1000, discount: 20, benefits: ['API key access', '20% discount', 'dedicated capacity', 'custom pricing'] },
+  { name: 'Free', sol: 0, discount: 0, benefits: ['pay.sh access', 'standard limits'] },
+  { name: 'Standard', sol: 100, discount: 5, benefits: ['API access', '5% discount', 'standard routing'] },
+  { name: 'Pro', sol: 500, discount: 10, benefits: ['API access', '10% discount', 'priority routing', 'higher limits'] },
+  { name: 'Enterprise', sol: 1000, discount: 20, benefits: ['API access', '20% discount', 'dedicated capacity', 'custom pricing'] },
 ]
 
 function getTier(balance: number) {
@@ -24,9 +24,9 @@ export function StakingTier() {
   return (
     <Card padding="lg">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-foreground font-semibold">Staking Tier</h2>
+        <h2 className="text-foreground font-semibold">Consumer Tier</h2>
         <span className="text-xs text-muted-foreground uppercase tracking-wider">
-          Balance check · no delegation yet
+          Balance check
         </span>
       </div>
 
@@ -66,7 +66,7 @@ export function StakingTier() {
       </div>
 
       <p className="text-muted-foreground text-xs mt-3">
-        Currently tier is based on wallet SOL balance. No delegation. No lockup. Phase 2 native staking earns ~7% APY for stakers and funds the protocol treasury.
+        Tier based on wallet SOL balance. Node operators stake SOL on-chain to run TEE nodes and earn from compute jobs.
       </p>
     </Card>
   )

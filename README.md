@@ -1,37 +1,58 @@
 # ChaosCompute
 
-**One API for every AI model. Stake SOL for lower costs. Pay with USDC.**
+**Decentralized AI compute on Solana. Stake SOL. Run inference. Earn USDC.**
 
-ChaosCompute is a two-phase AI inference platform on Solana. Phase 1 delivers drop-in inference routing across 30 real providers with pay.sh HTTP 402 USDC payments. Phase 2 replaces routing entirely with a game-theoretic decentralized compute market.
+ChaosCompute is a decentralized AI inference network on Solana. Node operators stake SOL, run TEE-protected inference nodes, and earn USDC from compute jobs. Consumers pay per token via an OpenAI-compatible API. Game theory replaces centralized routing — VRF selection, blind race, optimistic slashing.
 
 ## Business Model
 
-| Tier | SOL Required | Discount | How It Works |
-|---|---|---|---|
-| **Guest** | 0 SOL | 0% | pay.sh HTTP 402. USDC per request. No wallet needed. |
-| **Builder** | 100 SOL | 5% | Wallet connect. USDC payments. Discount applied automatically. |
-| **Operator** | 500 SOL | 10% | Priority routing. Higher rate limits. |
-| **Partner** | 1,000+ SOL | 20% | Dedicated capacity. Custom pricing. |
+### Consumers (API Users)
 
-Revenue: Provider cost + 5% routing margin on USDC payments. 100% funds Phase 2 treasury.
-Tier detection: Based on wallet SOL balance. Native staking contracts coming in Phase 2.
-No new token. SOL-native incentives. USDC-only payments.
+| Tier | SOL Staked | Discount | How It Works |
+|---|---|---|---|
+| **Free** | 0 SOL | 0% | pay.sh HTTP 402. USDC per request. No wallet needed. |
+| **Standard** | 100 SOL | 5% | Wallet connect. Ephemeral JWT. |
+| **Pro** | 500 SOL | 10% | Priority routing. Higher rate limits. |
+| **Enterprise** | 1,000+ SOL | 20% | Dedicated capacity. Custom pricing. |
+
+### Node Operators
+
+| Tier | Min Stake | Role |
+|---|---|---|
+| **Standard** | 100 SOL | Run TEE node. Participate in cohort selection. Earn from jobs. |
+| **Pro** | 500 SOL | Higher selection probability via sqrt(stake) weighting. |
+| **Enterprise** | 1,000+ SOL | Dedicated capacity. Maximum yield. |
+
+Revenue: Compute sales to consumers. Protocol fee (1%) funds treasury. 100% of Phase 1 margin funds Phase 2.
 
 ## Status
 
 | Item | Status | Detail |
 |---|---|---|
-| Phase 2 Contract | Deployed | `5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg` on Solana devnet |
-| Frontend | Live | [github.com/mzf11125/chaoscompute](https://github.com/mzf11125/chaoscompute) |
-| Phase 1 Gateway | Funding needed | Provider keys + server. See Console for details. |
+| Anchor Program | Deployed | `5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg` on Solana devnet |
+| Frontend | Live | [chaoscompute.io](https://github.com/mzf11125/chaoscompute) |
+| Gateway (Phase 1) | Shipping | CLIProxyAPI routing. 30 providers. USDC payments. |
+| Compute Network | Building | TEE nodes. VRF selection. Staking contracts. |
 
 ## Quick Start
+
+### As a Consumer
 
 ```bash
 curl -fsSL https://pay.sh/install | sh
 pay curl https://gateway.chaoscompute.io/v1/chat/completions \
   -H 'content-type: application/json' \
   -d '{"model":"gpt-5.5","messages":[{"role":"user","content":"Hello"}]}'
+```
+
+### As a Node Operator
+
+```bash
+# Stake SOL and register your TEE node
+solana program invoke 5Zmjie6vNFFJBkwA49CA38wJhjZpN5UDvna6tohBapyg \
+  --account <your-wallet> \
+  --account <stake-vault> \
+  -- '{"register_node":{"stake_amount":100000000000}}'
 ```
 
 ### Run Locally
@@ -51,9 +72,24 @@ cargo build-sbf
 solana program deploy target/deploy/chaos_compute.so --url devnet
 ```
 
-## Providers
+## Architecture
 
-30 providers across 3 tiers, verified by [models.dev](https://models.dev) and [ai-sdk.dev](https://ai-sdk.dev). Premium (OpenAI gpt-5.5, Anthropic claude-opus-4.8, Google gemini-3.5-flash, xAI grok-4.3, Mistral). Cheap (DeepSeek v4-flash $0.14, Xiaomi MiMo $0.14, Alibaba Qwen, Kimi k2.6, Nscale $0.01). Free (Groq, Cerebras, SambaNova, Nebius). See `/providers` for the full catalog.
+```
+Consumer → API Gateway → VRF Cohort Selection → TEE Nodes → Output
+                                ↓
+                        Stake-Weighted Raffle
+                                ↓
+                    Blind Race (Commit → Reveal)
+                                ↓
+                    Optimistic Slashing (if fraud)
+                                ↓
+                    USDC Settlement (per token)
+```
+
+- **TEE Nodes:** All inference runs in Trusted Execution Environments. Prompts never broadcast in plaintext.
+- **VRF Selection:** Verifiable Random Functions select node cohorts. No centralized scheduler.
+- **Blind Race:** Nodes commit encrypted output, then reveal. Prevents front-running.
+- **Optimistic Slashing:** Fraud proofs with bond posting. Counter-proof window. Stake burned on invalid output.
 
 ## Community
 
@@ -64,12 +100,11 @@ solana program deploy target/deploy/chaos_compute.so --url devnet
 ## Docs
 
 - [`docs/PRD.md`](docs/PRD.md). Full Product Requirements Document.
-- [`docs/PRD-GATEWAY.md`](docs/PRD-GATEWAY.md). Gateway sub-product PRD.
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). Technical architecture.
 - [`docs/COMPETITIVE.md`](docs/COMPETITIVE.md). Competitive positioning.
 - [`docs/API.md`](docs/API.md). API reference.
-- [`GOVERNANCE.md`](GOVERNANCE.md). Project governance and SOL staking model.
-- [`chaoscompute.yaml`](chaoscompute.yaml). pay.sh provider spec.
+- [`docs/ROADMAP.md`](docs/ROADMAP.md). Development roadmap.
+- [`GOVERNANCE.md`](GOVERNANCE.md). Project governance and staking model.
 
 ## Tech Stack
 
@@ -77,9 +112,9 @@ solana program deploy target/deploy/chaos_compute.so --url devnet
 |---|---|
 | Frontend | React 19 + Vite + TypeScript + Tailwind CSS v4 |
 | Fonts | Inter (body) + Instrument Serif (display accents) |
-| Payments | pay.sh HTTP 402 + USDC on Solana |
-| Staking | SOL balance check. Native contracts Phase 2. |
-| Routing | CLIProxyAPI (Go) + 9router (Next.js fork) |
+| Payments | USDC on Solana (pay.sh HTTP 402) |
+| Staking | Anchor (Rust) — SOL escrow, timelocked unstake |
+| Compute | TEE attestation, VRF cohort selection, blind race |
 | Smart Contract | Anchor (Rust). Deployed to devnet. |
 | Monorepo | pnpm workspaces |
 | CI/CD | GitHub Actions |

@@ -7,7 +7,9 @@ import Landing from '@/pages/Landing/Landing'
 import Console from '@/pages/Console/Console'
 import Docs from '@/pages/Docs/Docs'
 import Api from '@/pages/Api/Api'
-import Providers from '@/pages/Providers/Providers'
+import Nodes from '@/pages/Nodes/Nodes'
+import Marketplace from '@/pages/Marketplace/Marketplace'
+import Operators from '@/pages/Operators/Operators'
 import NotFound from '@/pages/NotFound'
 
 export default function App() {
@@ -26,7 +28,9 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/console" element={<Console />} />
-              <Route path="/providers" element={<Providers />} />
+              <Route path="/nodes" element={<Nodes />} />
+              <Route path="/marketplace" element={<Marketplace />} />
+              <Route path="/operators" element={<Operators />} />
               <Route path="/docs" element={<Docs />} />
               <Route path="/api" element={<Api />} />
               <Route path="*" element={<NotFound />} />

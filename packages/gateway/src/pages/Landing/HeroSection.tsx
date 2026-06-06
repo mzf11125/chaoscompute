@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 const CODE = `curl -fsSL https://pay.sh/install | sh
-pay skills search chaoscompute
 pay curl https://gateway.chaoscompute.io/v1/chat/completions \\
   -H 'content-type: application/json' \\
   -d '{"model":"gpt-5.5","messages":[{"role":"user","content":"Hello"}]}'`
@@ -21,32 +20,34 @@ export function HeroSection() {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="liquid-glass inline-flex items-center gap-2 px-3 py-2 rounded-lg mb-6">
             <span className="bg-foreground text-background rounded-md text-sm font-medium px-2 py-0.5">New</span>
-            <span className="text-sm font-medium text-muted-foreground">Phase 1: Inference Gateway</span>
+            <span className="text-sm font-medium text-muted-foreground">Decentralized AI Compute</span>
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
             className="text-3xl sm:text-5xl md:text-7xl tracking-[-2px] font-medium leading-tight md:leading-[1.15] mb-3 text-foreground">
-            One API for every AI model.
+            Stake SOL.
             <br />
-            Stake SOL for lower costs.
+            Run inference.
             <br />
-            Pay with <span className="font-serif italic font-normal text-muted-foreground">USDC</span>.
+            Earn <span className="font-serif italic font-normal text-muted-foreground">USDC</span>.
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
             className="text-sm md:text-base font-normal leading-6 opacity-90 mb-6 max-w-xl" style={{ color: 'hsl(var(--hero-subtitle))' }}>
-            Guest → Builder → Operator → Partner. 30+ providers. Phase 2 decentralized compute.
+            TEE-protected nodes. VRF selection. Blind race. Optimistic slashing.
+            <br />
+            Game theory replaces centralized routing.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <a href="https://pay.sh/docs/get-started/install" target="_blank" rel="noopener noreferrer"
+            <a href="/operators"
               className="inline-flex items-center gap-2 bg-foreground text-background rounded-full px-8 py-3.5 text-base font-medium motion-safe:transition-transform hover:scale-105 active:scale-[0.98] min-h-[48px] focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none">
-              Install pay.sh
+              Run a Node
             </a>
-            <a href="https://github.com/mzf11125/chaoscompute" target="_blank" rel="noopener noreferrer"
+            <a href="/console"
               className="inline-flex items-center gap-2 bg-card text-foreground rounded-full px-8 py-3.5 text-base font-medium border border-border hover:bg-surface-hover motion-safe:transition-colors min-h-[48px] focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none">
-              View on GitHub
+              Start Building
             </a>
           </motion.div>
 

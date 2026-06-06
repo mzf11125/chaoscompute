@@ -1,4 +1,4 @@
-# ChaosCompute — API Reference
+# API Reference — ChaosCompute
 
 ## Base URL
 
@@ -8,128 +8,152 @@ https://gateway.chaoscompute.io/v1
 
 ## Authentication
 
-ChaosCompute uses pay.sh HTTP 402 payment protocol. No API keys needed.
+### Free Tier (pay.sh)
+No wallet needed. Use `pay curl` to handle HTTP 402 automatically.
 
-**With pay.sh (recommended):**
 ```bash
 pay curl https://gateway.chaoscompute.io/v1/chat/completions \
   -H 'content-type: application/json' \
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
+  -d '{"model":"gpt-5.5","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
-**Without pay.sh (raw):**
+### Standard+ Tier (Wallet)
+Connect wallet in Console. Ephemeral JWT issued from wallet signature.
+
 ```bash
 curl https://gateway.chaoscompute.io/v1/chat/completions \
-  -H 'Authorization: Bearer <SIGNED_JWT>' \
-  -H 'Content-Type: application/json' \
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
+  -H 'content-type: application/json' \
+  -H 'Authorization: Bearer <jwt>' \
+  -d '{"model":"gpt-5.5","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
-When called directly, the Gateway returns `402 Payment Required`. pay.sh detects this and handles the payment handshake automatically.
+## HTTP 402 Payment Flow
+
+1. POST `/v1/chat/completions` → 402 with amount + recipient + nonce
+2. pay.sh signs USDC transfer authorization locally
+3. pay.sh replays request with `X-PAYMENT` proof header
+4. Gateway settles payment, returns response
 
 ## Endpoints
 
-### List Models
+### POST /v1/chat/completions
 
-```
-GET /v1/models
-```
-
-Returns all available models across 20+ supported providers (OpenAI, Anthropic, Gemini, etc.).
-
-**Response:**
-```json
-{
-  "object": "list",
-  "data": [
-    {"id": "gpt-4o", "object": "model", "owned_by": "openai"},
-    {"id": "claude-sonnet-4", "object": "model", "owned_by": "anthropic"},
-    {"id": "gemini-2.5-flash", "object": "model", "owned_by": "google"}
-  ]
-}
-```
-
-### Chat Completions
-
-```
-POST /v1/chat/completions
-```
-
-OpenAI-compatible chat completions. Metered per token via HTTP 402.
+OpenAI-compatible chat completions.
 
 **Request:**
 ```json
 {
-  "model": "gpt-4o",
+  "model": "gpt-5.5",
   "messages": [
-    {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "Hello"}
   ],
-  "stream": true,
-  "temperature": 0.7,
-  "max_tokens": 1024
+  "stream": false
 }
 ```
 
-**Streaming Response (SSE):**
-```
-data: {"id":"chatcmpl-...","object":"chat.completion.chunk","choices":[{"index":0,"delta":{"content":"Hello"},"finish_reason":null}]}
-data: [DONE]
-```
-
-### Get Spend
-
-```
-GET /v1/spend
-```
-
-Returns spend summary for the authenticated wallet.
-
-### List Providers
-
-```
-GET /v1/providers
-```
-
-Returns all supported AI providers and their models.
-
-### Health Check
-
-```
-GET /v1/health
+**Response:**
+```json
+{
+  "id": "chatcmpl-...",
+  "object": "chat.completion",
+  "model": "gpt-5.5",
+  "choices": [
+    {
+      "index": 0,
+      "message": {"role": "assistant", "content": "Hello!"},
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 5,
+    "total_tokens": 15
+  }
+}
 ```
 
-Returns gateway health status.
+### GET /v1/models
+
+List available AI models. Free.
+
+**Response:**
+```json
+{
+  "data": [
+    {
+      "id": "gpt-5.5",
+      "object": "model",
+      "owned_by": "openai",
+      "tier": "premium"
+    },
+    {
+      "id": "deepseek-v4-flash",
+      "object": "model",
+      "owned_by": "deepseek",
+      "tier": "cheap"
+    }
+  ]
+}
+```
+
+### GET /v1/spend
+
+Wallet spend summary. Free.
+
+**Response:**
+```json
+{
+  "wallet": "0x...",
+  "tier": "Standard",
+  "total_spent_usdc": 12.50,
+  "request_count": 150,
+  "discount_applied": "5%"
+}
+```
+
+### GET /v1/health
+
+Gateway health check. Free.
+
+**Response:**
+```json
+{
+  "status": "ok",
+  "phase_1": "operational",
+  "phase_2": "building",
+  "providers_online": 30,
+  "uptime": "99.9%"
+}
+```
 
 ## Model Aliases
 
-| Alias | Routing Logic |
+| Alias | Resolution |
 |---|---|
 | `best-available` | Cheapest provider currently under rate limit |
-| `best-fast` | Lowest p50 latency across available providers |
-| `best-smart` | Highest capability tier currently available |
-| `best-coder` | Code-optimized models (gpt-4o, claude-sonnet-4, deepseek-v3) |
+| `best-fast` | Lowest p50 latency across all tiers |
+| `best-smart` | Highest capability tier available |
+| `best-coder` | Code-optimized (gpt-5.5, claude-sonnet-4.6, deepseek-v4-flash) |
 | `best-long` | Models with 128k+ context windows |
 
 ## Error Codes
 
 | Code | Meaning |
 |---|---|
-| 200 | Success |
-| 400 | Bad request |
-| 401 | Unauthorized (invalid/expired JWT when using raw auth) |
-| 402 | Payment Required (handled automatically by pay.sh) |
-| 429 | Rate limited |
-| 500 | Internal error |
-| 502 | All providers failed (fallback exhausted) |
+| 402 | Payment required. Use pay.sh or provide X-PAYMENT header. |
+| 401 | Invalid or expired JWT. Re-authenticate via wallet. |
+| 429 | Rate limited. Upgrade tier for higher limits. |
+| 500 | Internal error. Retry with exponential backoff. |
 
-## pricing
+## Pricing
 
-Per pay.sh provider spec (`chaoscompute.yaml`):
+Per 1M input tokens. Provider cost + 5% margin.
 
-| Direction | Unit | Scale | Price |
+| Tier | Model | Cost | With Margin |
 |---|---|---|---|
-| Input | tokens | 1,000,000 | $0.50 |
-| Output | tokens | 1,000,000 | $1.50 |
+| Premium | gpt-5.5 | $5.00 | $5.25 |
+| Cheap | deepseek-v4-flash | $0.14 | $0.147 |
+| Cheap | xiaomi-mimo-v2.5 | $0.14 | $0.147 |
+| Free | groq-llama-4-scout | $0 | $0 |
 
-Session channels available for streaming, 300-second TTL.
+SOL staking discounts apply on top: Standard (5%), Pro (10%), Enterprise (20%).

@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion'
 import Card from '@/components/ui/Card'
-import { Shield, Eye, Pause, FileCheck } from 'lucide-react'
+import { Shield, Eye, Zap, Lock } from 'lucide-react'
 
 const features = [
-  { icon: Eye, title: 'Transaction Simulation', desc: 'Every inference request is simulated before execution. State changes and unauthorized transfers are caught before they hit the chain.' },
-  { icon: Shield, title: 'Policy Engine', desc: 'Program whitelist, SOL caps, rate limits, and cooldowns. Blocks malicious transactions before execution.' },
-  { icon: FileCheck, title: 'On-Chain Audit', desc: 'Immutable audit records on Solana. Verifiable, permissionless, tamper-proof. Full transparency for every request.' },
-  { icon: Pause, title: 'Emergency Pause', desc: 'Circuit breaker halts the protocol instantly. Human-in-the-loop override for blocked transactions. Safety first.' },
+  { icon: Lock, title: 'TEE Encryption', desc: 'All inference runs in Trusted Execution Environments. Prompts never broadcast in plaintext. Hardware-enforced privacy.' },
+  { icon: Eye, title: 'VRF Selection', desc: 'Verifiable Random Functions select node cohorts. Cryptographic randomness. No centralized scheduler. No MEV.' },
+  { icon: Zap, title: 'Blind Race', desc: 'Nodes commit encrypted output, then reveal. Prevents front-running. All valid submissions have equal chance.' },
+  { icon: Shield, title: 'Optimistic Slashing', desc: 'Fraud proofs with bond posting. Counter-proof window. Stake burned on invalid output. Economic security.' },
 ]
 
 export function SecuritySection() {
@@ -14,10 +14,10 @@ export function SecuritySection() {
     <section className="py-28">
       <div className="max-w-6xl mx-auto ">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }} className="text-center mb-16">
-          <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">Security</p>
-          <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">Security built in, not bolted on</h2>
+          <p className="text-muted-foreground text-xs uppercase tracking-widest mb-4">Game-Theoretic Security</p>
+          <h2 className="text-4xl font-semibold text-foreground mb-4 tracking-tight">Math, not marketing.</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Simulated before execution. Policy enforced. Audit trail on chain. Emergency pause always available.
+            TEE encryption. VRF selection. Blind race. Slashing. Every layer enforced by cryptography and economics.
           </p>
         </motion.div>
 
